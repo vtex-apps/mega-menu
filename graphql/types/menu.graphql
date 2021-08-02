@@ -1,0 +1,25 @@
+type Menu {
+  id: ID!
+  name: String!
+  icon: String!
+  slug: String!
+  styles: String
+  menu: [Menu]
+  display: Boolean!
+  enableSty: Boolean!
+  order: Int
+}
+
+input MenuInput {
+  id: ID!
+  name: String!
+  icon: String!
+  slug: String!
+  styles: String!
+  menu: [MenuInput]
+  display: Boolean
+  enableSty: Boolean
+  order: Int
+  firstLevel: String
+  secondLevel: String
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Mega menu",
+  "headline": "Crear, personalizar y gestionar un nuevo árbol de categorías para que pueda ser usado en la tienda como menú principal",
+  "overview": "VTEX Mega Menu proporciona una aplicación que permite crear, personalizar y gestionar desde el administrador un nuevo árbol de categorías de hasta 3 niveles, el cual puede ser utilizado como menú de navegación principal en su tienda.",
+  "features": [
+    "Crear, editar y eliminar elementos del árbol de categorías",
+    "Ordenar los elementos del árbol de categorías",
+    "Aplicar estilos css a los elementos dependiendo de sus requerimientos"
+  ],
+  "websiteURL": "https://vtex.com/",
+  "support": {
+    "url": "https://support.vtex.com/hc/requests"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Mega menu",
+  "headline": "Create, personalize and manage the category tree. It's can be used in the shop as main menu",
+  "overview": "Mega Menu VTEX, give you an application to create, personalize and manage from the admin panel a new category tree, it's can have up to 3 levels. The new menu can be used as a navigation main menu in your store.",
+  "features": [
+    "Create, edit and delete items of the category tree",
+    "Order the item of category tree",
+    "Add CSS styles to the items according to your requirements"
+  ],
+  "websiteURL": "https://vtex.com/",
+  "support": {
+    "url": "https://support.vtex.com/hc/requests"
+  }
+}

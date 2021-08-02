@@ -1,0 +1,27 @@
+.menuContainer,
+.submenuContainer {
+  overflow: auto;
+  max-height: 50vh;
+}
+
+.menuContainer {
+  width: 300px;
+}
+
+.submenuList {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.submenuList > .submenuItem {
+  max-width: 200px;
+}
+
+.styledLink,
+.goBackButton,
+.triggerContainer {
+  border: none;
+  background: transparent;
+  outline: transparent;
+}

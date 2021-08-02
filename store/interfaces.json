@@ -1,0 +1,11 @@
+{
+  "mega-menu": {
+    "component": "MegaMenu"
+  },
+  "mega-menu-go-back-btn": {
+    "component": "GoBackButton"
+  },
+  "mega-menu-trigger-btn": {
+    "component": "TriggerButton"
+  }
+}

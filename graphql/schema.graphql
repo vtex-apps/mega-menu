@@ -1,0 +1,10 @@
+type Query {
+  menus: [Menu]
+  menu(id: ID!): Menu
+}
+
+type Mutation {
+  editMenu(menuInput: MenuInput!): [Menu]
+  deleteMenu(id: String!, idSecond: String, idThird: String): [Menu]
+  createMenu(menuInput: MenuInput!): Menu
+}

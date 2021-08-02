@@ -1,0 +1,12 @@
+.headerBtnCategory {
+  padding: 0 50px;
+}
+
+.headerBtnCategory button {
+  color: #f71963;
+}
+
+.containerBtnSave button {
+  float: right;
+  color: #f71963;
+}

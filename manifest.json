@@ -1,0 +1,43 @@
+{
+  "name": "mega-menu",
+  "vendor": "vtex",
+  "version": "2.0.3",
+  "title": "Mega Menu",
+  "description": "Create, personalize and manage the category tree. It's can be used in the shop as main menu",
+  "mustUpdateAt": "2022-08-28",
+  "scripts": {
+    "postreleasy": "vtex publish"
+  },
+  "builders": {
+    "docs": "0.x",
+    "messages": "1.x",
+    "store": "0.x",
+    "admin": "0.x",
+    "react": "3.x",
+    "graphql": "1.x",
+    "node": "6.x"
+  },
+  "dependencies": {
+    "vtex.styleguide": "9.x",
+    "vtex.css-handles": "1.x",
+    "vtex.store-icons": "0.x",
+    "vtex.device-detector": "0.x",
+    "vtex.native-types": "0.x"
+  },
+  "billingOptions": {
+    "type": "free",
+    "support": {
+      "url": "https://support.vtex.com/hc/requests"
+    },
+    "availableCountries": ["*"]
+  },
+  "policies": [
+    {
+      "name": "graphql-query"
+    },
+    {
+      "name": "vbase-read-write"
+    }
+  ],
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}

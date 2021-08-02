@@ -1,0 +1,10 @@
+{
+  "admin.app.menu": {
+    "component": "ConfigMenuContainer",
+    "path": "/admin/app/mega-menu/:tab"
+  },
+  "admin.app.configMenu": {
+    "component": "FormComponent",
+    "path": "/admin/app/mega-menu/form-menu/:menu"
+  }
+}

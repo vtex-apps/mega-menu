@@ -1,0 +1,12 @@
+mutation create($menuInput: MenuInput!) {
+  createMenu(menuInput: $menuInput) {
+    id
+    name
+    icon
+    slug
+    styles
+    display
+    enableSty
+    order
+  }
+}
