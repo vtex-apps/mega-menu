@@ -2,10 +2,7 @@
   "name": "mega-menu",
   "private": true,
   "license": "MIT",
-  "dependencies": {
-    "aws-sdk": "^2.831.0",
-    "ramda": "^0.26.1"
-  },
+  "dependencies": {},
   "scripts": {
     "lint": "tsc --noEmit && tslint -c tslint.json './**/*.ts'"
   },
