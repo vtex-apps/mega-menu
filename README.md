@@ -12,7 +12,7 @@ VTEX Mega Menu gives an administrative app that allows managing a custom categor
 ### Step 1 - Installing the Mega Menu app
 
 Using your terminal, log in to the  VTEX account desired and execute the following command:
- `vtex install vtex.mega-menu@1.x`
+ `vtex install vtex.mega-menu@2.x`
  
  
  ### Step 2 - Defining the category tree to be used as a menu
