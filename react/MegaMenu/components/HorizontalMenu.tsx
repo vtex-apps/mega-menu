@@ -105,6 +105,7 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
                 className={classNames('pv3 mh5')}
                 style={d.styles}
                 enableStyle={d.enableSty}
+                closeMenu={openMenu}
               >
                 {d.name}
               </Item>
@@ -159,7 +160,7 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
         departmentActive &&
         departmentActiveHasCategories && (
           <div className={classNames(styles.submenuContainer, 'pa5 w-100')}>
-            <Submenu />
+            <Submenu closeMenu={openMenu} />
           </div>
         )
       ) : (

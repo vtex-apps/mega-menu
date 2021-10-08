@@ -28,7 +28,6 @@ const defaultTypography: Record<number, string> = {
 const Item: FC<ItemProps> = observer((props) => {
   const { handles, withModifiers } = useCssHandles(CSS_HANDLES)
   const { departmentActive } = megaMenuState
-
   const {
     id,
     to,
@@ -46,6 +45,7 @@ const Item: FC<ItemProps> = observer((props) => {
     children,
     style,
     enableStyle,
+    closeMenu,
     ...rest
   } = props
 
@@ -145,7 +145,14 @@ const Item: FC<ItemProps> = observer((props) => {
           <span className={linkClassNames}>{content}</span>
         )
       ) : (
-        <Link to={to} {...rest} className={linkClassNames}>
+        <Link
+          to={to}
+          {...rest}
+          className={linkClassNames}
+          onClick={() => {
+            if (closeMenu) closeMenu(false)
+          }}
+        >
           {content}
         </Link>
       )}
@@ -173,6 +180,7 @@ export interface ItemProps {
   style?: string
   enableStyle?: boolean
   onClick?: () => void
+  closeMenu?: (open: boolean) => void
 }
 
 export default Item

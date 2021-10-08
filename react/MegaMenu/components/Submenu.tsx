@@ -33,7 +33,12 @@ const messages = defineMessages({
   },
 })
 
-const Submenu: FC<InjectedIntlProps> = observer(({ intl }) => {
+export type ItemProps = InjectedIntlProps & {
+  closeMenu?: (open: boolean) => void
+}
+
+const Submenu: FC<ItemProps> = observer((props) => {
+  const { intl, closeMenu } = props
   const { handles } = useCssHandles(CSS_HANDLES)
   const { departmentActive, config, getCategories } = megaMenuState
   const { orientation } = config
@@ -57,6 +62,9 @@ const Submenu: FC<InjectedIntlProps> = observer(({ intl }) => {
           handles.seeAllLink,
           'link underline fw7 c-on-base'
         )}
+        onClick={() => {
+          if (closeMenu) closeMenu(false)
+        }}
       >
         {formatIOMessage({ id: messages.seeAllTitle.id, intl })}
       </Link>
@@ -74,6 +82,7 @@ const Submenu: FC<InjectedIntlProps> = observer(({ intl }) => {
             level={3}
             style={x.styles}
             enableStyle={x.enableSty}
+            closeMenu={closeMenu}
           >
             {x.name}
           </Item>
@@ -118,6 +127,7 @@ const Submenu: FC<InjectedIntlProps> = observer(({ intl }) => {
                     style={category.styles}
                     isTitle
                     enableStyle={category.enableSty}
+                    closeMenu={closeMenu}
                   >
                     {category.name}
                   </Item>
