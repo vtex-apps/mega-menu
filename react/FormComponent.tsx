@@ -635,7 +635,13 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                     <IconSelector
                       onChange={
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        (e: any) => changeStyle({ id: 'icon', value: e.value })
+                        (e: any) => {
+                          if (e) {
+                            changeStyle({ id: 'icon', value: e.value })
+                          } else {
+                            changeStyle({ id: 'icon', value: '' })
+                          }
+                        }
                       }
                     />
                   </div>
