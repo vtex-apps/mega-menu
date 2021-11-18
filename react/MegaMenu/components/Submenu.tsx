@@ -24,6 +24,7 @@ const CSS_HANDLES = [
   'collapsibleHeaderText',
   'seeAllLinkContainer',
   'seeAllLink',
+  'submenuContainerTitle',
 ] as const
 
 const messages = defineMessages({
@@ -183,6 +184,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
         <>
           <h3
             className={classNames(
+              handles.submenuContainerTitle,
               'f4 fw7 c-on-base lh-copy ma0 flex items-center',
               orientation === 'horizontal' && 'mb6',
               orientation === 'vertical' && 'pv5 ph5'

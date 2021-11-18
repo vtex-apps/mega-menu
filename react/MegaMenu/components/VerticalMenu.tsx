@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 import type { FC } from 'react'
 import React, { useMemo } from 'react'
 import type { InjectedIntlProps } from 'react-intl'
-import { defineMessages, injectIntl } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import Skeleton from 'react-loading-skeleton'
 import { useCssHandles } from 'vtex.css-handles'
 import { formatIOMessage } from 'vtex.native-types'
@@ -22,18 +22,14 @@ const CSS_HANDLES = [
   'departmentsTitle',
 ] as const
 
-const messages = defineMessages({
-  departmentsTitle: {
-    defaultMessage: '',
-    id: 'store/mega-menu.departments.title',
-  },
-})
-
 const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
   const { handles } = useCssHandles(CSS_HANDLES)
-  const { departments, departmentActive, setDepartmentActive } = megaMenuState
+  const { departments, departmentActive, config, setDepartmentActive } =
+    megaMenuState
 
   const departmentActiveHasCategories = !!departmentActive?.menu?.length
+
+  const { title } = config
 
   const departmentItems = useMemo(
     () =>
@@ -89,7 +85,7 @@ const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
             'f4 fw7 c-on-base mv5 lh-copy ph5'
           )}
         >
-          {formatIOMessage({ id: messages.departmentsTitle.id, intl })}
+          {formatIOMessage({ id: title, intl })}
         </h3>
         <ul className={classNames(handles.menuContainerVertical, 'list pa0')}>
           {departments.length ? (
