@@ -3,6 +3,9 @@
 
 ## [Unreleased]
 
+### Added
+- Added link to category 
+
 ## [2.0.5] - 2021-06-17
 ### Fixed
 - Solved problem close menu to on clicking the item
