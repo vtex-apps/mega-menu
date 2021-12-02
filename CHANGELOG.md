@@ -2,6 +2,8 @@
 
 
 ## [Unreleased]
+### Added
+- Added before and after ExtensionPoints in Submenu
 
 ## [2.0.5] - 2021-06-17
 ### Fixed
