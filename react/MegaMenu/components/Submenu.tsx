@@ -6,7 +6,7 @@ import type { InjectedIntlProps } from 'react-intl'
 import { defineMessages, injectIntl } from 'react-intl'
 import { applyModifiers, useCssHandles } from 'vtex.css-handles'
 import { formatIOMessage } from 'vtex.native-types'
-import { Link } from 'vtex.render-runtime'
+import { ExtensionPoint, Link } from 'vtex.render-runtime'
 import { Collapsible } from 'vtex.styleguide'
 
 import type { MenuItem } from '../../shared'
@@ -200,7 +200,10 @@ const Submenu: FC<ItemProps> = observer((props) => {
             )}
           >
             {orientation === 'horizontal' ? (
-              items
+              <>
+                <ExtensionPoint id="before-menu" /> {items}{' '}
+                <ExtensionPoint id="after-menu" />
+              </>
             ) : (
               <>
                 {items}
