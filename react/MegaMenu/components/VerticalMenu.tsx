@@ -19,6 +19,7 @@ const CSS_HANDLES = [
   'menuContainerNavVertical',
   'menuItemVertical',
   'submenuContainerVertical',
+  'departmentsTitle',
 ] as const
 
 const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
@@ -78,7 +79,12 @@ const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
           dn: !!departmentActive,
         })}
       >
-        <h3 className="f4 fw7 c-on-base mv5 lh-copy ph5">
+        <h3
+          className={classNames(
+            handles.departmentsTitle,
+            'f4 fw7 c-on-base mv5 lh-copy ph5'
+          )}
+        >
           {formatIOMessage({ id: title, intl })}
         </h3>
         <ul className={classNames(handles.menuContainerVertical, 'list pa0')}>
