@@ -6,6 +6,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es2017",
+    "noImplicitAny": false,
     "allowSyntheticDefaultImports": true
   },
   "include": ["./typings/*.d.ts", "./**/*.tsx", "./**/*.ts"]
