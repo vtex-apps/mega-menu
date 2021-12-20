@@ -6,7 +6,7 @@ import type { InjectedIntlProps } from 'react-intl'
 import { defineMessages, injectIntl } from 'react-intl'
 import { applyModifiers, useCssHandles } from 'vtex.css-handles'
 import { formatIOMessage } from 'vtex.native-types'
-import { Link } from 'vtex.render-runtime'
+import { ExtensionPoint, Link } from 'vtex.render-runtime'
 import { Collapsible } from 'vtex.styleguide'
 
 import type { MenuItem } from '../../shared'
@@ -24,6 +24,7 @@ const CSS_HANDLES = [
   'collapsibleHeaderText',
   'seeAllLinkContainer',
   'seeAllLink',
+  'submenuContainerTitle',
 ] as const
 
 const messages = defineMessages({
@@ -184,6 +185,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
         <>
           <h3
             className={classNames(
+              handles.submenuContainerTitle,
               'f4 fw7 c-on-base lh-copy ma0 flex items-center',
               orientation === 'horizontal' && 'mb6',
               orientation === 'vertical' && 'pv5 ph5'
@@ -201,7 +203,10 @@ const Submenu: FC<ItemProps> = observer((props) => {
             )}
           >
             {orientation === 'horizontal' ? (
-              items
+              <>
+                <ExtensionPoint id="before-menu" /> {items}{' '}
+                <ExtensionPoint id="after-menu" />
+              </>
             ) : (
               <>
                 {items}

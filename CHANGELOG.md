@@ -6,6 +6,15 @@
 ### Added
 - Added link to category 
 
+## [2.2.0] - 2021-12-20
+### Added
+- Added before and after ExtensionPoints in Submenu
+
+## [2.1.0] - 2021-12-20
+
+### Added
+- Added handle and message for departments title 
+
 ## [2.0.5] - 2021-06-17
 ### Fixed
 - Solved problem close menu to on clicking the item
