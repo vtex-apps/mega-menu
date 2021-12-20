@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 
+## [2.1.0] - 2021-12-20
+
 ### Added
 - Added handle and message for departments title 
 
