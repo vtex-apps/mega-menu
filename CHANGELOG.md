@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 
+## [2.3.0] - 2022-01-19
+
 ### Added
 - Added link to category 
 
