@@ -123,6 +123,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
               {orientation === 'horizontal' ? (
                 <>
                   <Item
+                    to={category.slug}
                     iconId={category.icon}
                     level={2}
                     style={category.styles}
