@@ -49,5 +49,9 @@
   "admin/mega-menu.items.validateSlug": "The field slug is requiered",
   "admin/mega-menu.items.createItem": "Item created successful",
   "admin/mega-menu.items.editItem": "Data editing successful",
-  "admin/mega-menu.items.deleteItem": "Data deleted successfull"
+  "admin/mega-menu.items.deleteItem": "Data deleted successfull",
+  "admin/mega-menu.backup.download": "Download CSV",
+  "admin/mega-menu.backup.upload": "Upload data",
+  "admin/mega-menu.backup.uploadAlert": "Data upload successfully",
+  "admin/mega-menu.backup.duplicateData": "There are duplicate data in the file, please validate the file"
 }

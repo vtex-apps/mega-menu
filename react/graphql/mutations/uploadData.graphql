@@ -1,0 +1,12 @@
+mutation uploadData($uploadData: [MenuInput]!) {
+  uploadMenu(menuData: $uploadData) {
+    id
+    name
+    icon
+    slug
+    styles
+    display
+    enableSty
+    order
+  }
+}

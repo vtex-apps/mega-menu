@@ -1,0 +1,6 @@
+.btnSettings {
+  position: fixed;
+  bottom: 20px;
+  right: 40px;
+  z-index: 1;
+}
