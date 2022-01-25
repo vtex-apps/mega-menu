@@ -7,4 +7,5 @@ type Mutation {
   editMenu(menuInput: MenuInput!): [Menu]
   deleteMenu(id: String!, idSecond: String, idThird: String): [Menu]
   createMenu(menuInput: MenuInput!): Menu
+  uploadMenu(menuData: [MenuInput]): [Menu]
 }

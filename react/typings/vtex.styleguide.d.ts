@@ -28,6 +28,7 @@ declare module 'vtex.styleguide' {
   export const Textarea: React.FC<PropTypes.InferProps<any>>
   export const Spinner: React.FC<PropTypes.InferProps<any>>
   export const ModalDialog: React.FC<PropTypes.InferProps<any>>
+  export const Modal: React.FC<PropTypes.InferProps<any>>
   /* eslint-disable @typescript-eslint/naming-convention */
   export const EXPERIMENTAL_Select: React.FC<PropTypes.InferProps<any>>
 }

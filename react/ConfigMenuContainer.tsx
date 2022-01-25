@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 import type { FC } from 'react'
 import React, { useState, useMemo, useCallback, useEffect } from 'react'
 import { Tabs, Tab, Layout, PageHeader, Alert } from 'vtex.styleguide'
@@ -9,9 +10,11 @@ import { formatIOMessage } from 'vtex.native-types'
 import FirsLevelContainer from './Category/FirstLevelContainer'
 import SecondLevelContainer from './Category/SecondLevelContainer'
 import ThirdLevelContainer from './Category/ThirdLevelContainer'
+import CategoryContainer from './Category/CategoryContainer'
 import GET_MENUS from './graphql/queries/getMenus.graphql'
 import { DataMenuProvider } from './shared'
 import type { DataMenu, DeleteArrayType } from './shared'
+import styles from './ConfigMenu.css'
 
 interface TypeDataItems {
   menus: DataMenu[]
@@ -46,6 +49,7 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
   const typeDataItems: TypeDataItems = { menus: [] }
   const [alert, setAlert] = useState(false)
   const [message, setMessage] = useState('')
+  const [typeModal, setTypeModal] = useState('success')
   const [dataMenuArray, setDataMenuArr] = useState(typeArraData)
   const [dataItems, setDataItems] = useState(typeDataItems)
   const [loadingData, setLoadingData] = useState(true)
@@ -64,7 +68,13 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
   }, [data]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const showAlert = useCallback(
-    (show: boolean, messageAlert: string, newData: DeleteArrayType) => {
+    (
+      show: boolean,
+      messageAlert: string,
+      newData: DeleteArrayType,
+      type?: string
+    ) => {
+      if (type) if (type === 'warning') setTypeModal('warning')
       if (newData) newData.deleteMenu
       setAlert(show)
       setMessage(messageAlert)
@@ -97,7 +107,7 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
   return (
     <div>
       {!!alert && (
-        <Alert type="success" onClose={() => setAlert(false)}>
+        <Alert type={typeModal} onClose={() => setAlert(false)}>
           {message}
         </Alert>
       )}
@@ -113,6 +123,13 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
           }
           fullWidth
         >
+          <div className={styles.btnSettings}>
+            <CategoryContainer
+              setDataItems={setDataItems}
+              showAlert={showAlert}
+              dataMenu={dataItems}
+            />
+          </div>
           <Tabs>
             <Tab
               label={formatIOMessage({ id: messages.firstLevelTab.id, intl })}
