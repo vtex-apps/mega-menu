@@ -275,3 +275,22 @@ export const messageThirdLevel = defineMessages({
     id: 'admin/mega-menu.items.deleteItem',
   },
 })
+
+export const MessagesBackupData = defineMessages({
+  download: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.backup.download',
+  },
+  upload: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.backup.upload',
+  },
+  uploadAlert: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.backup.uploadAlert',
+  },
+  duplicateData: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.backup.duplicateData',
+  },
+})
