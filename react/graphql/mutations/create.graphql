@@ -8,5 +8,7 @@ mutation create($menuInput: MenuInput!) {
     display
     enableSty
     order
+    slugRoot
+    slugRelative
   }
 }

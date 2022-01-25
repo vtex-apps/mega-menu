@@ -57,6 +57,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   const [name, setName] = useState('')
   const [icon, setIcon] = useState('')
   const [slug, setSlug] = useState('')
+  const [slugRoot, setSlugRoot] = useState('')
+  const [slugRelative, setSlugRelative] = useState('')
   const [styles, setStyles] = useState('')
   const [display, setDisplay] = useState(true)
   const [enableSty, setEnableSty] = useState(true)
@@ -101,13 +103,15 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }).toString()
   }
 
-  /* eslint max-params: ["error", 9] */
+  /* eslint max-params: ["error", 11] */
   /* eslint-env es9 */
   const setDataForm = (
     idenMenu: string,
     nameMenu: string,
     iconMenu: string,
     slugMenu: string,
+    slugRootMenu: string,
+    slugRelativeMenu: string,
     stylesMenu: string,
     subMenuData: DataMenu[],
     displayMenu: boolean,
@@ -118,6 +122,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     setName(nameMenu)
     setIcon(iconMenu)
     setSlug(slugMenu)
+    setSlugRoot(slugRootMenu)
+    setSlugRelative(slugRelativeMenu)
     setStyles(stylesMenu)
     setSubMenu(subMenuData)
     setDisplay(displayMenu)
@@ -129,6 +135,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     if (!dataMenu) return
 
     let secondName = ''
+    let secondLevelSlug = ''
 
     setMainMenu(dataMenu.menu)
 
@@ -141,6 +148,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           dataMenu.menu.name,
           dataMenu.menu.icon,
           dataMenu.menu.slug,
+          dataMenu.menu.slugRoot,
+          dataMenu.menu.slugRelative,
           dataMenu.menu.styles,
           dataMenu.menu.menu,
           dataMenu.menu.display,
@@ -158,6 +167,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           submenu[0].name,
           submenu[0].icon,
           submenu[0].slug,
+          submenu[0].slugRoot ?? '',
+          submenu[0].slugRelative ?? '',
           submenu[0].styles,
           [],
           submenu[0].display,
@@ -187,6 +198,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           tempArrayTL[0].name,
           tempArrayTL[0].icon,
           tempArrayTL[0].slug,
+          tempArrayTL[0].slugRoot ?? '',
+          tempArrayTL[0].slugRelative ?? '',
           tempArrayTL[0].styles,
           [],
           tempArrayTL[0].display,
@@ -204,6 +217,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         dataMenu.menu.menu.forEach((item: DataMenu) => {
           if (item.id === responseForm.secondLevel) {
             secondName = item.name
+            secondLevelSlug = item.slug ?? ''
           }
         })
       }
@@ -211,6 +225,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       setLevelInfo({
         firstLevel: dataMenu.menu.name,
         secondLevel: secondName,
+        firstLevelSlugRelative: dataMenu.menu.slug,
+        secondLevelSlugRelative: secondLevelSlug,
       })
     }
   }, [dataMenu]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -261,6 +277,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         setSlug(e.value)
         break
 
+      case 'slugRoot':
+        setSlugRoot(e.value)
+        break
+
       case 'icon':
         setIcon(e.value)
         break
@@ -309,6 +329,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: mainMenuLevel.display,
           enableSty: mainMenuLevel.enableSty,
           order: mainMenuLevel.order,
+          slugRoot: mainMenuLevel.slugRoot,
+          slugRelative: mainMenuLevel.slugRelative,
         },
       },
     })
@@ -342,11 +364,13 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         id: name + randomId(),
         name,
         icon,
-        slug,
+        slug: `${menu.slug}${slug}`,
         styles,
         display,
         enableSty,
         order: orderSubMenu + 1,
+        slugRoot: slug,
+        slugRelative: menu.slug,
       })
 
       insertSubMenu(
@@ -369,16 +393,19 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       )
 
       const valueOrder = getOrderthr ? getOrderthr[0].menu : []
+      const valueSlug = getOrderthr ? getOrderthr[0].slug : []
 
       const newSubMenu = {
         id: name + randomId(),
         name,
         icon,
-        slug,
+        slug: `${valueSlug}${slug}`,
         styles,
         display,
         enableSty,
         order: valueOrder ? valueOrder.length + 1 : 1,
+        slugRoot: slug,
+        slugRelative: `${valueSlug}`,
       }
 
       if (menu.menu) {
@@ -403,6 +430,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          slugRoot: menu.slugRoot,
+          slugRelative: menu.slugRelative,
         },
         menu.menu ? menu.menu : []
       )
@@ -411,27 +440,95 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   }
 
   const editItem = () => {
-    const menu = mainMenu
+    const menu = { ...mainMenu }
+
     let tempSecond: DataMenu[] = []
 
     if (responseForm.level === 'firstLevel') {
+      const menuLevelTwo = menu.menu
+      const menuLevelTwoUpdate: MenuItem[] = []
+
+      if (menuLevelTwo?.length) {
+        menuLevelTwo.forEach((item: MenuItem) => {
+          if (item.slugRelative === slug) return
+
+          const updateLevel: MenuItem = {
+            ...item,
+            slug: `${slug}${item.slugRoot}`,
+            slugRelative: slug,
+          }
+
+          menuLevelTwoUpdate.push(updateLevel)
+        })
+      }
+
+      let menuLevelThirdUpdate: MenuItem[] = []
+
+      if (menuLevelTwoUpdate?.length) {
+        menuLevelTwoUpdate.forEach((itemSecond: MenuItem) => {
+          menuLevelThirdUpdate = []
+          // eslint-disable-next-line vtex/prefer-early-return
+          if (itemSecond.menu?.length) {
+            itemSecond.menu.forEach((itemThird: MenuItem) => {
+              if (itemSecond.slugRelative === itemThird.slug) return
+
+              const updateLevel: MenuItem = {
+                ...itemThird,
+                slug: `${itemSecond.slug}${itemThird.slugRoot}`,
+                slugRelative: itemSecond.slug,
+              }
+
+              menuLevelThirdUpdate.push(updateLevel)
+            })
+
+            itemSecond.menu = menuLevelThirdUpdate
+          }
+        })
+      }
+
       insertSubMenu(
         { id: idMenu, name, icon, slug, styles, display, enableSty, order },
-        menu.menu ? menu.menu : []
+        menuLevelTwoUpdate
       )
+
       setMessage(messageTranslate('editItem'))
     } else if (responseForm.level === 'secondLevel') {
       if (menu.menu) {
         tempSecond = menu.menu.filter((i: DataMenu) => i.id === responseForm.id)
 
+        const menuSecondSlug = `${slugRelative}${slugRoot}`
+
         tempSecond[0].name = name
         tempSecond[0].icon = icon
-        tempSecond[0].slug = slug
+        tempSecond[0].slug = menuSecondSlug
+        tempSecond[0].slugRoot = slugRoot
+        tempSecond[0].slugRelative = slugRelative
         tempSecond[0].styles = styles
         tempSecond[0].display = display
         tempSecond[0].enableSty = enableSty
         tempSecond[0].order = order
       }
+
+      let menuLevelThirdUpdate: MenuItem[] = []
+
+      menu.menu?.forEach((itemSecond: MenuItem) => {
+        menuLevelThirdUpdate = []
+        if (itemSecond.menu?.length) {
+          itemSecond.menu.forEach((itemThird: MenuItem) => {
+            if (itemSecond.slugRelative === itemThird.slug) return
+
+            const updateLevel: MenuItem = {
+              ...itemThird,
+              slug: `${itemSecond.slug}${itemThird.slugRoot}`,
+              slugRelative: itemSecond.slug,
+            }
+
+            menuLevelThirdUpdate.push(updateLevel)
+          })
+
+          itemSecond.menu = menuLevelThirdUpdate
+        }
+      })
 
       insertSubMenu(
         {
@@ -439,6 +536,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           name: menu.name,
           icon: menu.icon,
           slug: menu.slug,
+          slugRoot: menu.slugRoot,
+          slugRelative: menu.slugRelative,
           styles: menu.styles,
           display: menu.display,
           enableSty: menu.enableSty,
@@ -448,19 +547,26 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       )
       setMessage(messageTranslate('editItem'))
     } else if (responseForm.level === 'thirdLevel') {
+      let tempThird: MenuItem[] = []
+      let tempSecondLvl: MenuItem[] = []
+
       if (menu.menu) {
-        const tempSecondLvl = menu.menu.filter(
+        tempSecondLvl = menu.menu.filter(
           (i: DataMenu) => i.id === responseForm.secondLevel
         )
 
         if (tempSecondLvl[0].menu) {
-          const tempThird = tempSecondLvl[0].menu.filter(
+          tempThird = tempSecondLvl[0].menu.filter(
             (j: DataMenu) => j.id === responseForm.id
           )
 
+          const menuThirdSlug = `${slugRelative}${slugRoot}`
+
           tempThird[0].name = name
           tempThird[0].icon = icon
-          tempThird[0].slug = slug
+          tempThird[0].slug = menuThirdSlug
+          tempThird[0].slugRoot = slugRoot
+          tempThird[0].slugRelative = slugRelative
           tempThird[0].styles = styles
           tempThird[0].display = display
           tempThird[0].enableSty = enableSty
@@ -474,6 +580,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           name: menu.name,
           icon: menu.icon,
           slug: menu.slug,
+          slugRoot: menu.slugRoot,
+          slugRelative: menu.slugRelative,
           styles: menu.styles,
           display: menu.display,
           enableSty: menu.enableSty,
@@ -609,16 +717,80 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                     />
                   </div>
                   <div className="mb5">
-                    <Input
-                      placeholder=""
-                      label={messageTranslate('input2Form')}
-                      value={slug}
-                      id="slug"
-                      errorMessage={messageSlug}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        changeStyle({ id: e.target.id, value: e.target.value })
-                      }
-                    />
+                    {responseForm.firstLevel ? (
+                      <>
+                        <p className="mb2">{messageTranslate('input2Form')}</p>
+                        <div className="flex items-center">
+                          <label className="w-100 pa3 br2 bg-muted-3 hover-bg-muted-3 active-bg-muted-3 c-on-muted-3 hover-c-on-muted-3 active-c-on-muted-3 dib mr3">
+                            {slugRelative}
+                          </label>
+                          <Input
+                            placeholder=""
+                            value={slugRoot}
+                            id="slugRoot"
+                            errorMessage={messageSlug}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                              changeStyle({
+                                id: e.target.id,
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {(responseForm.type === 'new' &&
+                          responseForm.level === 'secondLevel') ||
+                        (responseForm.type === 'new' &&
+                          responseForm.level === 'thirdLevel') ? (
+                          <>
+                            <p className="mb2">
+                              {messageTranslate('input2Form')}
+                            </p>
+                            <div className="flex items-center">
+                              <label className="w-100 pa3 br2 bg-muted-3 hover-bg-muted-3 active-bg-muted-3 c-on-muted-3 hover-c-on-muted-3 active-c-on-muted-3 dib mr3">
+                                {responseForm.level === 'secondLevel'
+                                  ? levelInfo.firstLevelSlugRelative
+                                  : levelInfo.secondLevelSlugRelative}
+                              </label>
+                              <Input
+                                placeholder=""
+                                value={slug}
+                                id="slug"
+                                errorMessage={messageSlug}
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>
+                                ) =>
+                                  changeStyle({
+                                    id: e.target.id,
+                                    value: e.target.value,
+                                  })
+                                }
+                              />
+                            </div>
+                          </>
+                        ) : (
+                          <Input
+                            placeholder=""
+                            value={slug}
+                            label={messageTranslate('input2Form')}
+                            id="slug"
+                            errorMessage={messageSlug}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                              changeStyle({
+                                id: e.target.id,
+                                value: e.target.value,
+                              })
+                            }
+                          />
+                        )}
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className="w-100 ml4 mr4">
