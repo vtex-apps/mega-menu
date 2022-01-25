@@ -49,5 +49,9 @@
   "admin/mega-menu.items.validateSlug": "el campo slug es obligatorio",
   "admin/mega-menu.items.createItem": "Item creado exitosamente",
   "admin/mega-menu.items.editItem": "Datos editados exitosamente",
-  "admin/mega-menu.items.deleteItem": "Datos eliminados exitosamente"
+  "admin/mega-menu.items.deleteItem": "Datos eliminados exitosamente",
+  "admin/mega-menu.backup.download": "Descargar CSV",
+  "admin/mega-menu.backup.upload": "Cargar menu",
+  "admin/mega-menu.backup.uploadAlert": "La carga del menú se realizó con éxito",
+  "admin/mega-menu.backup.duplicateData": "Existen datos duplicados en el archivo, por favor validar e intentar de nuevo"
 }
