@@ -1,4 +1,4 @@
-import type { Menu, Args } from '../typings/custom'
+import type { Menu, Args, ArgsUpload } from '../typings/custom'
 
 const sortMenusByOrder = (menus: Menu[]) => {
   return menus.sort((menuA: Menu, menuB: Menu) => menuA.order - menuB.order)
@@ -118,6 +118,20 @@ export const createMenu = async (
     .then(() => menuInput)
 }
 
+export const uploadMenu = async (
+  _: unknown,
+  { menuData }: ArgsUpload,
+  { clients: { vbase } }: Context
+) => {
+  const menuItems = await vbase.getJSON<Menu[]>('menu', 'menuItems')
+
+  if (menuItems.length > 0) {
+    menuItems.forEach((item) => menuData.push(item))
+  }
+
+  return vbase.saveJSON('menu', 'menuItems', menuData).then(() => menuData)
+}
+
 export const editMenu = async (
   _: unknown,
   { menuInput }: Args,
@@ -232,4 +246,5 @@ export const menuMutations = {
   createMenu,
   editMenu,
   deleteMenu,
+  uploadMenu,
 }

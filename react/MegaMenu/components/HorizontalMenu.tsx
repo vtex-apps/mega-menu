@@ -117,7 +117,7 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
   )
 
   const loaderBlocks = useMemo(() => {
-    const blocks = []
+    const blocks: JSX.Element[] = []
 
     for (let index = 1; index <= 4; index++) {
       blocks.push(
