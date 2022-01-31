@@ -28,7 +28,7 @@ Import the mega menu app to your dependencies as `manifest.json`, for�
 
 ```json
 "dependencies": {
-	"vtex.mega-menu": "0.x"
+	"vtex.mega-menu": "2.x"
 }
 ```
 
