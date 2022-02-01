@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import type { FC } from 'react'
 import React, { useState, useEffect } from 'react'
 import {
@@ -364,7 +365,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         id: name + randomId(),
         name,
         icon,
-        slug: `${menu.slug}${slug}`,
+        slug: `${menu.slug}/${slug}`,
         styles,
         display,
         enableSty,
@@ -399,7 +400,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         id: name + randomId(),
         name,
         icon,
-        slug: `${valueSlug}${slug}`,
+        slug: `${valueSlug}/${slug}`,
         styles,
         display,
         enableSty,
@@ -454,7 +455,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
           const updateLevel: MenuItem = {
             ...item,
-            slug: `${slug}${item.slugRoot}`,
+            slug: `${slug}/${item.slugRoot}`,
             slugRelative: slug,
           }
 
@@ -474,7 +475,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
               const updateLevel: MenuItem = {
                 ...itemThird,
-                slug: `${itemSecond.slug}${itemThird.slugRoot}`,
+                slug: `${itemSecond.slug}/${itemThird.slugRoot}`,
                 slugRelative: itemSecond.slug,
               }
 
@@ -496,7 +497,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       if (menu.menu) {
         tempSecond = menu.menu.filter((i: DataMenu) => i.id === responseForm.id)
 
-        const menuSecondSlug = `${slugRelative}${slugRoot}`
+        const menuSecondSlug = `${slugRelative}/${slugRoot}`
 
         tempSecond[0].name = name
         tempSecond[0].icon = icon
@@ -519,7 +520,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
             const updateLevel: MenuItem = {
               ...itemThird,
-              slug: `${itemSecond.slug}${itemThird.slugRoot}`,
+              slug: `${itemSecond.slug}/${itemThird.slugRoot}`,
               slugRelative: itemSecond.slug,
             }
 
@@ -560,7 +561,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             (j: DataMenu) => j.id === responseForm.id
           )
 
-          const menuThirdSlug = `${slugRelative}${slugRoot}`
+          const menuThirdSlug = `${slugRelative}/${slugRoot}`
 
           tempThird[0].name = name
           tempThird[0].icon = icon

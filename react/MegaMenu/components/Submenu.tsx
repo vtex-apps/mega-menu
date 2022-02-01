@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
 import type { FC } from 'react'
@@ -48,6 +49,8 @@ const Submenu: FC<ItemProps> = observer((props) => {
     Record<string, boolean>
   >({})
 
+  const [showBtnCat, setShowBtnCat] = useState(false)
+
   const seeAllLink = (to: string, level = 1, className?: string) => (
     <div
       className={classNames(
@@ -95,6 +98,16 @@ const Submenu: FC<ItemProps> = observer((props) => {
     () => {
       if (!departmentActive) return
 
+      if (departmentActive.menu) {
+        if (departmentActive.menu.length > 1) {
+          setShowBtnCat(true)
+        } else {
+          setShowBtnCat(false)
+        }
+      } else {
+        setShowBtnCat(false)
+      }
+
       const categories = getCategories()
 
       return categories
@@ -135,7 +148,11 @@ const Submenu: FC<ItemProps> = observer((props) => {
                   </Item>
 
                   {!!subcategories.length && subcategories}
-                  {seeAllLink(category.slug, 2)}
+                  {subcategories.length > 1 ? (
+                    seeAllLink(category.slug, 2)
+                  ) : (
+                    <div />
+                  )}
                 </>
               ) : (
                 <Collapsible
@@ -168,7 +185,11 @@ const Submenu: FC<ItemProps> = observer((props) => {
                     </div>
                   )}
 
-                  {seeAllLink(category.slug, 2)}
+                  {subcategories.length > 1 ? (
+                    seeAllLink(category.slug, 2)
+                  ) : (
+                    <div />
+                  )}
                 </Collapsible>
               )}
             </div>
@@ -192,8 +213,11 @@ const Submenu: FC<ItemProps> = observer((props) => {
             )}
           >
             {departmentActive.name}
-            {orientation === 'horizontal' &&
-              seeAllLink(departmentActive.slug, 1, 't-small ml7')}
+            {orientation === 'horizontal' && showBtnCat ? (
+              seeAllLink(departmentActive.slug, 1, 't-small ml7')
+            ) : (
+              <div />
+            )}
           </h3>
 
           <div
@@ -210,7 +234,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
             ) : (
               <>
                 {items}
-                {seeAllLink(departmentActive.slug)}
+                {showBtnCat ? seeAllLink(departmentActive.slug) : <div />}
               </>
             )}
           </div>

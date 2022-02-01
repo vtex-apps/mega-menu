@@ -8,19 +8,9 @@ export interface Menu {
   display: boolean
   enableSty: boolean
   order: number
+  slugRoot?: string
+  slugRelative?: string
 }
-export interface MenuUpload {
-  id: string
-  name: string
-  icon: string
-  slug: string
-  styles: string
-  menu: string
-  display: boolean
-  enableSty: boolean
-  order: number
-}
-
 interface Args {
   menuInput: Menu
 }

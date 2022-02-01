@@ -8,5 +8,7 @@ mutation uploadData($uploadData: [MenuInput]!) {
     display
     enableSty
     order
+    slugRoot
+    slugRelative
   }
 }
