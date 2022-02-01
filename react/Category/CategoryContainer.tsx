@@ -91,6 +91,10 @@ const CategoryContainer: FC<InjectedIntlProps & PropsCategory> = (props) => {
         if (item.menu?.length) {
           item.menu = JSON.stringify(item.menu)
         }
+
+        if (item.styles !== '') {
+          item.styles = item.styles.replace(/[{}"]/g, '')
+        }
       })
       const csvExporter = new ExportToCsv(options)
 
@@ -145,7 +149,7 @@ const CategoryContainer: FC<InjectedIntlProps & PropsCategory> = (props) => {
                       icon: x[2],
                       slug: x[3],
                       styles: x[4],
-                      menu: x[8] === '' ? [] : JSON.parse(x[8]),
+                      menu: x[10] === '' ? [] : JSON.parse(x[10]),
                       // eslint-disable-next-line no-unneeded-ternary
                       display: x[5] === 'TRUE' ? true : false,
                       // eslint-disable-next-line no-unneeded-ternary

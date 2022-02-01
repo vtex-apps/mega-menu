@@ -8,6 +8,8 @@ export type MenuItem = {
   display: boolean
   enableSty: boolean
   order?: number
+  slugRoot?: string
+  slugRelative?: string
 }
 
 export type MenuItemSave = {
@@ -20,6 +22,8 @@ export type MenuItemSave = {
   display: boolean
   enableSty: boolean
   order?: number
+  slugRoot?: string
+  slugRelative?: string
 }
 
 export type MenusResponse = {

@@ -8,6 +8,8 @@ type Menu {
   display: Boolean!
   enableSty: Boolean!
   order: Int
+  slugRoot: String
+  slugRelative: String
 }
 
 input MenuInput {
@@ -22,4 +24,6 @@ input MenuInput {
   order: Int
   firstLevel: String
   secondLevel: String
+  slugRoot: String
+  slugRelative: String
 }

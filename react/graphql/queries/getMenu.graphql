@@ -17,6 +17,8 @@ query getMenu($id: ID!) {
       display
       enableSty
       order
+      slugRoot
+      slugRelative
       menu {
         id
         name
@@ -26,6 +28,8 @@ query getMenu($id: ID!) {
         display
         enableSty
         order
+        slugRoot
+        slugRelative
       }
     }
   }
