@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 import type { FC } from 'react'
 import React from 'react'
 import { applyModifiers, useCssHandles } from 'vtex.css-handles'
-import { Icon } from 'vtex.store-icons'
+
 
 import type { IconProps } from '../../shared'
 import { megaMenuState } from '../State'
@@ -17,24 +17,21 @@ const TriggerButton: FC<TriggerButtonProps> = observer((props) => {
   const { handles } = useCssHandles(CSS_HANDLES)
   const { openMenu } = megaMenuState
 
-  const { isActive, activeClassName, mutedClassName, ...rest } = props
+  const { isActive } = props
   const iconBaseClassName = applyModifiers(
     handles.triggerButtonIcon,
     isActive ? 'active' : 'muted'
   )
-
+console.log(iconBaseClassName)
   return (
     <button
       data-id={BUTTON_ID}
       className={classNames(styles.triggerContainer, 'pointer')}
-      onClick={() => openMenu((v) => !v)}
+      onMouseEnter={() => openMenu((v) => !v)}
     >
-      <Icon
-        activeClassName={classNames(iconBaseClassName, activeClassName)}
-        mutedClassName={classNames(iconBaseClassName, mutedClassName)}
-        isActive={isActive}
-        {...rest}
-      />
+      <div>
+        Products
+      </div>
     </button>
   )
 })

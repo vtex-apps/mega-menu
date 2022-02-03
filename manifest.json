@@ -29,7 +29,9 @@
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
-    "availableCountries": ["*"]
+    "availableCountries": [
+      "*"
+    ]
   },
   "policies": [
     {
