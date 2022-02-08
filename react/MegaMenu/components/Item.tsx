@@ -58,7 +58,7 @@ const Item: FC<ItemProps> = observer((props) => {
     'no-underline c-on-base w-100 pa0',
     {
       [typography]: true,
-      'fw6 c-on-base': isTitle,
+      'fw6 white': isTitle,
       pointer: !disabled && !isTitle,
     }
   )
@@ -107,10 +107,11 @@ const Item: FC<ItemProps> = observer((props) => {
     <div
       className={classNames(handles.styledLinkContent, 'flex justify-between')}
     >
+      
       <div
         className={classNames(
           handles.styledLinkText,
-          'flex justify-between items-center',
+          `flex justify-between items-center ${departmentActive ? 'vtex-active-link' : null}`,
           iconPosition === 'left' && iconComponent && 'nowrap'
         )}
         {...(enableStyle && { style: stylesItem })}

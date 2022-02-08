@@ -50,7 +50,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
   >({})
 
   const [showBtnCat, setShowBtnCat] = useState(false)
-
+console.log(formatIOMessage({ id: messages.seeAllTitle.id, intl }))
   const seeAllLink = (to: string, level = 1, className?: string) => (
     <div
       className={classNames(
@@ -70,7 +70,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
           if (closeMenu) closeMenu(false)
         }}
       >
-        {formatIOMessage({ id: messages.seeAllTitle.id, intl })}
+        All {departmentActive && departmentActive.name}
       </Link>
     </div>
   )
@@ -212,7 +212,6 @@ const Submenu: FC<ItemProps> = observer((props) => {
               orientation === 'vertical' && 'pv5 ph5'
             )}
           >
-            {departmentActive.name}
             {orientation === 'horizontal' && showBtnCat ? (
               seeAllLink(departmentActive.slug, 1, 't-small ml7')
             ) : (
