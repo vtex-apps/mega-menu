@@ -50,7 +50,6 @@ const Submenu: FC<ItemProps> = observer((props) => {
   >({})
 
   const [showBtnCat, setShowBtnCat] = useState(false)
-console.log(formatIOMessage({ id: messages.seeAllTitle.id, intl }))
   const seeAllLink = (to: string, level = 1, className?: string) => (
     <div
       className={classNames(
@@ -70,7 +69,7 @@ console.log(formatIOMessage({ id: messages.seeAllTitle.id, intl }))
           if (closeMenu) closeMenu(false)
         }}
       >
-        All {departmentActive && departmentActive.name}
+        {formatIOMessage({ id: messages.seeAllTitle.id, intl })}
       </Link>
     </div>
   )
@@ -136,6 +135,7 @@ console.log(formatIOMessage({ id: messages.seeAllTitle.id, intl }))
               {orientation === 'horizontal' ? (
                 <>
                   <Item
+                    className="vtex-title-link"
                     to={category.slug}
                     iconId={category.icon}
                     level={2}

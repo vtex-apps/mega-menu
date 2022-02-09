@@ -102,7 +102,7 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
                 to={d.slug}
                 iconId={d.icon}
                 accordion={hasCategories}
-                className={classNames('pv3 mh5')}
+                className={classNames('pv3 mh5', d.id === departmentActive?.id && 'vtex-active-menu-link')}
                 style={d.styles}
                 enableStyle={d.enableSty}
                 closeMenu={openMenu}
