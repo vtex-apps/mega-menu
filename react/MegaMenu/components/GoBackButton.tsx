@@ -3,19 +3,19 @@ import { observer } from 'mobx-react-lite'
 import type { FC } from 'react'
 import React from 'react'
 import type { InjectedIntlProps } from 'react-intl'
-import { defineMessages, injectIntl } from 'react-intl'
+import { injectIntl } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
-import { formatIOMessage } from 'vtex.native-types'
+
 import { IconCaret } from 'vtex.store-icons'
 
 import { megaMenuState } from '../State'
 
-const messages = defineMessages({
-  goBackButtonTitle: {
-    defaultMessage: '',
-    id: 'store/mega-menu.goBackButton.title',
-  },
-})
+// const messages = defineMessages({
+//   goBackButtonTitle: {
+//     defaultMessage: '',
+//     id: 'store/mega-menu.goBackButton.title',
+//   },
+// })
 
 const CSS_HANDLES = [
   'goBackContainer',
@@ -24,7 +24,7 @@ const CSS_HANDLES = [
   'goBackButtonText',
 ] as const
 
-const GoBackButton: FC<InjectedIntlProps> = observer(({ intl }) => {
+const GoBackButton: FC<InjectedIntlProps> = observer(({ }) => {
   const { handles } = useCssHandles(CSS_HANDLES)
   const {
     departmentActive,
@@ -42,13 +42,15 @@ const GoBackButton: FC<InjectedIntlProps> = observer(({ intl }) => {
         className={classNames(handles.goBackButton, 'flex items-center')}
         onClick={goBack}
       >
-        <IconCaret
-          className={handles.goBackButtonIcon}
-          orientation="left"
-          size="18"
-        />
+        <div className="vtex-drawer-icon">
+          <IconCaret
+            className={handles.goBackButtonIcon}
+            orientation="left"
+            size="18"
+          />
+        </div>
         <span className={classNames(handles.goBackButtonText, 'ml3')}>
-          {formatIOMessage({ id: messages.goBackButtonTitle.id, intl })}
+          {departmentActive.name}
         </span>
       </button>
     </div>
