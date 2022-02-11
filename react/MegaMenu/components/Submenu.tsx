@@ -191,11 +191,11 @@ const Submenu: FC<ItemProps> = observer((props) => {
                   }
                   align="right"
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onClick={(e: any) =>
+                  onClick={subcategories.length > 1 ? (e: any) =>
                     setCollapsibleStates({
                       ...collapsibleStates,
                       [category.id]: e.target.isOpen,
-                    })
+                    }) : null
                   }
                   isOpen={collapsibleStates[category.id]}
                   caretColor={`${

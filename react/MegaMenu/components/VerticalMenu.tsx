@@ -6,7 +6,8 @@ import type { InjectedIntlProps } from 'react-intl'
 import { injectIntl } from 'react-intl'
 import Skeleton from 'react-loading-skeleton'
 import { useCssHandles } from 'vtex.css-handles'
-import { formatIOMessage } from 'vtex.native-types'
+
+
 
 import { megaMenuState } from '../State'
 import type { ItemProps } from './Item'
@@ -19,17 +20,17 @@ const CSS_HANDLES = [
   'menuContainerNavVertical',
   'menuItemVertical',
   'submenuContainerVertical',
-  'departmentsTitle',
+  'departmentsTitle'
 ] as const
 
-const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
+const VerticalMenu: FC<VerticalMenuProps> = observer(() => {
   const { handles } = useCssHandles(CSS_HANDLES)
-  const { departments, departmentActive, config, setDepartmentActive } =
+  const { departments, departmentActive, setDepartmentActive } =
     megaMenuState
 
   const departmentActiveHasCategories = !!departmentActive?.menu?.length
 
-  const { title } = config
+  
 
   const departmentItems = useMemo(
     () =>
@@ -85,7 +86,7 @@ const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
             'f4 fw7 c-on-base mv5 lh-copy ph5'
           )}
         >
-          {formatIOMessage({ id: title, intl })}
+          Products
         </h3>
         <ul className={classNames(handles.menuContainerVertical, 'list pa0')}>
           {departments.length ? (

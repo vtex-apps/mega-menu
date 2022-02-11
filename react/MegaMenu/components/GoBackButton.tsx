@@ -6,7 +6,8 @@ import type { InjectedIntlProps } from 'react-intl'
 import { injectIntl } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 
-import { IconCaret } from 'vtex.store-icons'
+// import { Icon } from 'vtex.store-icons'
+import backarrow from '../../../assets/backarrow.svg'
 
 import { megaMenuState } from '../State'
 
@@ -43,11 +44,7 @@ const GoBackButton: FC<InjectedIntlProps> = observer(({ }) => {
         onClick={goBack}
       >
         <div className="vtex-drawer-icon">
-          <IconCaret
-            className={handles.goBackButtonIcon}
-            orientation="left"
-            size="18"
-          />
+          <img src={backarrow} alt="backarrow" />   
         </div>
         <span className={classNames(handles.goBackButtonText, 'ml3')}>
           {departmentActive.name}
