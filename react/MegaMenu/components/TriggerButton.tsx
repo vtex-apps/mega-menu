@@ -26,7 +26,7 @@ const TriggerButton: FC<TriggerButtonProps> = observer(() => {
       onMouseEnter={() => openMenu((v) => !v)}
     >
       <div>
-        PRODUCTs
+        PRODUCTS
       </div>
     </button>
   )
