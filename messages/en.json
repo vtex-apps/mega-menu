@@ -40,6 +40,7 @@
   "admin/mega-menu.items.infoForm2Subtitle": "Main submenu",
   "admin/mega-menu.items.tooltip": "Select an available icon. If you want to add a custom icon, write in the field the id of your icon",
   "admin/mega-menu.items.tooltip2": "Add styles to menu item as bold font, size, and background, separated by commas. i.e: font-size:10px,color:red",
+  "admin/mega-menu.items.tooltip3": "Change this slug may cause difficulties, please be make the change only is be necessary",
   "admin/mega-menu.items.nameRequired": "The field name is requiered",
   "admin/mega-menu.items.slugRequired": "The field slug is requiered",
   "admin/mega-menu.items.newItemFirst": "Complete the form: Add new first-level item",

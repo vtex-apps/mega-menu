@@ -163,13 +163,25 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           (item: DataMenu) => item.id === responseForm.id
         )
 
+        let rootRelative = ['', '']
+
+        if (
+          submenu[0].slug &&
+          !submenu[0].slugRoot &&
+          !submenu[0].slugRelative
+        ) {
+          rootRelative = submenu[0].slug.split('/')
+
+          rootRelative.shift()
+        }
+
         setDataForm(
           submenu[0].id,
           submenu[0].name,
           submenu[0].icon,
           submenu[0].slug,
-          submenu[0].slugRoot ?? '',
-          submenu[0].slugRelative ?? '',
+          submenu[0].slugRoot ?? rootRelative[0],
+          submenu[0].slugRelative ?? rootRelative[1],
           submenu[0].styles,
           [],
           submenu[0].display,
@@ -194,13 +206,29 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         })
 
         setSubMenu(tempArrayTL)
+        let rootRelative = ['', '']
+
+        if (
+          tempArrayTL[0].slug &&
+          !tempArrayTL[0].slugRoot &&
+          !tempArrayTL[0].slugRelative
+        ) {
+          rootRelative = tempArrayTL[0].slug.split('/')
+
+          rootRelative.shift()
+
+          const rootPath = `${rootRelative[0]}/${rootRelative[1]}`
+
+          rootRelative = [rootRelative[2], rootPath]
+        }
+
         setDataForm(
           tempArrayTL[0].id,
           tempArrayTL[0].name,
           tempArrayTL[0].icon,
           tempArrayTL[0].slug,
-          tempArrayTL[0].slugRoot ?? '',
-          tempArrayTL[0].slugRelative ?? '',
+          tempArrayTL[0].slugRoot ?? rootRelative[0],
+          tempArrayTL[0].slugRelative ?? rootRelative[1],
           tempArrayTL[0].styles,
           [],
           tempArrayTL[0].display,
@@ -296,6 +324,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
       case 'enableSty':
         setEnableSty(!enableSty)
+        break
+
+      case 'slugRelative':
+        setSlugRelative(e.value)
         break
 
       default:
@@ -440,6 +472,21 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }
   }
 
+  const getNewPath = (
+    slugPath: string,
+    slugRootPath: string | undefined,
+    slugRelativePath: string | undefined
+  ) => {
+    let rootRelative = ['']
+
+    if (slugPath && !slugRootPath && !slugRelativePath) {
+      rootRelative = slugPath.split('/')
+      rootRelative.shift()
+    }
+
+    return rootRelative
+  }
+
   const editItem = () => {
     const menu = { ...mainMenu }
 
@@ -453,10 +500,19 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         menuLevelTwo.forEach((item: MenuItem) => {
           if (item.slugRelative === slug) return
 
+          const dataPath = getNewPath(
+            item.slug,
+            item.slugRoot,
+            item.slugRelative
+          )
+
           const updateLevel: MenuItem = {
             ...item,
-            slug: `${slug}/${item.slugRoot}`,
+            slug: !item.slugRoot
+              ? `${slug}/${dataPath[1]}`
+              : `${slug}/${item.slugRoot}`,
             slugRelative: slug,
+            slugRoot: !item.slugRoot ? dataPath[1] : item.slugRoot,
           }
 
           menuLevelTwoUpdate.push(updateLevel)
@@ -473,10 +529,25 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             itemSecond.menu.forEach((itemThird: MenuItem) => {
               if (itemSecond.slugRelative === itemThird.slug) return
 
+              const dataPath = getNewPath(
+                itemThird.slug,
+                itemThird.slugRoot,
+                itemThird.slugRelative
+              )
+
               const updateLevel: MenuItem = {
                 ...itemThird,
-                slug: `${itemSecond.slug}/${itemThird.slugRoot}`,
-                slugRelative: itemSecond.slug,
+                slug:
+                  dataPath.length >= 3
+                    ? `${slug}/${dataPath[1]}/${dataPath[2]}`
+                    : `${itemSecond.slug}/${itemThird.slugRoot}`,
+                slugRelative:
+                  dataPath.length >= 3
+                    ? `${slug}/${dataPath[1]}`
+                    : itemSecond.slug,
+                slugRoot: !itemThird.slugRoot
+                  ? dataPath[2]
+                  : itemThird.slugRoot,
               }
 
               menuLevelThirdUpdate.push(updateLevel)
@@ -720,25 +791,49 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                   <div className="mb5">
                     {responseForm.firstLevel ? (
                       <>
-                        <p className="mb2">{messageTranslate('input2Form')}</p>
                         <div className="flex items-center">
-                          <label className="w-100 pa3 br2 bg-muted-3 hover-bg-muted-3 active-bg-muted-3 c-on-muted-3 hover-c-on-muted-3 active-c-on-muted-3 dib mr3">
-                            {slugRelative}
-                          </label>
-                          <Input
-                            placeholder=""
-                            value={slugRoot}
-                            id="slugRoot"
-                            errorMessage={messageSlug}
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>
-                            ) =>
-                              changeStyle({
-                                id: e.target.id,
-                                value: e.target.value,
-                              })
-                            }
-                          />
+                          <p className="mb2">
+                            {messageTranslate('input2Form')}
+                          </p>
+                          <Tooltip label={messageTranslate('tooltip3')}>
+                            <div className="c-on-base pointer pt6 pl2">
+                              <IconInfo />
+                            </div>
+                          </Tooltip>
+                        </div>
+                        <div className="flex items-center">
+                          <div className="w-50 mr3">
+                            <Input
+                              placeholder=""
+                              value={slugRelative}
+                              id="slugRelative"
+                              errorMessage={messageSlug}
+                              onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                              ) =>
+                                changeStyle({
+                                  id: e.target.id,
+                                  value: e.target.value,
+                                })
+                              }
+                            />
+                          </div>
+                          <div className="w-50">
+                            <Input
+                              placeholder=""
+                              value={slugRoot}
+                              id="slugRoot"
+                              errorMessage={messageSlug}
+                              onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                              ) =>
+                                changeStyle({
+                                  id: e.target.id,
+                                  value: e.target.value,
+                                })
+                              }
+                            />
+                          </div>
                         </div>
                       </>
                     ) : (

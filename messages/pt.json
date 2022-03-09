@@ -40,6 +40,7 @@
   "admin/mega-menu.items.infoForm2Subtitle": "Submenu principal",
   "admin/mega-menu.items.tooltip": "Selecione um ícone disponível. Se você quiser adicionar um ícone personalizado, escreva no campo o id do seu ícone",
   "admin/mega-menu.items.tooltip2": "Adicione estilos ao item de menu como fonte em negrito, tamanho e plano de fundo, separados por vírgulas. Exemplo: font-size:10px,color:red",
+  "admin/mega-menu.items.tooltip3": "Alterar este slug pode causar dificuldades, por favor, faça a alteração apenas se for necessário",
   "admin/mega-menu.items.nameRequired": "O nome do campo é obrigatório",
   "admin/mega-menu.items.slugRequired": "O slug do campo é obrigatório",
   "admin/mega-menu.items.newItemFirst": "Preencha o formulário: Adicionar novo item de primeiro nível",

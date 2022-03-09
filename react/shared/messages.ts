@@ -81,6 +81,10 @@ export const messagesForm = defineMessages({
     defaultMessage: '',
     id: 'admin/mega-menu.items.tooltip2',
   },
+  tooltip3: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.tooltip3',
+  },
   newItemFirst: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.newItemFirst',
