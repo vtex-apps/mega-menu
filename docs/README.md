@@ -18,13 +18,14 @@ VTEX Mega Menu provides an administrative app that allows to manage a custom cat
 
 Using your terminal, log in to the desired VTEX account and run the following command:
 
-`vtex install vtex.mega-menu@1.x`
+`vtex install vtex.mega-menu@2.x`
 
-### Step 2 - Defining the category tree to be used as a menu
+### Step 2 - Define the category tree to be used as a menu in the admin
 
 In the account's admin dashboard, access `STORE SETUP > Mega Menu` and using the available options configure the category tree according to your needs:
 
 ![mega-menu-admin-app](https://user-images.githubusercontent.com/12108601/121273542-18af8780-c88e-11eb-8b08-c59af2c653a0.png)
+
 
 ### Step 3 - Implementing the app's blocks in your store theme
 
@@ -34,7 +35,7 @@ Import the mega menu app to your dependencies as `manifest.json`, for�
 
 ```json
 "dependencies": {
-	"vtex.mega-menu": "0.x"
+	"vtex.mega-menu": "2.x"
 }
 ```
 
@@ -206,12 +207,51 @@ In order to apply CSS customizations on this and other blocks, follow the instru
 | `menuItemVertical`                |
 | `submenuContainerVertical`        |
 
-## Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+## NEW FUNCTIONALITY: Upload mega menu data from CSV file
+To upload data from a CSV file, You should create an import file with the following structure. The data will then be stored in the VBASE successfully.
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore -->
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+![11](https://user-images.githubusercontent.com/8409481/152260407-8f5220d3-9522-41a9-b974-08915240985e.png)
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
+The field `subMenus` is a String with the following structure:
+
+`[{
+	"id":"submenu1383316",
+	"name":"submenu1",
+	"icon":"","slug":"Menu1/submenu1",
+	"styles":"","display":true,
+	"enableSty":true,"order":1,
+	"slugRoot":"submenu1",
+	"slugRelative":"Menu1",
+	"menu":[{
+				"id":"sub-tercernivel-menu12121",
+				"name":"sub-tercernivel-menu1-3",
+				"icon":"",
+				"slug":"Menu1/submenu1/menu1-3",
+				"styles":"",
+				"display":true,
+				"enableSty":true,
+				"order":1,
+				"slugRoot":"menu1-3",
+				"slugRelative":"Menu1/submenu1"}]
+}]`
+
+The file should have the field like to show below:
+
+![12](https://user-images.githubusercontent.com/8409481/152260595-0ba50600-52f3-42db-b754-85b794c4e567.png)
+
+You can add the rows quantity that you want. Remember to keep the structure defined previously in all data.
+
+![13](https://user-images.githubusercontent.com/8409481/152260652-732fbeda-1d61-49ce-afa1-6a19b8d9b05c.png)
+
+Save the file. You can choose any name for the file. Then go to the admin and select the option “upload data”
+
+![14](https://user-images.githubusercontent.com/8409481/152260742-6ee24d1f-48ae-4383-ab02-b3d921a283e4.png)
+
+To generate backup data, download the information from the button “Download CSV”
+
+![15](https://user-images.githubusercontent.com/8409481/152260800-7ecc499a-ba39-4168-8dcd-c0b225f610db.png)
+
+![16](https://user-images.githubusercontent.com/8409481/152260876-07321655-a4ca-43eb-9c92-974ff8f9b12b.png)
+
+This button only is available if the mega menu has data to save. The download file has the same structure defined at the begging of this step.
