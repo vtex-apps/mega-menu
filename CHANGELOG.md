@@ -3,6 +3,9 @@
 
 ## [Unreleased]
 
+### Added
+- French translation
+
 ## [2.4.2] - 2022-02-01
 
 ## [2.4.0] - 2022-01-25
