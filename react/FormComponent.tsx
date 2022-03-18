@@ -180,8 +180,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           submenu[0].name,
           submenu[0].icon,
           submenu[0].slug,
-          submenu[0].slugRoot ?? rootRelative[0],
-          submenu[0].slugRelative ?? rootRelative[1],
+          submenu[0].slugRoot ?? rootRelative[1],
+          submenu[0].slugRelative ?? rootRelative[0],
           submenu[0].styles,
           [],
           submenu[0].display,
@@ -506,11 +506,17 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             item.slugRelative
           )
 
+          let createSlug = !item.slugRoot
+            ? `${slug}/${dataPath[1]}`
+            : item.slugRoot === null
+            ? `${slug}/`
+            : `${slug}/${item.slugRoot}`
+
+          createSlug = createSlug.replace('undefined', '')
+
           const updateLevel: MenuItem = {
             ...item,
-            slug: !item.slugRoot
-              ? `${slug}/${dataPath[1]}`
-              : `${slug}/${item.slugRoot}`,
+            slug: createSlug,
             slugRelative: slug,
             slugRoot: !item.slugRoot ? dataPath[1] : item.slugRoot,
           }
@@ -524,7 +530,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       if (menuLevelTwoUpdate?.length) {
         menuLevelTwoUpdate.forEach((itemSecond: MenuItem) => {
           menuLevelThirdUpdate = []
-          // eslint-disable-next-line vtex/prefer-early-return
           if (itemSecond.menu?.length) {
             itemSecond.menu.forEach((itemThird: MenuItem) => {
               if (itemSecond.slugRelative === itemThird.slug) return
@@ -540,6 +545,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                 slug:
                   dataPath.length >= 3
                     ? `${slug}/${dataPath[1]}/${dataPath[2]}`
+                    : itemThird.slugRoot === null
+                    ? `${itemSecond.slug}/`
                     : `${itemSecond.slug}/${itemThird.slugRoot}`,
                 slugRelative:
                   dataPath.length >= 3
@@ -565,10 +572,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
       setMessage(messageTranslate('editItem'))
     } else if (responseForm.level === 'secondLevel') {
+      const menuSecondSlug = `${slugRelative}/${slugRoot}`
+
       if (menu.menu) {
         tempSecond = menu.menu.filter((i: DataMenu) => i.id === responseForm.id)
-
-        const menuSecondSlug = `${slugRelative}/${slugRoot}`
 
         tempSecond[0].name = name
         tempSecond[0].icon = icon
@@ -589,16 +596,33 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           itemSecond.menu.forEach((itemThird: MenuItem) => {
             if (itemSecond.slugRelative === itemThird.slug) return
 
+            const dataPath = getNewPath(
+              itemThird.slug,
+              itemThird.slugRoot,
+              itemThird.slugRelative
+            )
+
+            let createSlug =
+              dataPath.length >= 3
+                ? `${menuSecondSlug}/${dataPath[2]}`
+                : itemThird.slugRoot === null
+                ? `${itemSecond.slug}/`
+                : `${itemSecond.slug}/${itemThird.slugRoot}`
+
+            createSlug = createSlug.replace('undefined', '')
+
             const updateLevel: MenuItem = {
               ...itemThird,
-              slug: `${itemSecond.slug}/${itemThird.slugRoot}`,
-              slugRelative: itemSecond.slug,
+              slug: createSlug,
+              slugRelative:
+                dataPath.length >= 3 ? `${menuSecondSlug}` : itemSecond.slug,
+              slugRoot: !itemThird.slugRoot ? dataPath[2] : itemThird.slugRoot,
             }
 
             menuLevelThirdUpdate.push(updateLevel)
-          })
 
-          itemSecond.menu = menuLevelThirdUpdate
+            itemSecond.menu = menuLevelThirdUpdate
+          })
         }
       })
 
@@ -632,7 +656,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             (j: DataMenu) => j.id === responseForm.id
           )
 
-          const menuThirdSlug = `${slugRelative}/${slugRoot}`
+          let menuThirdSlug = `${slugRelative}/${slugRoot}`
+
+          menuThirdSlug = menuThirdSlug.replace('undefined', '')
 
           tempThird[0].name = name
           tempThird[0].icon = icon
