@@ -230,6 +230,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
               <>
                 <ExtensionPoint id="before-menu" /> {items}{' '}
                 <ExtensionPoint id="after-menu" />
+                <img src={departmentActive.banner} alt="" />
               </>
             ) : (
               <>

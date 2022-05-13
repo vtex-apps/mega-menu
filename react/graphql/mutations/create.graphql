@@ -10,5 +10,6 @@ mutation create($menuInput: MenuInput!) {
     order
     slugRoot
     slugRelative
+    banner
   }
 }

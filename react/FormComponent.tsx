@@ -14,7 +14,9 @@ import {
   Tooltip,
   Textarea,
   Spinner,
+  Dropzone,
 } from 'vtex.styleguide'
+
 import { useRuntime } from 'vtex.render-runtime'
 import { useQuery, useMutation } from 'react-apollo'
 import type { InjectedIntlProps } from 'react-intl'
@@ -26,8 +28,11 @@ import IconArrowLeft from './icons/IconArrowLeft'
 import CREATE from './graphql/mutations/create.graphql'
 import GETMENU from './graphql/queries/getMenu.graphql'
 import EDIT from './graphql/mutations/edit.graphql'
+import UPLOAD_FILE from './graphql/mutations/uploadFile.graphql'
 import { IconSelector, messagesForm } from './shared'
 import type { DataMenu, MenuItem } from './shared'
+import { UploadMutationData } from './utils/interfaces'
+import UploadedBanner from './MegaMenu/components/UploadedBanner'
 
 const arrowLeft = <IconArrowLeft />
 
@@ -51,10 +56,11 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     menu: [],
     display: false,
     enableSty: false,
+    banner: '',
   }
 
   const { navigate } = useRuntime()
-
+  const [isLoading, setIsLoading] = useState(false)
   const [name, setName] = useState('')
   const [icon, setIcon] = useState('')
   const [slug, setSlug] = useState('')
@@ -72,8 +78,10 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   const [levelInfo, setLevelInfo] = useState(Object)
   const [messageName, setMessageName] = useState('')
   const [messageSlug, setMessageSlug] = useState('')
+  const [banner, setBanner] = useState('')
 
   const responseForm = JSON.parse(decodeURIComponent(props.params.menu))
+  const [uploadFile] = useMutation<UploadMutationData>(UPLOAD_FILE)
 
   const [createNewMenu, { data: dataSave }] = useMutation(CREATE, {
     fetchPolicy: 'no-cache',
@@ -94,6 +102,33 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     id: messages.btnSaveForm.id,
     intl: props.intl,
   }).toString()
+
+  const handleImageDrop = async (acceptedFiles: File[]) => {
+    if (acceptedFiles && acceptedFiles[0]) {
+      try {
+        setIsLoading(true)
+        const { data } = await uploadFile({
+          variables: { file: acceptedFiles[0] },
+        })
+
+        if (data?.uploadFile?.fileUrl) {
+          setBanner(data?.uploadFile?.fileUrl)
+
+          setIsLoading(false)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  const handleImageReset = async () => {
+    try {
+      setBanner('')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const messageTranslate = (key: string) => {
     const keyObj = `admin/mega-menu.items.${key}`
@@ -144,6 +179,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       if (responseForm.level === 'firstLevel') {
         document.getElementsByClassName('c-muted-2')[0].innerHTML =
           dataMenu.menu.icon
+
+        setBanner(dataMenu.menu.banner)
         setDataForm(
           dataMenu.menu.id,
           dataMenu.menu.name,
@@ -297,6 +334,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     setAlert(false)
     setMessageName('')
     setMessageSlug('')
+
     switch (e.id) {
       case 'name':
         setName(e.value)
@@ -364,6 +402,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           order: mainMenuLevel.order,
           slugRoot: mainMenuLevel.slugRoot,
           slugRelative: mainMenuLevel.slugRelative,
+          banner: mainMenuLevel.banner,
         },
       },
     })
@@ -385,6 +424,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             menu: subMenu,
             display,
             enableSty,
+            banner,
           },
         },
       })
@@ -416,6 +456,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          banner: menu.banner,
         },
         secondMenu
       )
@@ -465,6 +506,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           order: menu.order,
           slugRoot: menu.slugRoot,
           slugRelative: menu.slugRelative,
+          banner: menu.banner,
         },
         menu.menu ? menu.menu : []
       )
@@ -498,8 +540,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
       if (menuLevelTwo?.length) {
         menuLevelTwo.forEach((item: MenuItem) => {
-          if (item.slugRelative === slug) return
-
           const dataPath = getNewPath(
             item.slug,
             item.slugRoot,
@@ -532,8 +572,6 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           menuLevelThirdUpdate = []
           if (itemSecond.menu?.length) {
             itemSecond.menu.forEach((itemThird: MenuItem) => {
-              if (itemSecond.slugRelative === itemThird.slug) return
-
               const dataPath = getNewPath(
                 itemThird.slug,
                 itemThird.slugRoot,
@@ -566,7 +604,17 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       }
 
       insertSubMenu(
-        { id: idMenu, name, icon, slug, styles, display, enableSty, order },
+        {
+          id: idMenu,
+          name,
+          icon,
+          slug,
+          styles,
+          display,
+          enableSty,
+          order,
+          banner,
+        },
         menuLevelTwoUpdate
       )
 
@@ -594,7 +642,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         menuLevelThirdUpdate = []
         if (itemSecond.menu?.length) {
           itemSecond.menu.forEach((itemThird: MenuItem) => {
-            if (itemSecond.slugRelative === itemThird.slug) return
+            //   if (itemSecond.slugRelative === itemThird.slug) return
 
             const dataPath = getNewPath(
               itemThird.slug,
@@ -638,6 +686,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          banner: menu.banner,
         },
         menu.menu ? menu.menu : []
       )
@@ -684,6 +733,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          banner: menu.banner,
         },
         menu.menu ? menu.menu : []
       )
@@ -964,6 +1014,28 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                     />
                   </div>
                 </div>
+                {responseForm.level === 'firstLevel' && (
+                  <div className="w-100 ml4 mr4">
+                    <div className="mb5">
+                      <div className="flex items-center">
+                        <p className="mb2">Upload banner</p>
+                      </div>
+
+                      <Dropzone
+                        onDropAccepted={handleImageDrop}
+                        onFileReset={handleImageReset}
+                        isLoading={isLoading}
+                      />
+
+                      {banner && responseForm.level === 'firstLevel' && (
+                        <UploadedBanner
+                          banner={banner}
+                          onHandleImageReset={handleImageReset}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
