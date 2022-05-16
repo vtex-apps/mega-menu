@@ -1,7 +1,7 @@
 {
   "name": "mega-menu",
-  "vendor": "vtex",
-  "version": "2.6.1",
+  "vendor": "auchanqa",
+  "version": "0.0.1",
   "title": "Mega Menu",
   "description": "Create, personalize and manage the category tree. It's can be used in the shop as main menu",
   "mustUpdateAt": "2022-08-28",
@@ -33,9 +33,7 @@
     "support": {
       "url": "https://support.vtex.com/hc/requests"
     },
-    "availableCountries": [
-      "*"
-    ]
+    "availableCountries": ["*"]
   },
   "policies": [
     {
