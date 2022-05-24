@@ -223,15 +223,6 @@ const Submenu: FC<ItemProps> = observer((props) => {
                     'f4 fw7 c-on-base lh-copy mt0 mb6 flex items-center'
                   )}
                 >
-                  {departmentActive.uploadedIcon && (
-                    <>
-                      <img
-                        src={departmentActive.uploadedIcon}
-                        alt=""
-                        width="10%"
-                      />
-                    </>
-                  )}
                   {departmentActive.name}
                   {orientation === 'horizontal' && showBtnCat ? (
                     seeAllLink(departmentActive.slug, 1, 't-small ml7')

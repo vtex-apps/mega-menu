@@ -118,9 +118,9 @@ const Item: FC<ItemProps> = observer((props) => {
         {...(enableStyle && { style: stylesItem })}
       >
         {iconPosition === 'left' && iconComponent}
-        {uploadedIcon && (
+        {uploadedIcon && level < 3 && (
           <>
-            <img src={uploadedIcon} alt="" width="10%" />
+            <img src={uploadedIcon} alt="" width="11%" />
           </>
         )}
         {children}
