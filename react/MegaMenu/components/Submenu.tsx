@@ -90,6 +90,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
             style={x.styles}
             enableStyle={x.enableSty}
             closeMenu={closeMenu}
+            optionalText={x.optionalText}
           >
             {x.name}
           </Item>
@@ -146,6 +147,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
                     isTitle
                     enableStyle={category.enableSty}
                     closeMenu={closeMenu}
+                    uploadedIcon={category.uploadedIcon}
                   >
                     {category.name}
                   </Item>
@@ -221,6 +223,15 @@ const Submenu: FC<ItemProps> = observer((props) => {
                     'f4 fw7 c-on-base lh-copy mt0 mb6 flex items-center'
                   )}
                 >
+                  {departmentActive.uploadedIcon && (
+                    <>
+                      <img
+                        src={departmentActive.uploadedIcon}
+                        alt=""
+                        width="10%"
+                      />
+                    </>
+                  )}
                   {departmentActive.name}
                   {orientation === 'horizontal' && showBtnCat ? (
                     seeAllLink(departmentActive.slug, 1, 't-small ml7')
@@ -234,6 +245,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
                   <ExtensionPoint id="after-menu" />
                 </div>
               </div>
+
               <div className={handles.departmentBannerContainer}>
                 <img
                   className={handles.departmentBanner}

@@ -1,6 +1,7 @@
 export type MenuItem = {
   id: string
   icon: string
+  uploadedIcon?: string
   name: string
   slug: string
   styles: string
@@ -11,11 +12,13 @@ export type MenuItem = {
   slugRoot?: string
   slugRelative?: string
   banner?: string
+  optionalText?: string
 }
 
 export type MenuItemSave = {
   id: string
   icon: string
+  uploadedIcon?: string
   name: string
   slug: string
   styles: string
@@ -26,6 +29,7 @@ export type MenuItemSave = {
   slugRoot?: string
   slugRelative?: string
   banner?: string
+  optionalText?: string
 }
 
 export type MenusResponse = {

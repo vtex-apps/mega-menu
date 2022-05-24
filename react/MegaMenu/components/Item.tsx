@@ -46,6 +46,8 @@ const Item: FC<ItemProps> = observer((props) => {
     style,
     enableStyle,
     closeMenu,
+    uploadedIcon,
+    optionalText,
     ...rest
   } = props
 
@@ -116,7 +118,15 @@ const Item: FC<ItemProps> = observer((props) => {
         {...(enableStyle && { style: stylesItem })}
       >
         {iconPosition === 'left' && iconComponent}
+        {uploadedIcon && (
+          <>
+            <img src={uploadedIcon} alt="" width="10%" />
+          </>
+        )}
         {children}
+
+        {optionalText && level === 3 && <>{optionalText}</>}
+
         {iconPosition === 'right' && iconComponent}
       </div>
       {accordion && (
@@ -177,6 +187,8 @@ export interface ItemProps {
   iconPosition?: 'left' | 'right'
   tabIndex?: number
   className?: string
+  uploadedIcon?: string
+  optionalText?: string
   style?: string
   enableStyle?: boolean
   onClick?: () => void

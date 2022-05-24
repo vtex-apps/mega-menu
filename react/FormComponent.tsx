@@ -57,6 +57,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     display: false,
     enableSty: false,
     banner: '',
+    optionalText: '',
+    uploadedIcon: '',
   }
 
   const { navigate } = useRuntime()
@@ -74,11 +76,14 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   const [subMenu, setSubMenu] = useState(dataMenuTypeArray)
   const [alert, setAlert] = useState(false)
   const [order, setOrder] = useState(0)
+  const [optionalText, setOptionalText] = useState('')
+
   const [message, setMessage] = useState('')
   const [levelInfo, setLevelInfo] = useState(Object)
   const [messageName, setMessageName] = useState('')
   const [messageSlug, setMessageSlug] = useState('')
   const [banner, setBanner] = useState('')
+  const [uploadedIcon, setUploadedIcon] = useState('')
 
   const responseForm = JSON.parse(decodeURIComponent(props.params.menu))
   const [uploadFile] = useMutation<UploadMutationData>(UPLOAD_FILE)
@@ -122,9 +127,36 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }
   }
 
+  const handleIconDrop = async (acceptedFiles: File[]) => {
+    if (acceptedFiles && acceptedFiles[0]) {
+      try {
+        setIsLoading(true)
+        const { data } = await uploadFile({
+          variables: { file: acceptedFiles[0] },
+        })
+
+        if (data?.uploadFile?.fileUrl) {
+          setUploadedIcon(data?.uploadFile?.fileUrl)
+
+          setIsLoading(false)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
   const handleImageReset = async () => {
     try {
       setBanner('')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleIconReset = async () => {
+    try {
+      setUploadedIcon('')
     } catch (error) {
       console.log(error)
     }
@@ -139,7 +171,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }).toString()
   }
 
-  /* eslint max-params: ["error", 11] */
+  /* eslint max-params: ["error", 12] */
   /* eslint-env es9 */
   const setDataForm = (
     idenMenu: string,
@@ -152,7 +184,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     subMenuData: DataMenu[],
     displayMenu: boolean,
     enableStyMenu: boolean,
-    orderMenu: number
+    orderMenu: number,
+    optionalTextMenu: string
   ) => {
     setIdMenu(idenMenu)
     setName(nameMenu)
@@ -165,6 +198,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     setDisplay(displayMenu)
     setEnableSty(enableStyMenu)
     setOrder(orderMenu)
+    setOptionalText(optionalTextMenu)
   }
 
   useEffect(() => {
@@ -181,6 +215,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           dataMenu.menu.icon
 
         setBanner(dataMenu.menu.banner)
+        setUploadedIcon(dataMenu.menu.uploadedIcon)
         setDataForm(
           dataMenu.menu.id,
           dataMenu.menu.name,
@@ -192,7 +227,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           dataMenu.menu.menu,
           dataMenu.menu.display,
           dataMenu.menu.enableSty,
-          dataMenu.menu.order
+          dataMenu.menu.order,
+          dataMenu.menu.optionalText ?? ''
         )
       } else if (responseForm.level === 'secondLevel') {
         setLevelInfo({ firstLevel: dataMenu.menu.name })
@@ -211,7 +247,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
           rootRelative.shift()
         }
-
+        setUploadedIcon(submenu[0].uploadedIcon)
         setDataForm(
           submenu[0].id,
           submenu[0].name,
@@ -223,7 +259,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           [],
           submenu[0].display,
           submenu[0].enableSty,
-          submenu[0].order
+          submenu[0].order,
+          submenu[0].optionalText ?? ''
         )
       } else {
         const tempArrayTL: DataMenu[] = []
@@ -270,7 +307,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           [],
           tempArrayTL[0].display,
           tempArrayTL[0].enableSty,
-          tempArrayTL[0].order ?? 0
+          tempArrayTL[0].order ?? 0,
+          tempArrayTL[0].optionalText ?? ''
         )
 
         setLevelInfo({
@@ -367,6 +405,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       case 'slugRelative':
         setSlugRelative(e.value)
         break
+      case 'optionalText':
+        setOptionalText(e.value)
+        break
 
       default:
         break
@@ -394,6 +435,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           id: mainMenuLevel.id,
           name: mainMenuLevel.name,
           icon: mainMenuLevel.icon,
+          uploadedIcon: mainMenuLevel.uploadedIcon,
           slug: mainMenuLevel.slug,
           styles: mainMenuLevel.styles,
           menu: subMenuLevel,
@@ -403,6 +445,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           slugRoot: mainMenuLevel.slugRoot,
           slugRelative: mainMenuLevel.slugRelative,
           banner: mainMenuLevel.banner,
+          optionalText: mainMenuLevel.optionalText,
         },
       },
     })
@@ -420,6 +463,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             name,
             icon,
             slug,
+            uploadedIcon,
             styles,
             menu: subMenu,
             display,
@@ -444,6 +488,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         order: orderSubMenu + 1,
         slugRoot: slug,
         slugRelative: menu.slug,
+        uploadedIcon,
       })
 
       insertSubMenu(
@@ -457,6 +502,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           enableSty: menu.enableSty,
           order: menu.order,
           banner: menu.banner,
+          uploadedIcon: menu.uploadedIcon,
         },
         secondMenu
       )
@@ -480,6 +526,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         order: valueOrder ? valueOrder.length + 1 : 1,
         slugRoot: slug,
         slugRelative: `${valueSlug}`,
+        optionalText,
       }
 
       if (menu.menu) {
@@ -499,6 +546,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           id: menu.id,
           name: menu.name,
           icon: menu.icon,
+          uploadedIcon: menu.uploadedIcon,
           slug: menu.slug,
           styles: menu.styles,
           display: menu.display,
@@ -507,6 +555,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           slugRoot: menu.slugRoot,
           slugRelative: menu.slugRelative,
           banner: menu.banner,
+          optionalText: menu.optionalText,
         },
         menu.menu ? menu.menu : []
       )
@@ -608,12 +657,14 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           id: idMenu,
           name,
           icon,
+          uploadedIcon,
           slug,
           styles,
           display,
           enableSty,
           order,
           banner,
+          optionalText,
         },
         menuLevelTwoUpdate
       )
@@ -634,6 +685,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         tempSecond[0].display = display
         tempSecond[0].enableSty = enableSty
         tempSecond[0].order = order
+        tempSecond[0].uploadedIcon = uploadedIcon
       }
 
       let menuLevelThirdUpdate: MenuItem[] = []
@@ -665,6 +717,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
               slugRelative:
                 dataPath.length >= 3 ? `${menuSecondSlug}` : itemSecond.slug,
               slugRoot: !itemThird.slugRoot ? dataPath[2] : itemThird.slugRoot,
+              optionalText: itemThird.optionalText,
             }
 
             menuLevelThirdUpdate.push(updateLevel)
@@ -679,6 +732,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           id: menu.id,
           name: menu.name,
           icon: menu.icon,
+          uploadedIcon: menu.uploadedIcon,
           slug: menu.slug,
           slugRoot: menu.slugRoot,
           slugRelative: menu.slugRelative,
@@ -718,6 +772,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           tempThird[0].display = display
           tempThird[0].enableSty = enableSty
           tempThird[0].order = order
+          tempThird[0].optionalText = optionalText
         }
       }
 
@@ -726,6 +781,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           id: menu.id,
           name: menu.name,
           icon: menu.icon,
+          uploadedIcon: menu.uploadedIcon,
           slug: menu.slug,
           slugRoot: menu.slugRoot,
           slugRelative: menu.slugRelative,
@@ -734,6 +790,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           enableSty: menu.enableSty,
           order: menu.order,
           banner: menu.banner,
+          optionalText: menu.optionalText,
         },
         menu.menu ? menu.menu : []
       )
@@ -1014,6 +1071,50 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                     />
                   </div>
                 </div>
+
+                {responseForm.level !== 'thirdLevel' && (
+                  <div className="w-100 ml4 mr4">
+                    <div className="mb5">
+                      <div className="flex items-center">
+                        <p className="mb2">Upload icon</p>
+                      </div>
+
+                      <Dropzone
+                        onDropAccepted={handleIconDrop}
+                        onFileReset={handleIconReset}
+                        isLoading={isLoading}
+                      />
+
+                      {uploadedIcon && (
+                        <UploadedBanner
+                          textlabel="Uploaded Icon"
+                          banner={uploadedIcon}
+                          onHandleImageReset={handleIconReset}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
+                {responseForm.level === 'thirdLevel' && (
+                  <div className="w-100 ml4 mr4">
+                    <div className="mb5">
+                      <div className="flex items-center">
+                        <Input
+                          placeholder="Option text near category name"
+                          label="Optional text"
+                          value={optionalText}
+                          id="optionalText"
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            changeStyle({
+                              id: e.target.id,
+                              value: e.target.value,
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
                 {responseForm.level === 'firstLevel' && (
                   <div className="w-100 ml4 mr4">
                     <div className="mb5">
@@ -1030,6 +1131,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                       {banner && responseForm.level === 'firstLevel' && (
                         <UploadedBanner
                           banner={banner}
+                          textlabel="Uploaded banner"
                           onHandleImageReset={handleImageReset}
                         />
                       )}

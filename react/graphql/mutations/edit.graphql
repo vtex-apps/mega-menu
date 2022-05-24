@@ -34,6 +34,7 @@ mutation edit($editMenu: MenuInput!) {
         order
         slugRoot
         slugRelative
+        optionalText
       }
     }
   }

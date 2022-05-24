@@ -3,11 +3,11 @@ import { ButtonWithIcon } from 'vtex.styleguide'
 
 import IconDelete from '../../icons/IconDelete'
 
-const UploadedBanner = ({ banner, onHandleImageReset }) => {
+const UploadedBanner = ({ banner, onHandleImageReset, textlabel }) => {
   return (
     <>
       <div className="flex items-center">
-        <p className="mb2">Uploaded banner</p>
+        <p className="mb2">{textlabel}</p>
       </div>
       <div className="flex">
         <img src={banner} alt="" width="50%" />

@@ -11,5 +11,6 @@ mutation create($menuInput: MenuInput!) {
     slugRoot
     slugRelative
     banner
+    optionalText
   }
 }

@@ -2,6 +2,7 @@ type Menu {
   id: ID!
   name: String!
   icon: String!
+  uploadedIcon:String
   slug: String!
   styles: String
   menu: [Menu]
@@ -10,13 +11,15 @@ type Menu {
   order: Int
   slugRoot: String
   slugRelative: String
-  banner:String
+  banner:String,
+  optionalText:String
 }
 
 input MenuInput {
   id: ID!
   name: String!
   icon: String!
+  uploadedIcon:String
   slug: String!
   styles: String!
   menu: [MenuInput]
@@ -27,5 +30,6 @@ input MenuInput {
   secondLevel: String
   slugRoot: String
   slugRelative: String
-  banner:String
+  banner:String,
+  optionalText:String
 }

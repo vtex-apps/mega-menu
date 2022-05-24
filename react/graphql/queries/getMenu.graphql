@@ -3,6 +3,7 @@ query getMenu($id: ID!) {
     id
     name
     icon
+    uploadedIcon
     slug
     styles
     display
@@ -13,6 +14,7 @@ query getMenu($id: ID!) {
       id
       name
       icon
+      uploadedIcon
       slug
       styles
       display
@@ -31,6 +33,7 @@ query getMenu($id: ID!) {
         order
         slugRoot
         slugRelative
+        optionalText
       }
     }
   }
