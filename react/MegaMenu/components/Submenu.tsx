@@ -29,6 +29,8 @@ const CSS_HANDLES = [
   'submenuItemsContainer',
   'departmentBannerContainer',
   'departmentBanner',
+  'submenuVerticalNameContainer',
+  'menuItemIcon',
 ] as const
 
 const messages = defineMessages({
@@ -163,14 +165,28 @@ const Submenu: FC<ItemProps> = observer((props) => {
               ) : (
                 <Collapsible
                   header={
-                    <p
-                      className={classNames(
-                        handles.collapsibleHeaderText,
-                        collapsibleStates[category.id] && 'fw7'
-                      )}
-                    >
-                      {category.name}
-                    </p>
+                    <>
+                      <div
+                        className={classNames(
+                          handles.submenuVerticalNameContainer,
+                          'flex'
+                        )}
+                      >
+                        <img
+                          className={handles.menuItemIcon}
+                          src={category.uploadedIcon}
+                          alt=""
+                        />
+                        <p
+                          className={classNames(
+                            handles.collapsibleHeaderText,
+                            collapsibleStates[category.id] && 'fw7'
+                          )}
+                        >
+                          {category.name}
+                        </p>
+                      </div>
+                    </>
                   }
                   align="right"
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
