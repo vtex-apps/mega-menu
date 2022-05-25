@@ -34,7 +34,7 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
     openMenu,
   } = megaMenuState
 
-  const departmentActiveHasCategories = !!departmentActive?.menu?.length
+  // const departmentActiveHasCategories = !!departmentActive?.menu?.length
   const navRef = useRef<HTMLDivElement>(null)
 
   const handleClickOutside = useCallback(
@@ -63,8 +63,6 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
     return () => {
       document.removeEventListener('click', handleClickOutside, true)
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -117,7 +115,7 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
           )
         }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [departments, departmentActive]
+    [departments]
   )
 
   const loaderBlocks = useMemo(() => {
@@ -166,12 +164,9 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
         )}
       </ul>
       {departments.length ? (
-        departmentActive &&
-        departmentActiveHasCategories && (
-          <div className={classNames(styles.submenuContainer, 'pa5 w-100')}>
-            <Submenu closeMenu={openMenu} />
-          </div>
-        )
+        <div className={classNames(styles.submenuContainer, 'pa5 w-100')}>
+          <Submenu closeMenu={openMenu} />
+        </div>
       ) : (
         <div className="w-100" style={{ overflow: 'auto' }}>
           <div className="w-30 mb4 ml4 mt5">

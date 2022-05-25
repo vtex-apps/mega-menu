@@ -126,13 +126,11 @@ const Item: FC<ItemProps> = observer((props) => {
           </>
         )}
         {children}
-
         {optionalText && level === 3 && (
           <>
             <span className={handles.menuItemBadge}>{optionalText}</span>
           </>
         )}
-
         {iconPosition === 'right' && iconComponent}
       </div>
       {accordion && (

@@ -91,6 +91,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
             enableStyle={x.enableSty}
             closeMenu={closeMenu}
             optionalText={x.optionalText}
+            uploadedIcon={x.uploadedIcon}
           >
             {x.name}
           </Item>
