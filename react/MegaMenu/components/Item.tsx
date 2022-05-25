@@ -17,6 +17,8 @@ const CSS_HANDLES = [
   'styledLinkText',
   'accordionIconContainer',
   'accordionIcon',
+  'menuItemIcon',
+  'menuItemBadge',
 ] as const
 
 const defaultTypography: Record<number, string> = {
@@ -120,12 +122,16 @@ const Item: FC<ItemProps> = observer((props) => {
         {iconPosition === 'left' && iconComponent}
         {uploadedIcon && level < 3 && (
           <>
-            <img src={uploadedIcon} alt="" width="11%" />
+            <img className={handles.menuItemIcon} src={uploadedIcon} alt="" />
           </>
         )}
         {children}
 
-        {optionalText && level === 3 && <>{optionalText}</>}
+        {optionalText && level === 3 && (
+          <>
+            <span className={handles.menuItemBadge}>{optionalText}</span>
+          </>
+        )}
 
         {iconPosition === 'right' && iconComponent}
       </div>

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "noEmitOnError": false,
     "lib": ["dom"],
+    "jsx": "react",
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es2017",
