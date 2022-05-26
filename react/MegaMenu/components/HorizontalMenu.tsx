@@ -79,44 +79,39 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultDepartmentActive])
 
-  const departmentItems = useMemo(
-    () =>
-      departments
-        .filter((j) => j.display)
-        .map((d) => {
-          const hasCategories = !!d.menu?.length
+  const departmentItems = departments
+    .filter((j) => j.display)
+    .map((d) => {
+      const hasCategories = !!d.menu?.length
 
-          return (
-            <li
-              className={classNames(
-                handles.menuItem,
-                d.id === departmentActive?.id &&
-                  `bg-black-05 ${handles.departmentActive}`
-              )}
-              key={String(d.id) + String(Math.random())}
-              onMouseEnter={() => {
-                setDepartmentActive(d)
-              }}
-            >
-              <Item
-                id={d.id}
-                to={d.slug}
-                iconId={d.icon}
-                accordion={hasCategories}
-                className={classNames('pv3 mh5')}
-                style={d.styles}
-                enableStyle={d.enableSty}
-                closeMenu={openMenu}
-                uploadedIcon={d.uploadedIcon}
-              >
-                {d.name}
-              </Item>
-            </li>
-          )
-        }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [departments]
-  )
+      return (
+        <li
+          className={classNames(
+            handles.menuItem,
+            d.id === departmentActive?.id &&
+              `bg-black-05 ${handles.departmentActive}`
+          )}
+          key={d.id}
+          onMouseEnter={() => {
+            setDepartmentActive(d)
+          }}
+        >
+          <Item
+            id={d.id}
+            to={d.slug}
+            iconId={d.icon}
+            accordion={hasCategories}
+            className={classNames('pv3 mh5')}
+            style={d.styles}
+            enableStyle={d.enableSty}
+            closeMenu={openMenu}
+            uploadedIcon={d.uploadedIcon}
+          >
+            {d.name}
+          </Item>
+        </li>
+      )
+    })
 
   const loaderBlocks = useMemo(() => {
     const blocks: JSX.Element[] = []
