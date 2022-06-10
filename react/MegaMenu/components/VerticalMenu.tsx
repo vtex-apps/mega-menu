@@ -82,7 +82,7 @@ const VerticalMenu: FC<VerticalMenuProps> = observer((props) => {
     [departments]
   )
 
-  return (isOpenMenu && openOnly === orientation) || isMobile ? (
+  return departmentItems?.length > 0 ? (
     <nav className={classNames(handles.menuContainerNavVertical, 'w-100')}>
       <div
         className={classNames(handles.departmentsContainer, {
@@ -107,18 +107,22 @@ const VerticalMenu: FC<VerticalMenuProps> = observer((props) => {
           )}
         </ul>
       </div>
-      {departmentActive && departmentActiveHasCategories && (
-        <div
-          className={classNames(
-            handles.submenuContainerVertical,
-            'bg-base w-100'
-          )}
-        >
-          <Submenu openOnly={openOnly} />
-        </div>
-      )}
+      <div
+        className={classNames(
+          handles.submenuContainerVertical,
+          'bg-base w-100'
+        )}
+        style={{
+          display:
+            departmentActive && departmentActiveHasCategories
+              ? 'block'
+              : 'none',
+        }}
+      >
+        <Submenu />
+      </div>
     </nav>
-  ) : null
+  ) : null : null
 })
 
 type VerticalMenuProps = InjectedIntlProps & {

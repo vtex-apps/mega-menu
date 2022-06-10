@@ -90,6 +90,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       id: responseForm.firstLevel ? responseForm.firstLevel : responseForm.id,
     },
     fetchPolicy: 'no-cache',
+    ssr: true,
   })
 
   const btnSave = formatIOMessage({
