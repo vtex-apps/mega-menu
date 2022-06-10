@@ -72,7 +72,7 @@ const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
     [departments]
   )
 
-  return (
+  return departmentItems?.length > 0 ? (
     <nav className={classNames(handles.menuContainerNavVertical, 'w-100')}>
       <div
         className={classNames(handles.departmentsContainer, {
@@ -97,18 +97,22 @@ const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
           )}
         </ul>
       </div>
-      {departmentActive && departmentActiveHasCategories && (
-        <div
-          className={classNames(
-            handles.submenuContainerVertical,
-            'bg-base w-100'
-          )}
-        >
-          <Submenu />
-        </div>
-      )}
+      <div
+        className={classNames(
+          handles.submenuContainerVertical,
+          'bg-base w-100'
+        )}
+        style={{
+          display:
+            departmentActive && departmentActiveHasCategories
+              ? 'block'
+              : 'none',
+        }}
+      >
+        <Submenu />
+      </div>
     </nav>
-  )
+  ) : null
 })
 
 type VerticalMenuProps = InjectedIntlProps

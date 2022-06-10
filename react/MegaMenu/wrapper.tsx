@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import { useDevice } from 'vtex.device-detector'
@@ -11,7 +12,7 @@ import { megaMenuState } from './State'
 const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
   const { orientation } = props
   const { data } = useQuery<MenusResponse>(GET_MENUS, {
-    fetchPolicy: 'no-cache',
+    ssr: true,
   })
 
   const { setDepartments, setConfig } = megaMenuState
@@ -21,7 +22,7 @@ const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
   const currentOrientation: Orientation =
     orientation ?? (isMobile ? 'vertical' : 'horizontal')
 
-  useEffect(() => {
+  const initMenu = () => {
     if (data?.menus.length) {
       setConfig({
         ...props,
@@ -29,7 +30,12 @@ const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
       })
       setDepartments(data.menus)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }
+
+  initMenu()
+
+  useEffect(() => {
+    initMenu()
   }, [data])
 
   return (
