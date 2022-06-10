@@ -1,8 +1,6 @@
 type Query {
-  menus(isMobile: Boolean): [Menu]
-  menu(id: ID!): Menu
-  settings: [Settings]
-  setting(id: ID!): Settings
+  menus: [Menu] @cacheControl(scope: SEGMENT, maxAge: SHORT) @withSegment
+  menu(id: ID!): Menu @cacheControl(scope: SEGMENT, maxAge: SHORT) @withSegment
 }
 
 type Mutation {
