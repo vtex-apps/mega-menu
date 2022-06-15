@@ -2,6 +2,7 @@ mutation edit($editMenu: MenuInput!) {
   editMenu(menuInput: $editMenu) {
     id
     name
+    binding
     icon
     slug
     styles

@@ -4,6 +4,7 @@ type Menu {
   icon: String!
   slug: String!
   styles: String
+  binding: String
   menu: [Menu]
   display: Boolean!
   enableSty: Boolean!
@@ -18,6 +19,7 @@ input MenuInput {
   icon: String!
   slug: String!
   styles: String!
+  binding: String
   menu: [MenuInput]
   display: Boolean
   enableSty: Boolean
