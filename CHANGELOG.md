@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 
+### Fixed
+- Bug that removed submenus when editing a menu item and the slug remains the same
 ## [2.6.0] - 2022-03-11
 
 ### Added
