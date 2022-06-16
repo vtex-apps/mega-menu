@@ -82,8 +82,12 @@ export const menus = async (
     }
   }
 
-  if (bindingId || bindingId === 'all') {
-    menuItems = menuItems.filter((item) => item.binding === bindingId)
+  // We return items from the requested binding, with 'All' bindings, or without any binding
+  if (bindingId) {
+    menuItems = menuItems.filter(
+      (item) =>
+        item.binding === 'all' || item.binding === bindingId || !item.binding
+    )
   }
 
   replaceStyles(menuItems)
