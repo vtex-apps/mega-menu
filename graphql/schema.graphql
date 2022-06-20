@@ -1,6 +1,6 @@
 type Query {
-  menus: [Menu] @cacheControl(scope: SEGMENT, maxAge: SHORT) @withSegment
-  menu(id: ID!): Menu @cacheControl(scope: SEGMENT, maxAge: SHORT) @withSegment
+  menus: [Menu] @cacheControl(scope: SEGMENT, maxAge: MEDIUM) @withSegment
+  menu(id: ID!): Menu @cacheControl(scope: SEGMENT, maxAge: MEDIUM) @withSegment
 }
 
 type Mutation {
