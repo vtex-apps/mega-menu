@@ -22,7 +22,8 @@
     "vtex.css-handles": "1.x",
     "vtex.store-icons": "0.x",
     "vtex.device-detector": "0.x",
-    "vtex.native-types": "0.x"
+    "vtex.native-types": "0.x",
+    "vtex.render-runtime": "8.x"
   },
   "billingOptions": {
     "type": "free",

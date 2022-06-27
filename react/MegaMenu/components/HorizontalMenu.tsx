@@ -131,49 +131,58 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
     return blocks
   }, [])
 
-  return isOpenMenu ? (
-    <nav
-      className={classNames(
-        handles.menuContainerNav,
-        'absolute left-0 bg-white bw1 bb b--muted-3 flex'
-      )}
-      ref={navRef}
-    >
-      <ul
+  return departmentItems?.length > 0 ? (
+    <div style={{ display: isOpenMenu ? 'block' : 'none' }}>
+      <nav
         className={classNames(
-          styles.menuContainer,
-          'list ma0 pa0 pb3 br b--muted-4'
+          handles.menuContainerNav,
+          'absolute left-0 bg-white bw1 bb b--muted-3 flex'
         )}
+        ref={navRef}
       >
-        <h3 className="f4 fw7 c-on-base lh-copy ma0 pv5 ph5">
-          {formatIOMessage({ id: title, intl })}
-        </h3>
+        <ul
+          className={classNames(
+            styles.menuContainer,
+            'list ma0 pa0 pb3 br b--muted-4'
+          )}
+        >
+          <h3 className="f4 fw7 c-on-base lh-copy ma0 pv5 ph5">
+            {formatIOMessage({ id: title, intl })}
+          </h3>
+          {departments.length ? (
+            departmentItems
+          ) : (
+            <div className="flex flex-column justify-center ph5 lh-copy">
+              <Skeleton count={3} height={30} />
+            </div>
+          )}
+        </ul>
         {departments.length ? (
-          departmentItems
-        ) : (
-          <div className="flex flex-column justify-center ph5 lh-copy">
-            <Skeleton count={3} height={30} />
-          </div>
-        )}
-      </ul>
-      {departments.length ? (
-        departmentActive &&
-        departmentActiveHasCategories && (
-          <div className={classNames(styles.submenuContainer, 'pa5 w-100')}>
+          <div
+            className={classNames(styles.submenuContainer, 'pa5 w-100')}
+            style={{
+              display:
+                departments.length &&
+                departmentActive &&
+                departmentActiveHasCategories
+                  ? 'block'
+                  : 'none',
+            }}
+          >
             <Submenu closeMenu={openMenu} />
           </div>
-        )
-      ) : (
-        <div className="w-100" style={{ overflow: 'auto' }}>
-          <div className="w-30 mb4 ml4 mt5">
-            <Skeleton height={30} />
+        ) : (
+          <div className="w-100" style={{ overflow: 'auto' }}>
+            <div className="w-30 mb4 ml4 mt5">
+              <Skeleton height={30} />
+            </div>
+            <div className={classNames(styles.submenuList, 'mh4 mb5')}>
+              {loaderBlocks}
+            </div>
           </div>
-          <div className={classNames(styles.submenuList, 'mh4 mb5')}>
-            {loaderBlocks}
-          </div>
-        </div>
-      )}
-    </nav>
+        )}
+      </nav>
+    </div>
   ) : null
 })
 

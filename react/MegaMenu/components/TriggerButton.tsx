@@ -28,6 +28,7 @@ const TriggerButton: FC<TriggerButtonProps> = observer((props) => {
       data-id={BUTTON_ID}
       className={classNames(styles.triggerContainer, 'pointer')}
       onClick={() => openMenu((v) => !v)}
+      onMouseEnter={() => openMenu((v) => !v)}
     >
       <Icon
         activeClassName={classNames(iconBaseClassName, activeClassName)}

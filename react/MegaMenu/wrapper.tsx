@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import { useDevice } from 'vtex.device-detector'
+import { canUseDOM } from 'vtex.render-runtime'
 
 import GET_MENUS from '../graphql/queries/getMenus.graphql'
 import type { GlobalConfig, MenusResponse, Orientation } from '../shared'
@@ -11,7 +13,7 @@ import { megaMenuState } from './State'
 const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
   const { orientation } = props
   const { data } = useQuery<MenusResponse>(GET_MENUS, {
-    fetchPolicy: 'no-cache',
+    ssr: true,
   })
 
   const { setDepartments, setConfig } = megaMenuState
@@ -21,7 +23,7 @@ const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
   const currentOrientation: Orientation =
     orientation ?? (isMobile ? 'vertical' : 'horizontal')
 
-  useEffect(() => {
+  const initMenu = () => {
     if (data?.menus.length) {
       setConfig({
         ...props,
@@ -29,7 +31,14 @@ const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
       })
       setDepartments(data.menus)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }
+
+  if (!canUseDOM) {
+    initMenu()
+  }
+
+  useEffect(() => {
+    initMenu()
   }, [data])
 
   return (

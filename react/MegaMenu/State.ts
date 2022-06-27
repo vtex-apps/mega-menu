@@ -34,19 +34,18 @@ class MegaMenuState {
     }
   }
 
-  public getCategories = (departmentId?: string) => {
+  public getCategories = () => {
     let categories: DataMenu[] = []
-    let department: DataMenu | null | undefined
 
-    if (departmentId) {
-      department = this.departments.find((x) => x.id === departmentId)
-    } else {
-      department = this.departmentActive
+    if (this.departmentActive?.menu?.length) {
+      return this.departmentActive?.menu
     }
 
-    if (department?.menu?.length) {
-      categories = department.menu
-    }
+    this.departments.forEach((department: any) => {
+      if (department?.menu?.length) {
+        categories = categories.concat(department.menu)
+      }
+    })
 
     return categories
   }
