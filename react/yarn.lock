@@ -1574,6 +1574,13 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
+"@types/papaparse@^5.2.4":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@types/papaparse/-/papaparse-5.3.1.tgz#fb5c613a64473c33b08fb9bc2a5ddbf25e54784e"
+  integrity sha512-1lbngk9wty2kCyQB42LjqSa12SEop3t9wcEC7/xYr3ujTSTmv7HWKjKYXly0GkMfQ42PRb2lFPFEibDOiMXS0g==
+  dependencies:
+    "@types/node" "*"
+
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -2670,6 +2677,11 @@ expect@^25.5.0:
     jest-matcher-utils "^25.5.0"
     jest-message-util "^25.5.0"
     jest-regex-util "^25.2.6"
+
+export-to-csv@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/export-to-csv/-/export-to-csv-0.2.1.tgz#8f997156feebc1cf995096da16341aa0100cce4e"
+  integrity sha512-KTbrd3CAZ0cFceJEZr1e5uiMasabeCpXq1/5uvVxDl53o4jXJHnltasQoj2NkzrxD8hU9kdwjnMhoir/7nNx/A==
 
 extend-shallow@^2.0.1:
   version "2.0.1"
@@ -4194,6 +4206,11 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
+papaparse@^5.3.0:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.3.1.tgz#770b7a9124d821d4b2132132b7bd7dce7194b5b1"
+  integrity sha512-Dbt2yjLJrCwH2sRqKFFJaN5XgIASO9YOFeFP8rIBRG2Ain8mqk5r1M6DkfvqEVozVcz3r3HaUGw253hA1nLIcA==
+
 parent-module@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parent-module/-/parent-module-1.0.1.tgz#691d2709e78c79fae3a156622452d00762caaaa2"
@@ -4360,6 +4377,14 @@ react-apollo@^3.1.3, react-apollo@^3.1.5:
     "@apollo/react-hoc" "^3.1.5"
     "@apollo/react-hooks" "^3.1.5"
     "@apollo/react-ssr" "^3.1.5"
+
+react-csv-reader@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-csv-reader/-/react-csv-reader-3.4.0.tgz#29fb0659315c69cee56da6ed147ae39f01e526c8"
+  integrity sha512-jQ0V6zdi49trMCIb9EMBfWQMhvJixasSY2uwi+NP0syUwk+RcurD2WwdKxEr5lsAvoY+UoMkqotQii6CG1ST2A==
+  dependencies:
+    "@types/papaparse" "^5.2.4"
+    papaparse "^5.3.0"
 
 react-dom@^16.8.6, react-dom@^16.9.0:
   version "16.14.0"

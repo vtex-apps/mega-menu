@@ -8,6 +8,8 @@ query getMenus {
     display
     enableSty
     order
+    slugRoot
+    slugRelative
     menu {
       id
       name
@@ -17,6 +19,8 @@ query getMenus {
       display
       enableSty
       order
+      slugRoot
+      slugRelative
       menu {
         id
         name
@@ -26,6 +30,8 @@ query getMenus {
         display
         enableSty
         order
+        slugRoot
+        slugRelative
       }
     }
   }

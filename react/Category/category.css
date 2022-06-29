@@ -1,12 +1,12 @@
-.headerBtnCategory {
-  padding: 0 50px;
+.tooltipDownload:hover .tooltiptext {
+  display: block;
 }
 
-.headerBtnCategory button {
-  color: #f71963;
+.tooltiptext {
+  display: none;
+  text-transform: lowercase;
 }
 
-.containerBtnSave button {
-  float: right;
-  color: #f71963;
+#upload:hover svg g {
+  fill: #dce8f7 !important;
 }

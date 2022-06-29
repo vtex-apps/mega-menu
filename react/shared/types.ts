@@ -8,6 +8,22 @@ export type MenuItem = {
   display: boolean
   enableSty: boolean
   order?: number
+  slugRoot?: string
+  slugRelative?: string
+}
+
+export type MenuItemSave = {
+  id: string
+  icon: string
+  name: string
+  slug: string
+  styles: string
+  menu?: MenuItem[] | string
+  display: boolean
+  enableSty: boolean
+  order?: number
+  slugRoot?: string
+  slugRelative?: string
 }
 
 export type MenusResponse = {
@@ -26,7 +42,8 @@ export type DeleteArrayType = {
 export type ShowAlertFunction = (
   show: boolean,
   messageAlert: string,
-  newData: DeleteArrayType
+  newData: DeleteArrayType,
+  type?: string
 ) => void
 
 export type UpdateData = (data: DataMenu[], type: string) => void

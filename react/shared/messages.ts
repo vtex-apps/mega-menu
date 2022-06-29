@@ -81,6 +81,10 @@ export const messagesForm = defineMessages({
     defaultMessage: '',
     id: 'admin/mega-menu.items.tooltip2',
   },
+  tooltip3: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.tooltip3',
+  },
   newItemFirst: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.newItemFirst',
@@ -273,5 +277,24 @@ export const messageThirdLevel = defineMessages({
   deleteItem: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.deleteItem',
+  },
+})
+
+export const MessagesBackupData = defineMessages({
+  download: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.backup.download',
+  },
+  upload: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.backup.upload',
+  },
+  uploadAlert: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.backup.uploadAlert',
+  },
+  duplicateData: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.backup.duplicateData',
   },
 })

@@ -3,6 +3,20 @@
 
 ## [Unreleased]
 
+## [2.6.0] - 2022-03-11
+
+### Added
+- French translation
+
+## [2.4.2] - 2022-02-01
+
+## [2.4.0] - 2022-01-25
+
+## [2.3.0] - 2022-01-19
+
+### Added
+- Added link to category 
+
 ## [2.2.0] - 2021-12-20
 ### Added
 - Added before and after ExtensionPoints in Submenu

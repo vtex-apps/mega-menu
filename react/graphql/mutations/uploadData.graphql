@@ -1,5 +1,5 @@
-mutation create($menuInput: MenuInput!) {
-  createMenu(menuInput: $menuInput) {
+mutation uploadData($uploadData: [MenuInput]!) {
+  uploadMenu(menuData: $uploadData) {
     id
     name
     icon
