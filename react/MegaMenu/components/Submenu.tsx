@@ -26,6 +26,7 @@ const CSS_HANDLES = [
   'seeAllLinkContainer',
   'seeAllLink',
   'submenuContainerTitle',
+  'hideArrow',
 ] as const
 
 const messages = defineMessages({
@@ -51,31 +52,35 @@ const Submenu: FC<ItemProps> = observer((props) => {
 
   const [showBtnCat, setShowBtnCat] = useState(false)
 
-  const seeAllLink = (to: string, level = 1, className?: string) => (
-    <div
-      className={classNames(
-        handles.seeAllLinkContainer,
-        !className && level === 1 && 'bb b--light-gray pv5 ph5 w-100',
-        !className && level > 1 && 'mt4 mb6 t-body',
-        className
-      )}
-    >
-      <Link
-        to={to}
+  const seeAllLink = (to: string, level = 1, className?: string) => {
+    return (
+      <div
         className={classNames(
-          handles.seeAllLink,
-          'link underline fw7 c-on-base'
+          handles.seeAllLinkContainer,
+          !className && level === 1 && 'bb b--light-gray pv5 ph5 w-100',
+          !className && level > 1 && 'mt4 mb6 t-body',
+          className
         )}
-        onClick={() => {
-          if (closeMenu) closeMenu(false)
-        }}
       >
-        {formatIOMessage({ id: messages.seeAllTitle.id, intl })}
-      </Link>
-    </div>
-  )
+        <Link
+          to={to}
+          className={classNames(
+            handles.seeAllLink,
+            'link underline fw7 c-on-base'
+          )}
+          onClick={() => {
+            if (closeMenu) closeMenu(false)
+          }}
+        >
+          {formatIOMessage({ id: messages.seeAllTitle.id, intl })}
+        </Link>
+      </div>
+    )
+  }
 
   const subCategories = (items: MenuItem[]) => {
+    console.info('subcategories ', items)
+
     return items
       .filter((v) => v.display)
       .map((x) => (
@@ -128,7 +133,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
                   collapsibleStates[category.id] ? 'isOpen' : 'isClosed'
                 ),
                 orientation === 'vertical' &&
-                  'c-on-base bb b--light-gray mv0 ph5',
+                'c-on-base bb b--light-gray mv0 ph5',
                 orientation === 'vertical' && i === 0 && 'bt',
                 collapsibleStates[category.id] && 'bg-near-white'
               )}
@@ -155,42 +160,53 @@ const Submenu: FC<ItemProps> = observer((props) => {
                   )}
                 </>
               ) : (
-                <Collapsible
-                  header={
-                    <p
-                      className={classNames(
-                        handles.collapsibleHeaderText,
-                        collapsibleStates[category.id] && 'fw7'
-                      )}
-                    >
-                      {category.name}
-                    </p>
+                <div
+                  className={
+                    category.menu?.length ? '' : classNames(handles.hideArrow)
                   }
-                  align="right"
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onClick={(e: any) =>
-                    setCollapsibleStates({
-                      ...collapsibleStates,
-                      [category.id]: e.target.isOpen,
-                    })
-                  }
-                  isOpen={collapsibleStates[category.id]}
-                  caretColor={`${
-                    collapsibleStates[category.id] ? 'base' : 'muted'
-                  }`}
                 >
-                  {!!subcategories.length && (
-                    <div className={handles.collapsibleContent}>
-                      {subcategories}
-                    </div>
-                  )}
+                  <Collapsible
+                    header={
+                      <p
+                        className={classNames(
+                          handles.collapsibleHeaderText,
+                          collapsibleStates[category.id] && 'fw7'
+                        )}
+                      >
+                        {category.name}
+                      </p>
+                    }
+                    align="right"
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    onClick={(e: any) => {
+                      if (subcategories.length >= 1) {
+                        setCollapsibleStates({
+                          ...collapsibleStates,
+                          [category.id]: e.target.isOpen,
+                        })
+                      } else {
+                        window.location.assign(`${category.slug}`)
+                        if (closeMenu) closeMenu(false)
+                      }
+                    }}
+                    isOpen={collapsibleStates[category.id]}
+                    caretColor={`${collapsibleStates[category.id] ? 'base' : 'muted'
+                      }`}
+                  >
+                    {!!subcategories.length && (
+                      <div className={handles.collapsibleContent}>
+                        {subcategories}
+                      </div>
+                    )}
 
-                  {subcategories.length > 1 ? (
-                    seeAllLink(category.slug, 2)
-                  ) : (
-                    <div />
-                  )}
-                </Collapsible>
+                    {subcategories.length >= 0 ? (
+                      seeAllLink(category.slug, 2)
+                    ) : (
+                      // eslint-disable-next-line jsx-a11y/anchor-has-content
+                      <a href={category.slug} />
+                    )}
+                  </Collapsible>
+                </div>
               )}
             </div>
           )
@@ -234,7 +250,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
             ) : (
               <>
                 {items}
-                {showBtnCat ? seeAllLink(departmentActive.slug) : <div />}
+                {/* showBtnCat ? seeAllLink(departmentActive.slug) : <div /> */}
               </>
             )}
           </div>
