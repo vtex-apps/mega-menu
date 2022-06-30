@@ -26,6 +26,7 @@ const CSS_HANDLES = [
   'seeAllLinkContainer',
   'seeAllLink',
   'submenuContainerTitle',
+  'hideArrow',
 ] as const
 
 const messages = defineMessages({
@@ -78,6 +79,8 @@ const Submenu: FC<ItemProps> = observer((props) => {
   }
 
   const subCategories = (items: MenuItem[]) => {
+    console.info('subcategories ', items)
+
     return items
       .filter((v) => v.display)
       .map((x) => (
@@ -157,48 +160,54 @@ const Submenu: FC<ItemProps> = observer((props) => {
                   )}
                 </>
               ) : (
-                <Collapsible
-                  header={
-                    <p
-                      className={classNames(
-                        handles.collapsibleHeaderText,
-                        collapsibleStates[category.id] && 'fw7'
-                      )}
-                    >
-                      {category.name}
-                    </p>
+                <div
+                  className={
+                    category.menu?.length ? '' : classNames(handles.hideArrow)
                   }
-                  align="right"
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onClick={(e: any) => {
-                    if (subcategories.length >= 1) {
-                      setCollapsibleStates({
-                        ...collapsibleStates,
-                        [category.id]: e.target.isOpen,
-                      })
-                    } else {
-                      window.location.assign(`${category.slug}`)
-                      if (closeMenu) closeMenu(false)
-                    }
-                  }}
-                  isOpen={collapsibleStates[category.id]}
-                  caretColor={`${
-                    collapsibleStates[category.id] ? 'base' : 'muted'
-                  }`}
                 >
-                  {!!subcategories.length && (
-                    <div className={handles.collapsibleContent}>
-                      {subcategories}
-                    </div>
-                  )}
+                  <Collapsible
+                    header={
+                      <p
+                        className={classNames(
+                          handles.collapsibleHeaderText,
+                          collapsibleStates[category.id] && 'fw7'
+                        )}
+                      >
+                        {category.name}
+                      </p>
+                    }
+                    align="right"
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    onClick={(e: any) => {
+                      if (subcategories.length >= 1) {
+                        setCollapsibleStates({
+                          ...collapsibleStates,
+                          [category.id]: e.target.isOpen,
+                        })
+                      } else {
+                        window.location.assign(`${category.slug}`)
+                        if (closeMenu) closeMenu(false)
+                      }
+                    }}
+                    isOpen={collapsibleStates[category.id]}
+                    caretColor={`${
+                      collapsibleStates[category.id] ? 'base' : 'muted'
+                    }`}
+                  >
+                    {!!subcategories.length && (
+                      <div className={handles.collapsibleContent}>
+                        {subcategories}
+                      </div>
+                    )}
 
-                  {subcategories.length >= 0 ? (
-                    seeAllLink(category.slug, 2)
-                  ) : (
-                    // eslint-disable-next-line jsx-a11y/anchor-has-content
-                    <a href={category.slug} />
-                  )}
-                </Collapsible>
+                    {subcategories.length >= 0 ? (
+                      seeAllLink(category.slug, 2)
+                    ) : (
+                      // eslint-disable-next-line jsx-a11y/anchor-has-content
+                      <a href={category.slug} />
+                    )}
+                  </Collapsible>
+                </div>
               )}
             </div>
           )
