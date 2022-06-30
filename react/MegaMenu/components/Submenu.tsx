@@ -133,7 +133,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
                   collapsibleStates[category.id] ? 'isOpen' : 'isClosed'
                 ),
                 orientation === 'vertical' &&
-                  'c-on-base bb b--light-gray mv0 ph5',
+                'c-on-base bb b--light-gray mv0 ph5',
                 orientation === 'vertical' && i === 0 && 'bt',
                 collapsibleStates[category.id] && 'bg-near-white'
               )}
@@ -190,9 +190,8 @@ const Submenu: FC<ItemProps> = observer((props) => {
                       }
                     }}
                     isOpen={collapsibleStates[category.id]}
-                    caretColor={`${
-                      collapsibleStates[category.id] ? 'base' : 'muted'
-                    }`}
+                    caretColor={`${collapsibleStates[category.id] ? 'base' : 'muted'
+                      }`}
                   >
                     {!!subcategories.length && (
                       <div className={handles.collapsibleContent}>
