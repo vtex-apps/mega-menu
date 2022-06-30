@@ -25,3 +25,7 @@
   background: transparent;
   outline: transparent;
 }
+
+.hideArrow svg {
+  display: none;
+}
