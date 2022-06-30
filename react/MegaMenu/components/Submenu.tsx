@@ -51,29 +51,31 @@ const Submenu: FC<ItemProps> = observer((props) => {
 
   const [showBtnCat, setShowBtnCat] = useState(false)
 
-  const seeAllLink = (to: string, level = 1, className?: string) => (
-    <div
-      className={classNames(
-        handles.seeAllLinkContainer,
-        !className && level === 1 && 'bb b--light-gray pv5 ph5 w-100',
-        !className && level > 1 && 'mt4 mb6 t-body',
-        className
-      )}
-    >
-      <Link
-        to={to}
+  const seeAllLink = (to: string, level = 1, className?: string) => {
+    return (
+      <div
         className={classNames(
-          handles.seeAllLink,
-          'link underline fw7 c-on-base'
+          handles.seeAllLinkContainer,
+          !className && level === 1 && 'bb b--light-gray pv5 ph5 w-100',
+          !className && level > 1 && 'mt4 mb6 t-body',
+          className
         )}
-        onClick={() => {
-          if (closeMenu) closeMenu(false)
-        }}
       >
-        {formatIOMessage({ id: messages.seeAllTitle.id, intl })}
-      </Link>
-    </div>
-  )
+        <Link
+          to={to}
+          className={classNames(
+            handles.seeAllLink,
+            'link underline fw7 c-on-base'
+          )}
+          onClick={() => {
+            if (closeMenu) closeMenu(false)
+          }}
+        >
+          {formatIOMessage({ id: messages.seeAllTitle.id, intl })}
+        </Link>
+      </div>
+    )
+  }
 
   const subCategories = (items: MenuItem[]) => {
     return items
@@ -168,12 +170,17 @@ const Submenu: FC<ItemProps> = observer((props) => {
                   }
                   align="right"
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  onClick={(e: any) =>
-                    setCollapsibleStates({
-                      ...collapsibleStates,
-                      [category.id]: e.target.isOpen,
-                    })
-                  }
+                  onClick={(e: any) => {
+                    if (subcategories.length >= 1) {
+                      setCollapsibleStates({
+                        ...collapsibleStates,
+                        [category.id]: e.target.isOpen,
+                      })
+                    } else {
+                      window.location.assign(`${category.slug}`)
+                      if (closeMenu) closeMenu(false)
+                    }
+                  }}
                   isOpen={collapsibleStates[category.id]}
                   caretColor={`${
                     collapsibleStates[category.id] ? 'base' : 'muted'
@@ -185,10 +192,11 @@ const Submenu: FC<ItemProps> = observer((props) => {
                     </div>
                   )}
 
-                  {subcategories.length > 1 ? (
+                  {subcategories.length >= 0 ? (
                     seeAllLink(category.slug, 2)
                   ) : (
-                    <div />
+                    // eslint-disable-next-line jsx-a11y/anchor-has-content
+                    <a href={category.slug} />
                   )}
                 </Collapsible>
               )}
@@ -234,7 +242,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
             ) : (
               <>
                 {items}
-                {showBtnCat ? seeAllLink(departmentActive.slug) : <div />}
+                {/* showBtnCat ? seeAllLink(departmentActive.slug) : <div /> */}
               </>
             )}
           </div>
