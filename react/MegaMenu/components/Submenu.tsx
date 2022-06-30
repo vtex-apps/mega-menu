@@ -79,6 +79,8 @@ const Submenu: FC<ItemProps> = observer((props) => {
   }
 
   const subCategories = (items: MenuItem[]) => {
+    console.info('subcategories ', items)
+
     return items
       .filter((v) => v.display)
       .map((x) => (
