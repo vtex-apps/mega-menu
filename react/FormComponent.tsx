@@ -28,6 +28,7 @@ import GETMENU from './graphql/queries/getMenu.graphql'
 import EDIT from './graphql/mutations/edit.graphql'
 import { IconSelector, messagesForm } from './shared'
 import type { DataMenu, MenuItem } from './shared'
+import BindingSelectorComponent from './Category/Components/BindingSelectorComponent'
 
 const arrowLeft = <IconArrowLeft />
 
@@ -56,6 +57,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   const { navigate } = useRuntime()
 
   const [name, setName] = useState('')
+  const [binding, setBinding] = useState('all')
   const [icon, setIcon] = useState('')
   const [slug, setSlug] = useState('')
   const [slugRoot, setSlugRoot] = useState('')
@@ -142,8 +144,13 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
     if (responseForm.type === 'edit') {
       if (responseForm.level === 'firstLevel') {
-        document.getElementsByClassName('c-muted-2')[0].innerHTML =
-          dataMenu.menu.icon
+        const iconInput = document.querySelector('span.c-muted-2')
+
+        if (iconInput) {
+          iconInput.innerHTML = dataMenu.menu.icon
+        }
+
+        setBinding(dataMenu.menu.binding)
         setDataForm(
           dataMenu.menu.id,
           dataMenu.menu.name,
@@ -355,6 +362,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         editMenu: {
           id: mainMenuLevel.id,
           name: mainMenuLevel.name,
+          binding: mainMenuLevel.binding,
           icon: mainMenuLevel.icon,
           slug: mainMenuLevel.slug,
           styles: mainMenuLevel.styles,
@@ -378,6 +386,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         variables: {
           menuInput: {
             id: name + randomId(),
+            binding,
             name,
             icon,
             slug,
@@ -410,6 +419,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         {
           id: menu.id,
           name: menu.name,
+          binding: menu.binding,
           icon: menu.icon,
           slug: menu.slug,
           styles: menu.styles,
@@ -457,6 +467,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         {
           id: menu.id,
           name: menu.name,
+          binding: menu.binding,
           icon: menu.icon,
           slug: menu.slug,
           styles: menu.styles,
@@ -494,6 +505,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
     if (responseForm.level === 'firstLevel') {
       const menuLevelTwo = menu.menu
+
       const menuLevelTwoUpdate: MenuItem[] = []
 
       if (menuLevelTwo?.length) {
@@ -566,7 +578,17 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
       }
 
       insertSubMenu(
-        { id: idMenu, name, icon, slug, styles, display, enableSty, order },
+        {
+          id: idMenu,
+          name,
+          binding,
+          icon,
+          slug,
+          styles,
+          display,
+          enableSty,
+          order,
+        },
         menuLevelTwoUpdate
       )
 
@@ -630,6 +652,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         {
           id: menu.id,
           name: menu.name,
+          binding: menu.binding,
           icon: menu.icon,
           slug: menu.slug,
           slugRoot: menu.slugRoot,
@@ -676,6 +699,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         {
           id: menu.id,
           name: menu.name,
+          binding: menu.binding,
           icon: menu.icon,
           slug: menu.slug,
           slugRoot: menu.slugRoot,
@@ -802,6 +826,14 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
               <p>{messageTranslate('infoForm')}</p>
               <div>
                 <div className="w-100 ml4 mr4">
+                  {responseForm.level === 'firstLevel' && (
+                    <div className="mb5">
+                      <BindingSelectorComponent
+                        selectedBinding={binding}
+                        onBindingChange={setBinding}
+                      />
+                    </div>
+                  )}
                   <div className="mb5">
                     <Input
                       placeholder=""

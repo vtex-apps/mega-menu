@@ -58,7 +58,11 @@ const replaceStyles = (menuStyle: Menu[]) => {
   })
 }
 
-export const menus = async (_: unknown, __: unknown, ctx: Context) => {
+export const menus = async (
+  _: unknown,
+  { bindingId }: { bindingId: string },
+  ctx: Context
+) => {
   const {
     clients: { vbase },
   } = ctx
@@ -76,6 +80,14 @@ export const menus = async (_: unknown, __: unknown, ctx: Context) => {
     } else {
       throw err
     }
+  }
+
+  // We return items from the requested binding, with 'All' bindings, or without any binding
+  if (bindingId) {
+    menuItems = menuItems.filter(
+      (item) =>
+        item.binding === 'all' || item.binding === bindingId || !item.binding
+    )
   }
 
   replaceStyles(menuItems)

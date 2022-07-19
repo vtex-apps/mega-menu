@@ -4,6 +4,7 @@ export interface Menu {
   icon: string
   slug: string
   styles: string
+  binding?: string
   menu: Menu[]
   display: boolean
   enableSty: boolean

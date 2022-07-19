@@ -4,6 +4,7 @@ export type MenuItem = {
   name: string
   slug: string
   styles: string
+  binding?: string
   menu?: MenuItem[]
   display: boolean
   enableSty: boolean
@@ -18,6 +19,7 @@ export type MenuItemSave = {
   name: string
   slug: string
   styles: string
+  binding?: string
   menu?: MenuItem[] | string
   display: boolean
   enableSty: boolean
@@ -49,6 +51,8 @@ export type ShowAlertFunction = (
 export type UpdateData = (data: DataMenu[], type: string) => void
 
 export type ResponseFilterFunction = (filterArray: DataMenu[]) => void
+
+export type BindingChangeFunction = (bindingId: string) => void
 
 export type Orientation = 'vertical' | 'horizontal'
 export interface GlobalConfig {

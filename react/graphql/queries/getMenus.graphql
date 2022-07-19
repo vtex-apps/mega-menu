@@ -1,9 +1,10 @@
-query getMenus {
-  menus {
+query getMenus($bindingId: ID) {
+  menus(bindingId: $bindingId) {
     id
     name
     icon
     slug
+    binding
     styles
     display
     enableSty

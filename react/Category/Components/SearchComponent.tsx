@@ -10,29 +10,33 @@ interface SearchComponentProps {
   responseFilter: ResponseFilterFunction
 }
 
-const SearchComponent: FC<SearchComponentProps> = (props) => {
+const SearchComponent: FC<SearchComponentProps> = ({
+  dataItems,
+  responseFilter,
+  placeholder,
+}) => {
   const [valueSearch, setValueSearch] = useState('')
 
-  const filterItems = (e: { target: HTMLInputElement }) => {
+  const handleInputChange = (e: { target: HTMLInputElement }) => {
     const { value } = e.target
 
-    setValueSearch(value)
     const menuFilter: DataMenu[] = value
-      ? props.dataItems.filter((dataMenu: DataMenu) =>
+      ? dataItems.filter((dataMenu: DataMenu) =>
           dataMenu.name.toUpperCase().includes(value.toUpperCase())
         )
-      : []
+      : dataItems
 
-    props.responseFilter(menuFilter)
+    responseFilter(menuFilter)
+    setValueSearch(value)
   }
 
   return (
     <div>
       <InputSearch
-        placeholder={props.placeholder}
+        placeholder={placeholder}
         value={valueSearch}
         size="regular"
-        onChange={filterItems}
+        onChange={handleInputChange}
       />
     </div>
   )

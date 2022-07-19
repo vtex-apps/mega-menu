@@ -33,6 +33,10 @@ export const messagesForm = defineMessages({
     defaultMessage: '',
     id: 'admin/mega-menu.items.input4Form',
   },
+  input5Form: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.input5Form',
+  },
   titleSubBlock: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.titleSubBlock',
