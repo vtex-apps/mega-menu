@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { Table, ButtonWithIcon, Spinner, ModalDialog } from 'vtex.styleguide'
