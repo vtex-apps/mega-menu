@@ -101,21 +101,26 @@ export const createMenu = async (
 ) => {
   let menuItems: Menu[] = []
 
-  try {
-    menuItems = await vbase.getJSON<Menu[]>('menu', 'menuItems')
-  } catch (err) {
-    const errStr = err.toString()
+  // eslint-disable-next-line vtex/prefer-early-return
+  if (menuInput.id) {
+    try {
+      menuItems = await vbase.getJSON<Menu[]>('menu', 'menuItems')
+    } catch (err) {
+      const errStr = err.toString()
 
-    if (errStr !== 'Error: Request failed with status code 404') {
-      throw err
+      if (errStr !== 'Error: Request failed with status code 404') {
+        throw err
+      }
     }
+
+    menuInput.order = menuItems.length + 1
+
+    return vbase
+      .saveJSON('menu', 'menuItems', [...menuItems, menuInput])
+      .then(() => menuInput)
   }
 
-  menuInput.order = menuItems.length + 1
-
-  return vbase
-    .saveJSON('menu', 'menuItems', [...menuItems, menuInput])
-    .then(() => menuInput)
+  return 'Error creating the item'
 }
 
 export const uploadMenu = async (
@@ -155,7 +160,19 @@ export const deleteMenu = async (
   const menuDelete = await vbase.getJSON<Menu[]>('menu', 'menuItems')
   let deleteArray: Menu[] = []
 
-  if (id && !idSecond && !idThird) {
+  if (!id && !idSecond && !idThird) {
+    deleteArray = menuDelete.filter(
+      (itemArray: Menu) =>
+        itemArray.id !== '' &&
+        itemArray.id !== undefined &&
+        itemArray.id !== null
+    )
+    const sortnewArray = deleteArray.sort((a, b) => a.order - b.order)
+    let count = 1
+
+    sortnewArray.map((as) => (as.order = count++))
+    deleteArray = sortnewArray
+  } else if (id && !idSecond && !idThird) {
     deleteArray = menuDelete.filter((itemArray: Menu) => itemArray.id !== id)
     const getMenuOrder = menuDelete.filter(
       (menuOrder: Menu) => menuOrder.id === id

@@ -1001,9 +1001,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           label: btnSave,
           onClick: () => {
             if (!name) {
-              setMessage(messageTranslate('validateName'))
+              setMessageName(messageTranslate('validateName'))
             } else if (!slug) {
-              setMessage(messageTranslate('validateSlug'))
+              setMessageSlug(messageTranslate('validateSlug'))
             } else if (responseForm.type === 'edit') {
               editItem()
             } else {
