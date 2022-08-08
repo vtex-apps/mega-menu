@@ -3,6 +3,12 @@
 
 ## [Unreleased]
 
+### Added
+- Binding selector for the first level menu items and query by bindingId
+
+### Fixed
+- Search bug returning all items on first level when no matching
+
 ## [2.6.0] - 2022-03-11
 
 ### Added

@@ -2,6 +2,7 @@ mutation create($menuInput: MenuInput!) {
   createMenu(menuInput: $menuInput) {
     id
     name
+    binding
     icon
     slug
     styles

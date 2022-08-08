@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useQuery } from 'react-apollo'
 import { useDevice } from 'vtex.device-detector'
+import { useRuntime } from 'vtex.render-runtime'
 
 import GET_MENUS from '../graphql/queries/getMenus.graphql'
 import type { GlobalConfig, MenusResponse, Orientation } from '../shared'
@@ -10,8 +11,13 @@ import { megaMenuState } from './State'
 
 const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
   const { orientation } = props
+  const { binding } = useRuntime()
+
   const { data } = useQuery<MenusResponse>(GET_MENUS, {
     fetchPolicy: 'no-cache',
+    variables: {
+      bindingId: binding?.id,
+    },
   })
 
   const { setDepartments, setConfig } = megaMenuState

@@ -1,5 +1,5 @@
 type Query {
-  menus: [Menu]
+  menus(bindingId: ID): [Menu]
   menu(id: ID!): Menu
 }
 

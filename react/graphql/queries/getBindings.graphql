@@ -1,0 +1,8 @@
+query getBindings {
+  tenantInfo @context(provider: "vtex.tenant-graphql") {
+    bindings {
+      id
+      canonicalBaseAddress
+    }
+  }
+}

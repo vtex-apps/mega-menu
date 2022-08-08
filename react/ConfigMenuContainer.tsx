@@ -45,12 +45,10 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
     fetchPolicy: 'no-cache',
   })
 
-  const typeArraData: DataMenu[] = []
   const typeDataItems: TypeDataItems = { menus: [] }
   const [alert, setAlert] = useState(false)
   const [message, setMessage] = useState('')
   const [typeModal, setTypeModal] = useState('success')
-  const [dataMenuArray, setDataMenuArr] = useState(typeArraData)
   const [dataItems, setDataItems] = useState(typeDataItems)
   const [loadingData, setLoadingData] = useState(true)
 
@@ -88,20 +86,18 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
     localStorage.removeItem('idFirstLevel')
   }
 
-  const updateData = useCallback((dataMenuArr: DataMenu[], type: string) => {
-    if (type === 'search') setDataMenuArr(dataMenuArr)
-    else setDataItems({ menus: dataMenuArr })
+  const updateData = useCallback((dataMenuArr: DataMenu[]) => {
+    setDataItems({ menus: dataMenuArr })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const dataMenuCtx = useMemo(
     () => ({
-      dataMenu:
-        dataMenuArray.length > 0 ? dataMenuArray : dataItems?.menus || [],
+      dataMenu: dataItems?.menus || [],
       showAlert,
       updateData,
       loading: loadingData,
     }),
-    [dataItems, dataMenuArray, showAlert, updateData, loadingData]
+    [dataItems, showAlert, updateData, loadingData]
   )
 
   return (
