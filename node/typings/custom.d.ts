@@ -10,12 +10,23 @@ export interface Menu {
   order: number
   slugRoot?: string
   slugRelative?: string
+  mobile?: boolean
+  desktop?: boolean
 }
+
+export interface Settings {
+  idMenu: string
+  orientation: string
+}
+
 interface Args {
   menuInput: Menu
 }
 interface ArgsUpload {
   menuData: [Menu]
+}
+interface ArgsSettings {
+  settingsInput: Settings
 }
 
 export type Maybe<T> = T | void

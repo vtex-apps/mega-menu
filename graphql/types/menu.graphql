@@ -10,6 +10,8 @@ type Menu {
   order: Int
   slugRoot: String
   slugRelative: String
+  mobile: Boolean
+  desktop: Boolean
 }
 
 input MenuInput {
@@ -26,4 +28,6 @@ input MenuInput {
   secondLevel: String
   slugRoot: String
   slugRelative: String
+  mobile: Boolean
+  desktop: Boolean
 }

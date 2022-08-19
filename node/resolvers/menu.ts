@@ -58,7 +58,38 @@ const replaceStyles = (menuStyle: Menu[]) => {
   })
 }
 
-export const menus = async (_: unknown, __: unknown, ctx: Context) => {
+const filterDataDevice = (key: string, menuItems: Menu[]) => {
+  let dataToFilter = [...menuItems]
+
+  dataToFilter = dataToFilter.filter(
+    (item) =>
+      item[key as keyof Menu] === true || item[key as keyof Menu] === null
+  )
+
+  dataToFilter.forEach((subitem) => {
+    subitem.menu = subitem.menu.filter(
+      (sub) =>
+        sub[key as keyof Menu] === true || sub[key as keyof Menu] === null
+    )
+    subitem.menu.forEach((thrditem) => {
+      thrditem.menu &&
+        (thrditem.menu = thrditem.menu.filter(
+          (thrd) =>
+            thrd[key as keyof Menu] === true || thrd[key as keyof Menu] === null
+        ))
+    })
+  })
+
+  if (!dataToFilter.length) dataToFilter = [...menuItems]
+
+  return dataToFilter
+}
+
+export const menus = async (
+  _: unknown,
+  { isMobile }: { isMobile: boolean },
+  ctx: Context
+) => {
   const {
     clients: { vbase },
   } = ctx
@@ -79,8 +110,14 @@ export const menus = async (_: unknown, __: unknown, ctx: Context) => {
   }
 
   replaceStyles(menuItems)
+  orderArray(menuItems)
 
-  return orderArray(menuItems)
+  if (isMobile !== undefined) {
+    if (isMobile) menuItems = filterDataDevice('mobile', menuItems)
+    else menuItems = filterDataDevice('desktop', menuItems)
+  }
+
+  return menuItems
 }
 
 export const menu = async (

@@ -10,5 +10,7 @@ mutation create($menuInput: MenuInput!) {
     order
     slugRoot
     slugRelative
+    mobile
+    desktop
   }
 }

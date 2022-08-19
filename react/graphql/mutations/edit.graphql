@@ -21,6 +21,8 @@ mutation edit($editMenu: MenuInput!) {
       order
       slugRoot
       slugRelative
+      mobile
+      desktop
       menu {
         id
         name
@@ -32,7 +34,11 @@ mutation edit($editMenu: MenuInput!) {
         order
         slugRoot
         slugRelative
+        mobile
+        desktop
       }
     }
+    mobile
+    desktop
   }
 }

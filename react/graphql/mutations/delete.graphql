@@ -10,6 +10,7 @@ mutation delete($id: String, $idSecond: String, $idThird: String) {
     order
     slugRoot
     slugRelative
+    mobile
     menu {
       id
       name
@@ -21,6 +22,7 @@ mutation delete($id: String, $idSecond: String, $idThird: String) {
       order
       slugRoot
       slugRelative
+      mobile
       menu {
         id
         name
@@ -32,6 +34,7 @@ mutation delete($id: String, $idSecond: String, $idThird: String) {
         order
         slugRoot
         slugRelative
+        mobile
       }
     }
   }

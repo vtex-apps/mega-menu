@@ -1,0 +1,9 @@
+type Settings {
+  idMenu: ID!
+  orientation: String
+}
+
+input SettingsInput {
+  idMenu: ID!
+  orientation: String
+}

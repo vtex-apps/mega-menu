@@ -1,9 +1,22 @@
 /* eslint-disable prettier/prettier */
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-import { Table, ButtonWithIcon, Spinner, ModalDialog } from 'vtex.styleguide'
+import {
+  Table,
+  ButtonWithIcon,
+  Spinner,
+  ModalDialog,
+  EmptyState,
+} from 'vtex.styleguide'
 import { useMutation } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
+import {
+  FaMobileAlt,
+  FaDesktop,
+  FaEye,
+  FaEyeSlash,
+  FaCode,
+} from 'react-icons/fa'
 
 import IconEdit from '../../icons/IconEdit'
 import IconDelete from '../../icons/IconDelete'
@@ -99,6 +112,8 @@ const TableComponent: FC<TableComponentProps> = (props) => {
               display: dataChangeItem.display,
               enableSty: dataChangeItem.enableSty,
               order: dataChangeItem.order,
+              mobile: dataChangeItem.mobile ?? true,
+              desktop: dataChangeItem.desktop ?? true,
             },
           },
         })
@@ -184,165 +199,92 @@ const TableComponent: FC<TableComponentProps> = (props) => {
     })
   }
 
-  const dataToEdit = (menuEdit: DataMenu) => {
-    return {
-      id: menuEdit.id,
-      name: menuEdit.name,
-      icon: menuEdit.icon,
-      slug: menuEdit.slug,
-      styles: menuEdit.styles,
-      menu: menuEdit.menu,
-      display: menuEdit.display,
-      enableSty: menuEdit.enableSty,
-      order: menuEdit.order,
+  const filtermove = (id: string, order: number, type: string) => {
+    const arrayMove = [...props.dataMenu]
+    let dataTempEdit: MenuItem = {} as MenuItem
+    let dataChange: MenuItem = {} as MenuItem
+
+    for (const i in arrayMove) {
+      if (arrayMove[i].id === id) {
+        const index: number =
+          type === 'up' ? parseInt(i, 10) - 1 : parseInt(i, 10) + 1
+
+        arrayMove[i] = {
+          ...arrayMove[i],
+          order: type === 'up' ? order - 1 : order + 1,
+        }
+        arrayMove[index] = { ...arrayMove[index], order }
+        dataTempEdit = arrayMove[i]
+        dataChange = arrayMove[index]
+      }
     }
+
+    return { dataTempEdit, dataChange }
   }
 
   const move = (id: string, order: number, typeMove: string) => {
-    const arrayMove = props.dataMenu
-    let dataTempEdit: MenuItem = defaultcontent
-    const mainMegaMenu: DataMenu[] = props.mainData
-    let getValueOrder = 0
-    let indexorder = 0
+    const { dataTempEdit, dataChange } = filtermove(id, order, typeMove)
+    let dataNew = {} as DataMenu
 
-    for (let i = 0; i < arrayMove.length; i++) {
-      if (arrayMove[i].id === id) {
-        if (arrayMove[i].order) {
-          getValueOrder = arrayMove[i].order ?? 0
-        }
+    if (props.level === 'thirdLevel') {
+      let subArray = [...props.dataMenu]
 
-        switch (typeMove) {
-          case 'up':
-            if (props.level === 'secondLevel') {
-              if (mainMegaMenu[0].menu) {
-                mainMegaMenu[0].menu.forEach((mn: DataMenu) => {
-                  if (mn.id === arrayMove[i].id) {
-                    mn.order = order - 1
-                  } else if (mn.id === arrayMove[i - 1].id) {
-                    mn.order = order
-                  }
+      subArray = subArray.map((item) => {
+        if (item.id === dataTempEdit.id) item = dataTempEdit
+        if (item.id === dataChange.id) item = dataChange
 
-                  delete mn.firstLevel
-                })
+        return item
+      })
 
-                dataTempEdit = dataToEdit(mainMegaMenu[0])
-              }
-            } else if (props.level === 'thirdLevel') {
-              const tempDataMainLvl1 = mainMegaMenu.filter(
-                (l1: MenuItem) => l1.id === props.idLevels?.idFirstlvl
-              )
+      const idFirstlvl = props.idLevels ? props.idLevels.idFirstlvl : ''
+      const idSecondlvl = props.idLevels ? props.idLevels.idSecondlvl : ''
+      const mainMegaMenu: DataMenu[] = [...props.mainData]
 
-              const tempDataMainLvl2 = tempDataMainLvl1[0].menu
-                ? tempDataMainLvl1[0].menu.filter(
-                    (l2: MenuItem) => l2.id === props.idLevels?.idSecondlvl
-                  )
-                : []
+      let dataFirstLevel = mainMegaMenu.find((item) => item.id === idFirstlvl)
 
-              if (tempDataMainLvl2[0].menu) {
-                tempDataMainLvl2[0].menu.forEach((mn: DataMenu) => {
-                  if (mn.id === arrayMove[i].id) {
-                    mn.order = order - 1
-                  } else if (mn.id === arrayMove[i - 1].id) {
-                    mn.order = order
-                  }
+      if (dataFirstLevel?.menu) {
+        const dataSecondLevel = dataFirstLevel.menu.map((item) => {
+          if (item.id === idSecondlvl) item.menu = subArray
 
-                  delete mn.firstLevel
-                  delete mn.secondLevel
-                })
-              }
+          return item
+        })
 
-              dataTempEdit = dataToEdit(tempDataMainLvl1[0])
-            } else {
-              arrayMove[i].order = getValueOrder - 1
-              delete arrayMove[i].firstLevel
-              dataTempEdit = dataToEdit(arrayMove[i])
-            }
-
-            indexorder = i - 1
-
-            break
-
-          case 'down':
-            if (props.level === 'secondLevel') {
-              if (mainMegaMenu[0].menu) {
-                mainMegaMenu[0].menu.forEach((mn: DataMenu) => {
-                  if (mn.id === arrayMove[i].id) {
-                    mn.order = order + 1
-                  } else if (mn.id === arrayMove[i + 1].id) {
-                    mn.order = order
-                  }
-
-                  delete mn.firstLevel
-                })
-
-                dataTempEdit = dataToEdit(mainMegaMenu[0])
-              }
-            } else if (props.level === 'thirdLevel') {
-              const tempDataMainLvl1 = mainMegaMenu.filter(
-                (l1: MenuItem) => l1.id === props.idLevels?.idFirstlvl
-              )
-
-              const tempDataMainLvl2 = tempDataMainLvl1[0].menu
-                ? tempDataMainLvl1[0].menu.filter(
-                    (l2: MenuItem) => l2.id === props.idLevels?.idSecondlvl
-                  )
-                : []
-
-              if (tempDataMainLvl2[0].menu) {
-                tempDataMainLvl2[0].menu.forEach((mn: DataMenu) => {
-                  if (mn.id === arrayMove[i].id) {
-                    mn.order = order + 1
-                  } else if (mn.id === arrayMove[i + 1].id) {
-                    mn.order = order
-                  }
-
-                  delete mn.firstLevel
-                  delete mn.secondLevel
-                })
-              }
-
-              dataTempEdit = dataToEdit(tempDataMainLvl1[0])
-            } else {
-              arrayMove[i].order = getValueOrder + 1
-              delete arrayMove[i].firstLevel
-              dataTempEdit = dataToEdit(arrayMove[i])
-            }
-
-            indexorder = i + 1
-            break
-
-          default:
-            break
-        }
-
-        if (props.level === 'firstLevel') {
-          setDataChangeItem({
-            id: arrayMove[indexorder].id,
-            name: arrayMove[indexorder].name,
-            icon: arrayMove[indexorder].icon,
-            slug: arrayMove[indexorder].slug,
-            styles: arrayMove[indexorder].styles,
-            menu: arrayMove[indexorder].menu,
-            display: arrayMove[indexorder].display,
-            enableSty: arrayMove[indexorder].enableSty,
-            order,
-          })
-        }
+        dataFirstLevel = { ...dataFirstLevel, menu: dataSecondLevel }
+        dataNew = dataFirstLevel
       }
+    } else if (props.level === 'secondLevel') {
+      let mainMegaMenu = { ...props.mainData[0] }
+      let subArray = [...props.dataMenu]
+
+      subArray = subArray.map((item) => {
+        if (item.id === dataTempEdit.id) item = dataTempEdit
+        if (item.id === dataChange.id) item = dataChange
+
+        return item
+      })
+
+      mainMegaMenu = { ...mainMegaMenu, menu: subArray }
+
+      dataNew = mainMegaMenu
+    } else {
+      setDataChangeItem(dataChange)
+      dataNew = dataTempEdit
     }
 
     menuInput({
       variables: {
         editMenu: {
-          id: dataTempEdit.id,
-          name: dataTempEdit.name,
-          icon: dataTempEdit.icon,
-          slug: dataTempEdit.slug,
-          styles: dataTempEdit.styles,
-          menu: dataTempEdit.menu,
-          display: dataTempEdit.display,
-          enableSty: dataTempEdit.enableSty,
-          order: dataTempEdit.order,
+          id: dataNew.id,
+          name: dataNew.name,
+          icon: dataNew.icon,
+          slug: dataNew.slug,
+          styles: dataNew.styles,
+          menu: dataNew.menu,
+          display: dataNew.display,
+          enableSty: dataNew.enableSty,
+          order: dataNew.order,
+          mobile: dataNew.mobile ?? true,
+          desktop: dataNew.desktop ?? true,
         },
       },
     })
@@ -403,15 +345,37 @@ const TableComponent: FC<TableComponentProps> = (props) => {
     properties: {
       name: {
         title: props.titleColumn.name,
-        width: 420,
+        width: 400,
       },
       slug: {
         title: props.titleColumn.slug,
-        width: 420,
+        width: 400,
       },
       icon: {
         title: props.titleColumn.icon,
         width: 400,
+      },
+      visibility: {
+        title: 'Visibility',
+        width: 370,
+        cellRenderer: (e: TableItem) => {
+          return (
+            <div className="flex" style={{ gap: '10px' }}>
+              {(e.rowData.mobile || e.rowData.mobile === null) && (
+                <FaMobileAlt color="0C389F" size={20} />
+              )}
+              {(e.rowData.desktop || e.rowData.desktop === null) && (
+                <FaDesktop color="0C389F" size={20} />
+              )}
+              {e.rowData.display ? (
+                <FaEye color="0C389F" size={20} />
+              ) : (
+                <FaEyeSlash color="0C389F" size={20} />
+              )}
+              {e.rowData.enableSty && <FaCode color="0C389F" size={20} />}
+            </div>
+          )
+        },
       },
       actions: {
         title: props.titleColumn.action,
@@ -452,8 +416,16 @@ const TableComponent: FC<TableComponentProps> = (props) => {
           <Spinner />
           <p>{props.titleColumn.loading}</p>
         </div>
-      ) : (
+      ) : props.dataMenu.length > 0 ? (
         <Table schema={customSchema} items={props.dataMenu} />
+      ) : (
+        <div className="mt9">
+          <EmptyState title="No items to show">
+            <p>
+              Add a new item to create your mega menu and view it on the store
+            </p>
+          </EmptyState>
+        </div>
       )}
     </div>
   )
