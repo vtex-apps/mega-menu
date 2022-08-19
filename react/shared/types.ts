@@ -10,6 +10,8 @@ export type MenuItem = {
   order?: number
   slugRoot?: string
   slugRelative?: string
+  mobile?: boolean
+  desktop?: boolean
 }
 
 export type MenuItemSave = {
@@ -24,6 +26,8 @@ export type MenuItemSave = {
   order?: number
   slugRoot?: string
   slugRelative?: string
+  mobile?: boolean
+  desktop?: boolean
 }
 
 export type MenusResponse = {
@@ -55,6 +59,7 @@ export interface GlobalConfig {
   title?: string
   orientation?: Orientation
   defaultDepartmentActive?: string
+  openOnly?: string
 }
 
 export interface IconProps {
@@ -64,4 +69,14 @@ export interface IconProps {
   viewBox?: string
   activeClassName?: string
   mutedClassName?: string
+  Drawer?: any
+}
+
+export interface SettingsType {
+  settings: [
+    {
+      idMenu: string
+      orientation: string
+    }
+  ]
 }

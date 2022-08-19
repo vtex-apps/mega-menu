@@ -8,6 +8,8 @@ query getMenu($id: ID!) {
     display
     enableSty
     order
+    mobile
+    desktop
     menu {
       id
       name
@@ -19,6 +21,8 @@ query getMenu($id: ID!) {
       order
       slugRoot
       slugRelative
+      mobile
+      desktop
       menu {
         id
         name
@@ -30,6 +34,8 @@ query getMenu($id: ID!) {
         order
         slugRoot
         slugRelative
+        mobile
+        desktop
       }
     }
   }

@@ -96,6 +96,7 @@ const CategoryContainer: FC<InjectedIntlProps & PropsCategory> = (props) => {
           item.styles = item.styles.replace(/[{}"]/g, '')
         }
       })
+
       const csvExporter = new ExportToCsv(options)
 
       csvExporter.generateCsv(dataToSave)
@@ -107,7 +108,7 @@ const CategoryContainer: FC<InjectedIntlProps & PropsCategory> = (props) => {
   return (
     <div className="flex">
       <div className="mr3">
-        {showButtonDownload ? (
+        {showButtonDownload && (
           <div className={styles.tooltipDownload}>
             <ButtonWithIcon
               icon={<IconDownload />}
@@ -122,8 +123,6 @@ const CategoryContainer: FC<InjectedIntlProps & PropsCategory> = (props) => {
               </span>
             </ButtonWithIcon>
           </div>
-        ) : (
-          <div />
         )}
       </div>
       <div>
@@ -149,12 +148,10 @@ const CategoryContainer: FC<InjectedIntlProps & PropsCategory> = (props) => {
                       icon: x[2],
                       slug: x[3],
                       styles: x[4],
-                      menu: x[10] === '' ? [] : JSON.parse(x[10]),
-                      // eslint-disable-next-line no-unneeded-ternary
-                      display: x[5] === 'TRUE' ? true : false,
-                      // eslint-disable-next-line no-unneeded-ternary
-                      enableSty: x[6] === 'TRUE' ? true : false,
+                      display: x[5] === 'TRUE',
+                      enableSty: x[6] === 'TRUE',
                       order: parseInt(x[7], 10),
+                      menu: x[10] === '' ? [] : JSON.parse(x[10]),
                     })
                   } else {
                     allowSave = false

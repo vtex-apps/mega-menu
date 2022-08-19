@@ -21,7 +21,12 @@ const CSS_HANDLES = [
   'submenuContainer',
 ] as const
 
-const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
+const HorizontalMenu: FC<
+  InjectedIntlProps & {
+    openOnly: string
+    orientation: string
+  }
+> = observer((props) => {
   const { handles } = useCssHandles(CSS_HANDLES)
   const {
     isOpenMenu,
@@ -31,6 +36,8 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
     setDepartmentActive,
     openMenu,
   } = megaMenuState
+
+  const { openOnly, orientation, intl } = props
 
   const departmentActiveHasCategories = !!departmentActive?.menu?.length
   const navRef = useRef<HTMLDivElement>(null)
@@ -131,7 +138,7 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
     return blocks
   }, [])
 
-  return isOpenMenu ? (
+  return isOpenMenu && openOnly === orientation ? (
     <nav
       className={classNames(
         handles.menuContainerNav,
@@ -160,7 +167,7 @@ const HorizontalMenu: FC<InjectedIntlProps> = observer(({ intl }) => {
         departmentActive &&
         departmentActiveHasCategories && (
           <div className={classNames(styles.submenuContainer, 'pa5 w-100')}>
-            <Submenu closeMenu={openMenu} />
+            <Submenu closeMenu={openMenu ?? 'horizontal'} openOnly={openOnly} />
           </div>
         )
       ) : (

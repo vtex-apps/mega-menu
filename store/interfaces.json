@@ -1,7 +1,7 @@
 {
   "mega-menu": {
     "component": "MegaMenu",
-    "allowed": ["before-menu", "after-menu"]
+    "allowed": ["before-menu", "after-menu", "drawer"]
   },
   "before-menu": {
     "component": "Extension",
@@ -17,6 +17,8 @@
     "component": "GoBackButton"
   },
   "mega-menu-trigger-btn": {
-    "component": "TriggerButton"
+    "component": "TriggerButton",
+    "composition": "children",
+    "render": "client"
   }
 }

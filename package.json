@@ -37,5 +37,7 @@
     "prettier": "^2.2.0",
     "typescript": "^3.9.6"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/react": "^18.0.17"
+  }
 }

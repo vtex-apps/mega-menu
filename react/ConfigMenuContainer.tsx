@@ -6,11 +6,13 @@ import { useQuery } from 'react-apollo'
 import type { InjectedIntlProps } from 'react-intl'
 import { defineMessages, injectIntl } from 'react-intl'
 import { formatIOMessage } from 'vtex.native-types'
+import { FaCog } from 'react-icons/fa'
 
 import FirsLevelContainer from './Category/FirstLevelContainer'
 import SecondLevelContainer from './Category/SecondLevelContainer'
 import ThirdLevelContainer from './Category/ThirdLevelContainer'
 import CategoryContainer from './Category/CategoryContainer'
+import SettingsMenu from './Category/SettingsMenu'
 import GET_MENUS from './graphql/queries/getMenus.graphql'
 import { DataMenuProvider } from './shared'
 import type { DataMenu, DeleteArrayType } from './shared'
@@ -53,6 +55,7 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
   const [dataMenuArray, setDataMenuArr] = useState(typeArraData)
   const [dataItems, setDataItems] = useState(typeDataItems)
   const [loadingData, setLoadingData] = useState(true)
+  const [showSettings, setShowSettings] = useState(false)
 
   const url = window.location.href.slice(-1)
 
@@ -123,11 +126,25 @@ const ConfigMenuContainer: FC<InjectedIntlProps> = ({ intl }) => {
           }
           fullWidth
         >
+          {showSettings && (
+            <SettingsMenu
+              showSettings={showSettings}
+              setShowSettings={setShowSettings}
+            />
+          )}
           <div className={styles.btnSettings}>
             <CategoryContainer
               setDataItems={setDataItems}
               showAlert={showAlert}
               dataMenu={dataItems}
+            />
+          </div>
+          <div className="flex justify-end mt5">
+            <FaCog
+              size={25}
+              color="0C389F"
+              cursor="pointer"
+              onClick={() => setShowSettings(!showSettings)}
             />
           </div>
           <Tabs>
