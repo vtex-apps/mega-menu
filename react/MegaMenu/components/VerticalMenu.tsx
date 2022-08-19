@@ -82,8 +82,7 @@ const VerticalMenu: FC<VerticalMenuProps> = observer((props) => {
     [departments]
   )
 
-  return (isOpenMenu && openOnly === orientation) ||
-    (isMobile && isOpenMenu) ? (
+  return (isOpenMenu && openOnly === orientation) || isMobile ? (
     <nav className={classNames(handles.menuContainerNavVertical, 'w-100')}>
       <div
         className={classNames(handles.departmentsContainer, {
