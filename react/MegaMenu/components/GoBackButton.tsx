@@ -1,13 +1,15 @@
 import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
 import type { FC } from 'react'
-import React from 'react'
+import { useQuery } from 'react-apollo'
+import React, { useState, useEffect } from 'react'
 import type { InjectedIntlProps } from 'react-intl'
 import { defineMessages, injectIntl } from 'react-intl'
 import { useCssHandles } from 'vtex.css-handles'
 import { formatIOMessage } from 'vtex.native-types'
 import { IconCaret } from 'vtex.store-icons'
 
+import GET_SETTINGS from '../../graphql/queries/getSettings.graphql'
 import { megaMenuState } from '../State'
 
 const messages = defineMessages({
@@ -36,7 +38,24 @@ const GoBackButton: FC<InjectedIntlProps> = observer(({ intl }) => {
     setDepartmentActive(null)
   }
 
-  return orientation === 'vertical' && departmentActive ? (
+  const [orientationMenu, setOrientationMenu] = useState('')
+
+  const { data } = useQuery(GET_SETTINGS, {
+    fetchPolicy: 'no-cache',
+  })
+
+  useEffect(() => {
+    if (data) {
+      if (data.settings && data.settings.length > 0) {
+        setOrientationMenu(data.settings[0].orientation)
+      } else {
+        setOrientationMenu('horizontal')
+      }
+    }
+  }, [data])
+
+  return (orientation === 'vertical' || orientationMenu === 'vertical') &&
+    departmentActive ? (
     <div className={handles.goBackContainer}>
       <button
         className={classNames(handles.goBackButton, 'flex items-center')}

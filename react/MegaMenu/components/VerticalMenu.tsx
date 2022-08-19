@@ -7,6 +7,7 @@ import { injectIntl } from 'react-intl'
 import Skeleton from 'react-loading-skeleton'
 import { useCssHandles } from 'vtex.css-handles'
 import { formatIOMessage } from 'vtex.native-types'
+import { useDevice } from 'vtex.device-detector'
 
 import { megaMenuState } from '../State'
 import type { ItemProps } from './Item'
@@ -22,10 +23,19 @@ const CSS_HANDLES = [
   'departmentsTitle',
 ] as const
 
-const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
+const VerticalMenu: FC<VerticalMenuProps> = observer((props) => {
   const { handles } = useCssHandles(CSS_HANDLES)
-  const { departments, departmentActive, config, setDepartmentActive } =
-    megaMenuState
+  const {
+    departments,
+    departmentActive,
+    config,
+    setDepartmentActive,
+    isOpenMenu,
+  } = megaMenuState
+
+  const { isMobile } = useDevice()
+
+  const { openOnly, orientation, intl } = props
 
   const departmentActiveHasCategories = !!departmentActive?.menu?.length
 
@@ -72,7 +82,8 @@ const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
     [departments]
   )
 
-  return (
+  return (isOpenMenu && openOnly === orientation) ||
+    (isMobile && isOpenMenu) ? (
     <nav className={classNames(handles.menuContainerNavVertical, 'w-100')}>
       <div
         className={classNames(handles.departmentsContainer, {
@@ -104,13 +115,16 @@ const VerticalMenu: FC<VerticalMenuProps> = observer(({ intl }) => {
             'bg-base w-100'
           )}
         >
-          <Submenu />
+          <Submenu openOnly={openOnly} />
         </div>
       )}
     </nav>
-  )
+  ) : null
 })
 
-type VerticalMenuProps = InjectedIntlProps
+type VerticalMenuProps = InjectedIntlProps & {
+  openOnly: string
+  orientation: string
+}
 
 export default injectIntl(VerticalMenu)

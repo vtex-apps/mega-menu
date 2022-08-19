@@ -10,5 +10,6 @@ mutation uploadData($uploadData: [MenuInput]!) {
     order
     slugRoot
     slugRelative
+    mobile
   }
 }

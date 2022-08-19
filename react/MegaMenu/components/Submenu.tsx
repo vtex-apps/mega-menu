@@ -38,10 +38,11 @@ const messages = defineMessages({
 
 export type ItemProps = InjectedIntlProps & {
   closeMenu?: (open: boolean) => void
+  openOnly?: string
 }
 
 const Submenu: FC<ItemProps> = observer((props) => {
-  const { intl, closeMenu } = props
+  const { intl, closeMenu, openOnly } = props
   const { handles } = useCssHandles(CSS_HANDLES)
   const { departmentActive, config, getCategories } = megaMenuState
   const { orientation } = config
@@ -125,18 +126,20 @@ const Submenu: FC<ItemProps> = observer((props) => {
               key={category.id}
               className={classNames(
                 applyModifiers(
-                  orientation === 'horizontal'
+                  orientation === 'horizontal' && openOnly === 'horizontal'
                     ? styles.submenuItem
                     : handles.submenuItemVertical,
                   collapsibleStates[category.id] ? 'isOpen' : 'isClosed'
                 ),
-                orientation === 'vertical' &&
+                (orientation === 'vertical' || openOnly === 'vertical') &&
                   'c-on-base bb b--light-gray mv0 ph5',
-                orientation === 'vertical' && i === 0 && 'bt',
+                (orientation === 'vertical' || openOnly === 'vertical') &&
+                  i === 0 &&
+                  'bt',
                 collapsibleStates[category.id] && 'bg-near-white'
               )}
             >
-              {orientation === 'horizontal' ? (
+              {orientation === 'horizontal' && openOnly === 'horizontal' ? (
                 <>
                   <Item
                     to={category.slug}
@@ -223,12 +226,17 @@ const Submenu: FC<ItemProps> = observer((props) => {
             className={classNames(
               handles.submenuContainerTitle,
               'f4 fw7 c-on-base lh-copy ma0 flex items-center',
-              orientation === 'horizontal' && 'mb6',
-              orientation === 'vertical' && 'pv5 ph5'
+              orientation === 'horizontal' &&
+                openOnly === 'horizontal' &&
+                'mb6',
+              (orientation === 'vertical' || openOnly === 'vertical') &&
+                'pv5 ph5'
             )}
           >
             {departmentActive.name}
-            {orientation === 'horizontal' && showBtnCat ? (
+            {orientation === 'horizontal' &&
+            openOnly === 'horizontal' &&
+            showBtnCat ? (
               seeAllLink(departmentActive.slug, 1, 't-small ml7')
             ) : (
               <div />
@@ -237,11 +245,14 @@ const Submenu: FC<ItemProps> = observer((props) => {
 
           <div
             className={classNames(
-              orientation === 'horizontal' && styles.submenuList,
-              orientation === 'vertical' && handles.submenuListVertical
+              orientation === 'horizontal' &&
+                openOnly === 'horizontal' &&
+                styles.submenuList,
+              (orientation === 'vertical' || openOnly === 'vertical') &&
+                handles.submenuListVertical
             )}
           >
-            {orientation === 'horizontal' ? (
+            {orientation === 'horizontal' && openOnly === 'horizontal' ? (
               <>
                 <ExtensionPoint id="before-menu" /> {items}{' '}
                 <ExtensionPoint id="after-menu" />

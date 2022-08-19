@@ -1,6 +1,8 @@
 type Query {
-  menus: [Menu]
+  menus(isMobile: Boolean): [Menu]
   menu(id: ID!): Menu
+  settings: [Settings]
+  setting(id: ID!): Settings
 }
 
 type Mutation {
@@ -8,4 +10,5 @@ type Mutation {
   deleteMenu(id: String, idSecond: String, idThird: String): [Menu]
   createMenu(menuInput: MenuInput!): Menu
   uploadMenu(menuData: [MenuInput]): [Menu]
+  createEditSettings(settingsInput: SettingsInput!): Settings
 }

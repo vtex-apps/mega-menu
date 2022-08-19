@@ -63,6 +63,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
   const [styles, setStyles] = useState('')
   const [display, setDisplay] = useState(true)
   const [enableSty, setEnableSty] = useState(true)
+  const [mobile, setMobile] = useState(true)
+  const [desktop, setDesktop] = useState(true)
   const [idMenu, setIdMenu] = useState('')
   const [mainMenu, setMainMenu] = useState(dataMenuType)
   const [subMenu, setSubMenu] = useState(dataMenuTypeArray)
@@ -104,7 +106,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     }).toString()
   }
 
-  /* eslint max-params: ["error", 11] */
+  /* eslint max-params: ["error", 13] */
   /* eslint-env es9 */
   const setDataForm = (
     idenMenu: string,
@@ -117,7 +119,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     subMenuData: DataMenu[],
     displayMenu: boolean,
     enableStyMenu: boolean,
-    orderMenu: number
+    orderMenu: number,
+    mobileMenu: boolean,
+    desktopMenu: boolean
   ) => {
     setIdMenu(idenMenu)
     setName(nameMenu)
@@ -130,6 +134,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     setDisplay(displayMenu)
     setEnableSty(enableStyMenu)
     setOrder(orderMenu)
+    setMobile(mobileMenu)
+    setDesktop(desktopMenu)
   }
 
   useEffect(() => {
@@ -155,7 +161,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           dataMenu.menu.menu,
           dataMenu.menu.display,
           dataMenu.menu.enableSty,
-          dataMenu.menu.order
+          dataMenu.menu.order,
+          dataMenu.menu.mobile ?? mobile,
+          dataMenu.menu.desktop ?? desktop
         )
       } else if (responseForm.level === 'secondLevel') {
         setLevelInfo({ firstLevel: dataMenu.menu.name })
@@ -186,7 +194,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           [],
           submenu[0].display,
           submenu[0].enableSty,
-          submenu[0].order
+          submenu[0].order,
+          submenu[0].mobile ?? mobile,
+          submenu[0].desktop ?? desktop
         )
       } else {
         const tempArrayTL: DataMenu[] = []
@@ -233,7 +243,9 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           [],
           tempArrayTL[0].display,
           tempArrayTL[0].enableSty,
-          tempArrayTL[0].order ?? 0
+          tempArrayTL[0].order ?? 0,
+          tempArrayTL[0].mobile ?? true,
+          tempArrayTL[0].desktop ?? true
         )
 
         setLevelInfo({
@@ -330,6 +342,14 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         setSlugRelative(e.value)
         break
 
+      case 'mobile':
+        setMobile(!mobile)
+        break
+
+      case 'desktop':
+        setDesktop(!desktop)
+        break
+
       default:
         break
     }
@@ -349,7 +369,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     return randomNumber
   }
 
-  const insertSubMenu = (mainMenuLevel: DataMenu, subMenuLevel: DataMenu[]) => {
+  const insertSubMenu = (mainMenuLevel: DataMenu, subMenuLevel: MenuItem[]) => {
     menuInput({
       variables: {
         editMenu: {
@@ -364,6 +384,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           order: mainMenuLevel.order,
           slugRoot: mainMenuLevel.slugRoot,
           slugRelative: mainMenuLevel.slugRelative,
+          mobile: mainMenuLevel.mobile,
+          desktop: mainMenuLevel.desktop,
         },
       },
     })
@@ -385,6 +407,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
             menu: subMenu,
             display,
             enableSty,
+            mobile,
+            desktop,
           },
         },
       })
@@ -404,6 +428,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         order: orderSubMenu + 1,
         slugRoot: slug,
         slugRelative: menu.slug,
+        mobile,
+        desktop,
       })
 
       insertSubMenu(
@@ -416,6 +442,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          mobile,
+          desktop,
         },
         secondMenu
       )
@@ -439,6 +467,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         order: valueOrder ? valueOrder.length + 1 : 1,
         slugRoot: slug,
         slugRelative: `${valueSlug}`,
+        mobile,
+        desktop,
       }
 
       if (menu.menu) {
@@ -465,6 +495,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           order: menu.order,
           slugRoot: menu.slugRoot,
           slugRelative: menu.slugRelative,
+          mobile: menu.mobile,
+          desktop: menu.desktop,
         },
         menu.menu ? menu.menu : []
       )
@@ -493,13 +525,12 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
     let tempSecond: DataMenu[] = []
 
     if (responseForm.level === 'firstLevel') {
-      const menuLevelTwo = menu.menu
+      const menuLevelTwo = menu.menu ? menu.menu : []
       const menuLevelTwoUpdate: MenuItem[] = []
 
       if (menuLevelTwo?.length) {
         menuLevelTwo.forEach((item: MenuItem) => {
           if (item.slugRelative === slug) return
-
           const dataPath = getNewPath(
             item.slug,
             item.slugRoot,
@@ -565,9 +596,23 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         })
       }
 
+      const subMenuOtherLevels: MenuItem[] =
+        menuLevelTwoUpdate.length > 0 ? menuLevelTwoUpdate : menuLevelTwo
+
       insertSubMenu(
-        { id: idMenu, name, icon, slug, styles, display, enableSty, order },
-        menuLevelTwoUpdate
+        {
+          id: idMenu,
+          name,
+          icon,
+          slug,
+          styles,
+          display,
+          enableSty,
+          order,
+          mobile,
+          desktop,
+        },
+        subMenuOtherLevels
       )
 
       setMessage(messageTranslate('editItem'))
@@ -586,6 +631,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
         tempSecond[0].display = display
         tempSecond[0].enableSty = enableSty
         tempSecond[0].order = order
+        tempSecond[0].mobile = mobile
+        tempSecond[0].desktop = desktop
       }
 
       let menuLevelThirdUpdate: MenuItem[] = []
@@ -638,6 +685,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          mobile: menu.mobile,
+          desktop: menu.desktop,
         },
         menu.menu ? menu.menu : []
       )
@@ -669,6 +718,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           tempThird[0].display = display
           tempThird[0].enableSty = enableSty
           tempThird[0].order = order
+          tempThird[0].mobile = mobile
+          tempThird[0].desktop = desktop
         }
       }
 
@@ -684,6 +735,8 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
           display: menu.display,
           enableSty: menu.enableSty,
           order: menu.order,
+          mobile: menu.mobile,
+          desktop: menu.desktop,
         },
         menu.menu ? menu.menu : []
       )
@@ -988,6 +1041,28 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
                 label={messageTranslate('subCheck2Block')}
                 checked={enableSty}
                 id="enableSty"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  changeStyle({ id: e.target.id, value: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt7 mb7">
+              <p>Mobile</p>
+              <Toggle
+                label={mobile ? 'Show' : 'Hide'}
+                checked={mobile}
+                id="mobile"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  changeStyle({ id: e.target.id, value: e.target.value })
+                }
+              />
+            </div>
+            <div className="mt7 mb7">
+              <p>Desktop</p>
+              <Toggle
+                label={desktop ? 'Show' : 'Hide'}
+                checked={desktop}
+                id="desktop"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   changeStyle({ id: e.target.id, value: e.target.value })
                 }

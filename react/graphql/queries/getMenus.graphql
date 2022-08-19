@@ -1,5 +1,5 @@
-query getMenus {
-  menus {
+query getMenus($isMobile: Boolean) {
+  menus(isMobile: $isMobile) {
     id
     name
     icon
@@ -21,6 +21,8 @@ query getMenus {
       order
       slugRoot
       slugRelative
+      mobile
+      desktop
       menu {
         id
         name
@@ -32,7 +34,11 @@ query getMenus {
         order
         slugRoot
         slugRelative
+        mobile
+        desktop
       }
     }
+    mobile
+    desktop
   }
 }

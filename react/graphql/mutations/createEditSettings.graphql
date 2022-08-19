@@ -1,0 +1,6 @@
+mutation createEditSettings($settingsInput: SettingsInput!) {
+  createEditSettings(settingsInput: $settingsInput) {
+    idMenu
+    orientation
+  }
+}
