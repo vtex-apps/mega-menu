@@ -1,4 +1,3 @@
-
 📢 Don't fork this project. Use, contribute, or open issues through [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
 # Mega menu
@@ -9,7 +8,7 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-VTEX Mega Menu provides an administrative app that allows to manage a custom category tree of up to 3 levels which can be used as the main navigation menu, it is implemented in the store using a set of components.
+VTEX Mega Menu provides a form to create and manage the custom menu until three levels in the category tree. The stores can use this app as the main navigation menu.
 
 ![mega-menu-app](https://user-images.githubusercontent.com/12108601/121273428-e140db00-c88d-11eb-850c-02399b803d18.png)
 
@@ -27,8 +26,13 @@ In the account's admin dashboard, access `STORE SETUP > Mega Menu` and using the
 
 ![mega-menu-admin-app](https://user-images.githubusercontent.com/12108601/121273542-18af8780-c88e-11eb-8b08-c59af2c653a0.png)
 
-
 ### Step 3 - Implementing the app's blocks in your store theme
+
+**IMPORTANT: If you have installed this app previously, please validate with your blocks settings and add the new components to modify the orientation Menu.**
+
+**No change the option to vertical Menu if you haven't this configuration in your store**
+
+---
 
 Once the app is configured, it is time to place the following blocks in your Store Theme app.
 
@@ -49,6 +53,7 @@ This block is responsible for querying the previously built category tree and di
 | title                   | `String` | Title for the first level elements (departments) used in the mobile version or when the `orientation` is `vertical`.                                                  | Departments                                                                                                                                                |
 | `orientation`           | `String` | Type of menu to be built. Possible values are horizontal and `vertical`                                                                                               | A value is determined depending on the resolution of the device, if it is a mobile (phone and tablet) it is used `vertical` and for the rest `horizontal`. |
 | defaultDepartmentActive | `String` | You can use this property to determine a department that will be shown when first displaying the menu, this is useful if you want to highlight a specific department. | 🚫                                                                                                                                                         |
+| openOnly                | `String` | Define the orientation of the menu. You can choose between vertical or horizontal.                                                                                    |
 
 ### `mega-menu-trigger-btn`
 
@@ -77,13 +82,23 @@ _To configure the desktop version:_
   },
 
   "flex-layout.row#mega-menu": {
-    "children": ["mega-menu"]
+    "children": ["mega-menu#desktop"]
+  },
+  "mega-menu#desktop": {
+    "props": {
+      "openOnly": "horizontal"
+    }
   },
   "flex-layout.col#trigger-mega-menu": {
     "props": {
       "verticalAlign": "middle"
     },
     "children": ["mega-menu-trigger-btn"]
+  },
+  "mega-menu-trigger-btn": {
+    "props": {
+      "Drawer": "drawer"
+    }
   }
 }
 ```
@@ -93,14 +108,25 @@ _To configure the mobile version:_
 ```json
 {
   // ...
+  "flex-layout.row#1-mobile": {
+    "children": [
+      "flex-layout.col#trigger-mega-menu"
+      // ...
+    ],
+    "props": {
+      // ...
+    }
+  },
 
   "drawer": {
-    "children": ["mega-menu"],
+    "children": ["mega-menu#mobile"],
     "blocks": ["drawer-header#my-drawer"]
   },
-  "mega-menu": {
+  "mega-menu#mobile": {
     "props": {
-      "defaultDepartmentActive": "Tecnología"
+      "defaultDepartmentActive": "...",
+      "orientation": "vertical",
+      "openOnly": "vertical"
     }
   },
   "drawer-header#my-drawer": {
@@ -208,34 +234,15 @@ In order to apply CSS customizations on this and other blocks, follow the instru
 | `menuItemVertical`                |
 | `submenuContainerVertical`        |
 
+### Upload mega menu data from CSV file
 
-## NEW FUNCTIONALITY: Upload mega menu data from CSV file
 To upload data from a CSV file, You should create an import file with the following structure. The data will then be stored in the VBASE successfully.
 
 ![11](https://user-images.githubusercontent.com/8409481/152260407-8f5220d3-9522-41a9-b974-08915240985e.png)
 
 The field `subMenus` is a String with the following structure:
 
-`[{
-	"id":"submenu1383316",
-	"name":"submenu1",
-	"icon":"","slug":"Menu1/submenu1",
-	"styles":"","display":true,
-	"enableSty":true,"order":1,
-	"slugRoot":"submenu1",
-	"slugRelative":"Menu1",
-	"menu":[{
-				"id":"sub-tercernivel-menu12121",
-				"name":"sub-tercernivel-menu1-3",
-				"icon":"",
-				"slug":"Menu1/submenu1/menu1-3",
-				"styles":"",
-				"display":true,
-				"enableSty":true,
-				"order":1,
-				"slugRoot":"menu1-3",
-				"slugRelative":"Menu1/submenu1"}]
-}]`
+`[{ "id":"submenu1383316", "name":"submenu1", "icon":"","slug":"Menu1/submenu1", "styles":"","display":true, "enableSty":true,"order":1, "slugRoot":"submenu1", "slugRelative":"Menu1", "menu":[{ "id":"sub-tercernivel-menu12121", "name":"sub-tercernivel-menu1-3", "icon":"", "slug":"Menu1/submenu1/menu1-3", "styles":"", "display":true, "enableSty":true, "order":1, "slugRoot":"menu1-3", "slugRelative":"Menu1/submenu1"}] }]`
 
 The file should have the field like to show below:
 
@@ -256,3 +263,11 @@ To generate backup data, download the information from the button “Download CS
 ![16](https://user-images.githubusercontent.com/8409481/152260876-07321655-a4ca-43eb-9c92-974ff8f9b12b.png)
 
 This button only is available if the mega menu has data to save. The download file has the same structure defined at the begging of this step.
+
+## NEW FUNCTIONALITY: Choose the orientation of the Mega Menu on the Desktop
+
+In this release, Mega Menu App has new functionality that allows you to choose the orientation. You can choose between Horizontal o Vertical.
+
+**IMPORTANT: before choosing the vertical option to desktop, configure the blocks in your store. Go to step 3 of this guide to configure the blocks**
+
+When you guarantee the configuration of blocks in the store, go to the new button to settings of Mega Menu and change the orientation.
