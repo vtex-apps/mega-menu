@@ -1,4 +1,4 @@
-📢 Don't fork this project. Use, contribute, or open issues through [Store Discussion](https://github.com/vtex-apps/store-discussion).
+### 📢 **Don't fork this project. Use, contribute, or open issues through [Store Discussion](https://github.com/vtex-apps/store-discussion)**.
 
 # Mega menu
 
@@ -24,13 +24,12 @@ Using your terminal, log in to the desired VTEX account and run the following co
 
 In the account's admin dashboard, access `STORE SETUP > Mega Menu` and using the available options configure the category tree according to your needs:
 
-![mega-menu-admin-app](https://user-images.githubusercontent.com/12108601/121273542-18af8780-c88e-11eb-8b08-c59af2c653a0.png)
+![mega-menu-admin-app](https://user-images.githubusercontent.com/8409481/185652487-8ca70f56-59f8-440c-b173-ad65a1763686.png)
 
 ### Step 3 - Implementing the app's blocks in your store theme
 
-**IMPORTANT: If you have installed this app previously, please validate with your blocks settings and add the new components to modify the orientation Menu.**
-
-**No change the option to vertical Menu if you haven't this configuration in your store**
+**IMPORTANT: If you have installed this app previously, please validate with your block settings and add the new components to modify the orientation Menu.
+No change the option to vertical Menu if you haven't yet this configuration in your store.**
 
 ---
 
@@ -53,11 +52,11 @@ This block is responsible for querying the previously built category tree and di
 | title                   | `String` | Title for the first level elements (departments) used in the mobile version or when the `orientation` is `vertical`.                                                  | Departments                                                                                                                                                |
 | `orientation`           | `String` | Type of menu to be built. Possible values are horizontal and `vertical`                                                                                               | A value is determined depending on the resolution of the device, if it is a mobile (phone and tablet) it is used `vertical` and for the rest `horizontal`. |
 | defaultDepartmentActive | `String` | You can use this property to determine a department that will be shown when first displaying the menu, this is useful if you want to highlight a specific department. | 🚫                                                                                                                                                         |
-| openOnly                | `String` | Define the orientation of the menu. You can choose between vertical or horizontal.                                                                                    |
+| openOnly                | `String` | Define the orientation of the menu. You can choose between vertical or horizontal. | `vertical`or `horizontal`                                                                                     |
 
 ### `mega-menu-trigger-btn`
 
-This block renders an icon that will be used as a trigger to open the **desktop** menu or when the `orientation` is `horizontal`.
+This block renders an icon that will be used as a trigger to open the **desktop** menu or when the `orientation` is `horizontal` or `vertical`.
 
 _Note: Currently, this block receives the same props as an VTEX Store [Icon](https://github.com/vtex-apps/store-icons#props)._
 
@@ -271,3 +270,11 @@ In this release, Mega Menu App has new functionality that allows you to choose t
 **IMPORTANT: before choosing the vertical option to desktop, configure the blocks in your store. Go to step 3 of this guide to configure the blocks**
 
 When you guarantee the configuration of blocks in the store, go to the new button to settings of Mega Menu and change the orientation.
+
+![image](https://user-images.githubusercontent.com/8409481/185653890-f6c423bd-8d32-404e-a416-141820f73112.png)
+
+![image](https://user-images.githubusercontent.com/8409481/185654543-a245860e-d661-4011-a89a-7b3db33b3cd3.png)
+
+Press the `Confirm`button to save the configuration of orientation menu.
+
+
