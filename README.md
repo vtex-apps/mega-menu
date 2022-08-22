@@ -38,7 +38,7 @@ Once the app is configured, it is time to place the following blocks in your Sto
 Import the mega menu app to your dependencies as `manifest.json`, for example:
 
 ```json
-"dependencies": {
+"peerDependencies": {
 	"vtex.mega-menu": "2.x"
 }
 ```
