@@ -6,6 +6,8 @@
     "test": "vtex-test-tools test"
   },
   "dependencies": {
+    "@types/react-dom": "^18.0.6",
+    "@types/react-native": "^0.69.5",
     "classnames": "^2.3.1",
     "export-to-csv": "^0.2.1",
     "mobx": "^6.3.2",
@@ -33,6 +35,10 @@
     "vtex.render-runtime": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.132.4/public/@types/vtex.render-runtime",
     "vtex.store-icons": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-icons@0.18.0/public/@types/vtex.store-icons",
     "vtex.styleguide": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.1/public/@types/vtex.styleguide"
+  },
+  "resolutions": {
+    "@types/react": "17.0.14",
+    "@types/react-dom": "17.0.14"
   },
   "version": "2.6.0"
 }

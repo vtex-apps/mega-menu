@@ -139,7 +139,11 @@ const HorizontalMenu: FC<
   }, [])
 
   return departmentItems?.length > 0 ? (
-    <div style={{ display: isOpenMenu ? 'block' : 'none' }}>
+    <div
+      style={{
+        display: isOpenMenu && openOnly === orientation ? 'block' : 'none',
+      }}
+    >
       <nav
         className={classNames(
           handles.menuContainerNav,
@@ -170,8 +174,8 @@ const HorizontalMenu: FC<
             style={{
               display:
                 departments.length &&
-                  departmentActive &&
-                  departmentActiveHasCategories
+                departmentActive &&
+                departmentActiveHasCategories
                   ? 'block'
                   : 'none',
             }}

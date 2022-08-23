@@ -82,7 +82,7 @@ const VerticalMenu: FC<VerticalMenuProps> = observer((props) => {
     [departments]
   )
 
-  return departmentItems?.length > 0 ? (
+  return (isOpenMenu && openOnly === orientation) || isMobile ? (
     <nav className={classNames(handles.menuContainerNavVertical, 'w-100')}>
       <div
         className={classNames(handles.departmentsContainer, {
@@ -122,7 +122,7 @@ const VerticalMenu: FC<VerticalMenuProps> = observer((props) => {
         <Submenu />
       </div>
     </nav>
-  ) : null : null
+  ) : null
 })
 
 type VerticalMenuProps = InjectedIntlProps & {
