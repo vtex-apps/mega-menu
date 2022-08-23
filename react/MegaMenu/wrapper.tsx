@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-apollo'
 import { useDevice } from 'vtex.device-detector'
 import { canUseDOM } from 'vtex.render-runtime'
@@ -18,12 +18,15 @@ const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
     ssr: true,
   })
 
+  const { data: dataSettings } = useQuery(GET_SETTINGS, {
+    fetchPolicy: 'no-cache',
+  })
+
+  const [orientationMenu, setOrientationMenu] = useState('')
+
   const { setDepartments, setConfig } = megaMenuState
 
-  const { isMobile } = useDevice()
-
-  const currentOrientation: Orientation =
-    orientation ?? (isMobile ? 'vertical' : 'horizontal')
+  const currentOrientation: Orientation = isMobile ? 'vertical' : 'horizontal'
 
   const initMenu = () => {
     if (data?.menus.length) {
