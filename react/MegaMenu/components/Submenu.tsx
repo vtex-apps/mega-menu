@@ -64,7 +64,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
         )}
       >
         <Link
-          to={to}
+          to={`/${to}`}
           className={classNames(
             handles.seeAllLink,
             'link underline fw7 c-on-base'
@@ -260,7 +260,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
             ) : (
               <>
                 {items}
-                {/* showBtnCat ? seeAllLink(departmentActive.slug) : <div /> */}
+                {showBtnCat ? seeAllLink(departmentActive.slug) : <div />}
               </>
             )}
           </div>
