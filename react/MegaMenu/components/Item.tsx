@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
 import type { FC } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
-import { useRuntime } from 'vtex.render-runtime'
 import { Icon, IconCaret } from 'vtex.store-icons'
 
 import type { IconProps } from '../../shared'
@@ -39,21 +38,19 @@ const Item: FC<ItemProps> = observer((props) => {
     iconProps,
     iconPosition,
     typography = defaultTypography[level],
-    tabIndex,
     className,
     onClick,
     children,
     style,
     enableStyle,
-    closeMenu,
-    ...rest
+    // tabIndex,
+    // closeMenu,
+    // ...rest
   } = props
 
   // Only for level 1
   const isOpen = departmentActive?.id === id
   const hasLink = to && to !== '#'
-
-  const { rootPath } = useRuntime()
 
   const linkClassNames = classNames(
     handles.styledLink,
@@ -133,9 +130,6 @@ const Item: FC<ItemProps> = observer((props) => {
       )}
     </div>
   )
-
-  console.info(rootPath)
-  console.info({ ...rest })
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
