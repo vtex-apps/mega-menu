@@ -3,6 +3,9 @@
 
 ## [Unreleased]
 
+### Added
+- German translation.
+
 ## [2.6.0] - 2022-03-11
 
 ### Added
