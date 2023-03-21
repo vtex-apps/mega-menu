@@ -2,10 +2,12 @@ import type { InjectedIntlProps } from 'react-intl'
 import type { FC } from 'react'
 import React, { useState, useEffect } from 'react'
 import { injectIntl } from 'react-intl'
+import { formatIOMessage } from 'vtex.native-types'
 import { ModalDialog, Toggle, Spinner } from 'vtex.styleguide'
 import { useQuery, useMutation } from 'react-apollo'
 import { useRuntime } from 'vtex.render-runtime'
 
+import { messageSettings } from '../shared'
 import GET_SETTINGS from '../graphql/queries/getSettings.graphql'
 import CREATE_EDIT_SETTINGS from '../graphql/mutations/createEditSettings.graphql'
 
@@ -13,6 +15,8 @@ interface SettingsMenuProps {
   showSettings: boolean
   setShowSettings: (v: boolean) => void
 }
+
+const messages = messageSettings
 
 const SettingsMenu: FC<SettingsMenuProps & InjectedIntlProps> = (props) => {
   const [orientation, setOrientation] = useState(true)
@@ -54,6 +58,16 @@ const SettingsMenu: FC<SettingsMenuProps & InjectedIntlProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataSettings])
 
+  const settingsCaution = formatIOMessage({
+    id: messages.caution.id,
+    intl: props.intl,
+  }).toString()
+
+  const settingsOrientationHV = formatIOMessage({
+    id: messages.orientationHV.id,
+    intl: props.intl,
+  }).toString()
+
   return (
     <ModalDialog
       centered
@@ -71,13 +85,10 @@ const SettingsMenu: FC<SettingsMenuProps & InjectedIntlProps> = (props) => {
       onClose={() => props.setShowSettings(!props.showSettings)}
     >
       <div className="">
-        <p>
-          Change these options with caution because you can affect the
-          appearance of the menu in the store
-        </p>
+        <p>{settingsCaution}</p>
         {!loading ? (
           <div>
-            <p className="mt7">Orientation (Horizontal / Vertical)</p>
+            <p className="mt7">{settingsOrientationHV}</p>
             <Toggle
               label={orientation ? 'Horizontal' : 'Vertical'}
               checked={orientation}

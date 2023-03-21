@@ -298,3 +298,22 @@ export const MessagesBackupData = defineMessages({
     id: 'admin/mega-menu.backup.duplicateData',
   },
 })
+
+export const messageSettings = defineMessages({
+  caution: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.settings.caution',
+  },
+  orientationHV: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.settings.orientationHV',
+  },
+  horizontal: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.settings.horizontal',
+  },
+  vertical: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.settings.vertical',
+  },
+})

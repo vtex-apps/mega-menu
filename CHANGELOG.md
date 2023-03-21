@@ -6,6 +6,10 @@
 ### Added
 - German translation.
 
+### Fixed
+- French, Portuguese and Spanish translations.
+- I18n on settings menu. The Horizontal/Vertical toggle is still unlocalized.
+
 ## [2.6.0] - 2022-03-11
 
 ### Added

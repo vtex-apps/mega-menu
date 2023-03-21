@@ -54,5 +54,9 @@
   "admin/mega-menu.backup.download": "Download CSV",
   "admin/mega-menu.backup.upload": "Upload data",
   "admin/mega-menu.backup.uploadAlert": "Data upload successfully",
-  "admin/mega-menu.backup.duplicateData": "There are duplicate data in the file, please validate the file"
+  "admin/mega-menu.backup.duplicateData": "There are duplicate data in the file, please validate the file",
+  "admin/mega-menu.settings.caution": "Caution! Changing these options may affect the appearance of the menu in the store",
+  "admin/mega-menu.settings.orientationHV": "Orientation (Horizontal / Vertical)",
+  "admin/mega-menu.settings.horizontal": "Horizontal",
+  "admin/mega-menu.settings.vertical": "Vertical"
 }

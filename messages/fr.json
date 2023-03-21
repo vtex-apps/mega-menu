@@ -54,5 +54,9 @@
   "admin/mega-menu.backup.download": "Télécharger au format CSV",
   "admin/mega-menu.backup.upload": "Charger des données",
   "admin/mega-menu.backup.uploadAlert": "Le chargement des données a réussi",
-  "admin/mega-menu.backup.duplicateData": "Il y a des données en double dans le fichier, veuillez valider le fichier"
+  "admin/mega-menu.backup.duplicateData": "Il y a des données en double dans le fichier, veuillez valider le fichier",
+  "admin/mega-menu.settings.caution": "Caution! Changing these options may affect the appearance of the menu in the store",
+  "admin/mega-menu.settings.orientationHV": "Orientation (Horizontale / Verticale)",
+  "admin/mega-menu.settings.horizontal": "Horizontale",
+  "admin/mega-menu.settings.vertical": "Verticale"
 }
