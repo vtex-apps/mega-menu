@@ -13,6 +13,7 @@
   "admin/mega-menu.items.secondColumn": "Slug",
   "admin/mega-menu.items.thirdColumn": "Symbol",
   "admin/mega-menu.items.fourColumn": "Aktionen",
+  "admin/mega-menu.items.fiveColumn": "Sichtbarkeit",
   "admin/mega-menu.items.thirdSearch": "Untermenü dritte Ebene suchen",
   "admin/mega-menu.items.dropDownThird": "Wählen Sie ein Menü der zweiten Ebene",
   "admin/mega-menu.items.titleApp": "Menü Konfiguration",
@@ -58,5 +59,9 @@
   "admin/mega-menu.settings.caution": "Ändern Sie diese Option mit Umsicht, da Sie das Erscheinungsbild des Menüs im Shop beeinflussen könnten.",
   "admin/mega-menu.settings.orientationHV": "Ausrichtung (Horizontal / Vertikal)",
   "admin/mega-menu.settings.horizontal": "Horizontal",
-  "admin/mega-menu.settings.vertical": "Vertikal"
+  "admin/mega-menu.settings.vertical": "Vertikal",
+  "admin/mega-menu.settings.close": "Schließen",
+  "admin/mega-menu.settings.confirm": "Bestätigen",
+  "admin/mega-menu.items.emptyTitle": "Keine Artikel zum Anzeigen.",
+  "admin/mega-menu.items.empty": "Fügen Sie einen neuen Artikel hinzu, um Ihr Mega-Menü zu erstellen und für die Anzeige im Shop."
 }

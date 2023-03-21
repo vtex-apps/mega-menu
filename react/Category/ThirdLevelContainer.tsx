@@ -270,6 +270,18 @@ const ThirdLevelContainer: FC<InjectedIntlProps> = ({ intl }) => {
                     id: messages.fourColumn.id,
                     intl,
                   }).toString(),
+                  visibility: formatIOMessage({
+                    id: messages.fiveColumn.id,
+                    intl,
+                  }).toString(),
+                  emptyTitle: formatIOMessage({
+                    id: messages.emptyTitle.id,
+                    intl,
+                  }).toString(),
+                  empty: formatIOMessage({
+                    id: messages.empty.id,
+                    intl,
+                  }).toString(),
                   modalTitle: formatIOMessage({
                     id: messages.titleModal.id,
                     intl,

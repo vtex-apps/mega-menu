@@ -13,6 +13,7 @@
   "admin/mega-menu.items.secondColumn": "Slug",
   "admin/mega-menu.items.thirdColumn": "Icono",
   "admin/mega-menu.items.fourColumn": "Acciones",
+  "admin/mega-menu.items.fiveColumn": "Visibilidad",
   "admin/mega-menu.items.thirdSearch": "Buscar submenú del tercer nivel",
   "admin/mega-menu.items.dropDownThird": "Seleccione un menú del segundo nivel",
   "admin/mega-menu.items.titleApp": "Configurar Menú",
@@ -58,5 +59,7 @@
   "admin/mega-menu.settings.caution": "Caution! Changing these options may affect the appearance of the menu in the store",
   "admin/mega-menu.settings.orientationHV": "Orientación (Horizontal / Vertical)",
   "admin/mega-menu.settings.horizontal": "Horizontal",
-  "admin/mega-menu.settings.vertical": "Vertical"
+  "admin/mega-menu.settings.vertical": "Vertical",
+  "admin/mega-menu.settings.close": "Cerrar",
+  "admin/mega-menu.settings.confirm": "Confirmar"
 }

@@ -140,6 +140,18 @@ export const messagesFirstLevel = defineMessages({
     defaultMessage: '',
     id: 'admin/mega-menu.items.fourColumn',
   },
+  fiveColumn: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.fiveColumn',
+  },
+  emptyTitle: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.emptyTitle',
+  },
+  empty: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.empty',
+  },
   titleModal: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.titleModal',
@@ -194,6 +206,18 @@ export const messageSecondLevel = defineMessages({
   fourColumn: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.fourColumn',
+  },
+  fiveColumn: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.fiveColumn',
+  },
+  emptyTitle: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.emptyTitle',
+  },
+  empty: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.empty',
   },
   titleModal: {
     defaultMessage: '',
@@ -253,6 +277,18 @@ export const messageThirdLevel = defineMessages({
   fourColumn: {
     defaultMessage: '',
     id: 'admin/mega-menu.items.fourColumn',
+  },
+  fiveColumn: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.fiveColumn',
+  },
+  emptyTitle: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.emptyTitle',
+  },
+  empty: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.items.empty',
   },
   titleModal: {
     defaultMessage: '',
@@ -315,5 +351,13 @@ export const messageSettings = defineMessages({
   vertical: {
     defaultMessage: '',
     id: 'admin/mega-menu.settings.vertical',
+  },
+  close: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.settings.close',
+  },
+  confirm: {
+    defaultMessage: '',
+    id: 'admin/mega-menu.settings.confirm',
   },
 })
