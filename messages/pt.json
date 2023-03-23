@@ -29,6 +29,7 @@
   "admin/mega-menu.items.input1Form": "Nome *",
   "admin/mega-menu.items.input2Form": "Slug *",
   "admin/mega-menu.items.input3Form": "Ícones",
+  "admin/mega-menu.items.input3Form.placeholder": "Selecione...",
   "admin/mega-menu.items.input4Form": "Estilos",
   "admin/mega-menu.items.titleSubBlock": "Aparência",
   "admin/mega-menu.items.check1Block": "Mostrar",
