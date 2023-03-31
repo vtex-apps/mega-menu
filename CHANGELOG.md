@@ -3,6 +3,15 @@
 
 ## [Unreleased]
 
+### Added
+- German translation.
+- I18n on settings menu. The Horizontal/Vertical toggle is still unlocalized as well as the Confirm and Close buttons.
+- I18n when table is empty.
+
+### Fixed
+- French, Portuguese and Spanish translations.
+- Other i18n issues on main table.
+
 ## [2.6.0] - 2022-03-11
 
 ### Added

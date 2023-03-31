@@ -13,6 +13,7 @@
   "admin/mega-menu.items.secondColumn": "Slug",
   "admin/mega-menu.items.thirdColumn": "Icono",
   "admin/mega-menu.items.fourColumn": "Acciones",
+  "admin/mega-menu.items.fiveColumn": "Visibilidad",
   "admin/mega-menu.items.thirdSearch": "Buscar submenú del tercer nivel",
   "admin/mega-menu.items.dropDownThird": "Seleccione un menú del segundo nivel",
   "admin/mega-menu.items.titleApp": "Configurar Menú",
@@ -28,6 +29,7 @@
   "admin/mega-menu.items.input1Form": "Nombre *",
   "admin/mega-menu.items.input2Form": "Slug *",
   "admin/mega-menu.items.input3Form": "Icono",
+  "admin/mega-menu.items.input3Form.placeholder": "Selecciona...",
   "admin/mega-menu.items.input4Form": "Estilos",
   "admin/mega-menu.items.titleSubBlock": "Apariencia",
   "admin/mega-menu.items.check1Block": "Mostrar",
@@ -54,5 +56,11 @@
   "admin/mega-menu.backup.download": "Descargar CSV",
   "admin/mega-menu.backup.upload": "Cargar menu",
   "admin/mega-menu.backup.uploadAlert": "La carga del menú se realizó con éxito",
-  "admin/mega-menu.backup.duplicateData": "Existen datos duplicados en el archivo, por favor validar e intentar de nuevo"
+  "admin/mega-menu.backup.duplicateData": "Existen datos duplicados en el archivo, por favor validar e intentar de nuevo",
+  "admin/mega-menu.settings.caution": "Caution! Changing these options may affect the appearance of the menu in the store",
+  "admin/mega-menu.settings.orientationHV": "Orientación (Horizontal / Vertical)",
+  "admin/mega-menu.settings.horizontal": "Horizontal",
+  "admin/mega-menu.settings.vertical": "Vertical",
+  "admin/mega-menu.settings.close": "Cerrar",
+  "admin/mega-menu.settings.confirm": "Confirmar"
 }

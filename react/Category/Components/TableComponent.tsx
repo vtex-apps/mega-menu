@@ -47,6 +47,9 @@ interface TableComponentProps {
     slug: string
     icon: string
     action: string
+    visibility: string
+    emptyTitle: string
+    empty: string
     modalTitle: string
     modalBody: string
     cancel: string
@@ -349,15 +352,15 @@ const TableComponent: FC<TableComponentProps> = (props) => {
       },
       slug: {
         title: props.titleColumn.slug,
-        width: 400,
+        width: 300,
       },
       icon: {
         title: props.titleColumn.icon,
-        width: 400,
+        width: 300,
       },
       visibility: {
-        title: 'Visibility',
-        width: 370,
+        title: props.titleColumn.visibility,
+        width: 200,
         cellRenderer: (e: TableItem) => {
           return (
             <div className="flex" style={{ gap: '10px' }}>
@@ -379,7 +382,7 @@ const TableComponent: FC<TableComponentProps> = (props) => {
       },
       actions: {
         title: props.titleColumn.action,
-        width: 230,
+        width: 250,
         cellRenderer: (e: TableItem) => cellComponent(e),
       },
     },
@@ -420,9 +423,9 @@ const TableComponent: FC<TableComponentProps> = (props) => {
         <Table schema={customSchema} items={props.dataMenu} />
       ) : (
         <div className="mt9">
-          <EmptyState title="No items to show">
+          <EmptyState title={props.titleColumn.emptyTitle}>
             <p>
-              Add a new item to create your mega menu and view it on the store
+            {props.titleColumn.empty}
             </p>
           </EmptyState>
         </div>
