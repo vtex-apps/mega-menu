@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 
+## [2.9.0] - 2023-03-31
+
 ### Added
 - German translation.
 - I18n on settings menu. The Horizontal/Vertical toggle is still unlocalized as well as the Confirm and Close buttons.
