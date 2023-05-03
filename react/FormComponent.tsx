@@ -148,7 +148,7 @@ const FormComponent: FC<FormComponentProps & InjectedIntlProps> = (props) => {
 
     if (responseForm.type === 'edit') {
       if (responseForm.level === 'firstLevel') {
-        document.getElementsByClassName('c-muted-2')[0].innerHTML =
+        document.getElementsByClassName('c-muted-2')[0].textContent =
           dataMenu.menu.icon
         setDataForm(
           dataMenu.menu.id,
