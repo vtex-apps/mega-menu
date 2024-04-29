@@ -8,6 +8,11 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+##  ⚠️ Maintenance ⚠️
+*Starting June 1st 2023, this application will no longer be maintained by VTEX.*
+
+---
+
 VTEX Mega Menu provides a form to create and manage the custom menu until three levels in the category tree. The stores can use this app as the main navigation menu.
 
 ![mega-menu-app](https://user-images.githubusercontent.com/12108601/121273428-e140db00-c88d-11eb-850c-02399b803d18.png)
