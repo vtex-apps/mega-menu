@@ -3,6 +3,9 @@
 
 ## [Unreleased]
 
+### Added
+- Polish translation
+
 ## [2.9.0] - 2023-03-31
 
 ### Added
