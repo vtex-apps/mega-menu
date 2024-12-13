@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 
+## [2.10.0] - 2024-12-13
+
 ### Added
 - Polish translation
 
