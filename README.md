@@ -1,6 +1,6 @@
 ### 📢 **Don't fork this project. Use, contribute, or open issues through [Store Discussion](https://github.com/vtex-apps/store-discussion)**.
 
-# Mega menuv
+# Mega menu
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
