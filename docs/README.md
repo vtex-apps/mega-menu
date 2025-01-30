@@ -1,12 +1,16 @@
-### 📢 **Don't fork this project. Use, contribute, or open issues through [Store Discussion](https://github.com/vtex-apps/store-discussion)**.
+📢 Don't fork this project. Use, contribute, or open issues through [Store Discussion](https://github.com/vtex-apps/store-discussion).
 
 # Mega menu
 
+> ⚠️ This app is no longer maintained by VTEX.
+
+<!-- DOCS-IGNORE:start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- DOCS-IGNORE:end -->
 
 VTEX Mega Menu provides a form to create and manage the custom menu until three levels in the category tree. The stores can use this app as the main navigation menu.
 
