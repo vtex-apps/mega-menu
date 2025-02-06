@@ -1,0 +1,1 @@
+directive @withSegment on FIELD_DEFINITION

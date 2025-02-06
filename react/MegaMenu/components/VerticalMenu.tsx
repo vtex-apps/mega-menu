@@ -107,16 +107,20 @@ const VerticalMenu: FC<VerticalMenuProps> = observer((props) => {
           )}
         </ul>
       </div>
-      {departmentActive && departmentActiveHasCategories && (
-        <div
-          className={classNames(
-            handles.submenuContainerVertical,
-            'bg-base w-100'
-          )}
-        >
-          <Submenu openOnly={openOnly} />
-        </div>
-      )}
+      <div
+        className={classNames(
+          handles.submenuContainerVertical,
+          'bg-base w-100'
+        )}
+        style={{
+          display:
+            departmentActive && departmentActiveHasCategories
+              ? 'block'
+              : 'none',
+        }}
+      >
+        <Submenu />
+      </div>
     </nav>
   ) : null
 })
