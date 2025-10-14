@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 
+- Fix 404 error on certain categories in mobile view
+
 ## [2.10.1] - 2025-01-30
 
 ## [2.10.0] - 2024-12-13
