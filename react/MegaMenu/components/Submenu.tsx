@@ -79,10 +79,10 @@ const Submenu: FC<ItemProps> = observer((props) => {
     )
   }
 
-  const subCategories = (items: MenuItem[]) => {
-    return items
-      .filter((v) => v.display)
-      .map((x) => (
+  const subCategories = (items: MenuItem[]) =>
+    items
+      .filter(v => v.display)
+      .map(x => (
         <div key={x.id} className={classNames(handles.submenuItem, 'mt3')}>
           <Item
             to={x.slug}
@@ -96,7 +96,7 @@ const Submenu: FC<ItemProps> = observer((props) => {
           </Item>
         </div>
       ))
-  }
+
 
   const items = useMemo(
     () => {
@@ -132,10 +132,10 @@ const Submenu: FC<ItemProps> = observer((props) => {
                   collapsibleStates[category.id] ? 'isOpen' : 'isClosed'
                 ),
                 (orientation === 'vertical' || openOnly === 'vertical') &&
-                  'c-on-base bb b--light-gray mv0 ph5',
+                'c-on-base bb b--light-gray mv0 ph5',
                 (orientation === 'vertical' || openOnly === 'vertical') &&
-                  i === 0 &&
-                  'bt',
+                i === 0 &&
+                'bt',
                 collapsibleStates[category.id] && 'bg-near-white'
               )}
             >
@@ -186,14 +186,13 @@ const Submenu: FC<ItemProps> = observer((props) => {
                           [category.id]: e.target.isOpen,
                         })
                       } else {
-                        window.location.assign(`${category.slug}`)
+                        window.location.href = `/${category.slug}`
                         if (closeMenu) closeMenu(false)
                       }
                     }}
                     isOpen={collapsibleStates[category.id]}
-                    caretColor={`${
-                      collapsibleStates[category.id] ? 'base' : 'muted'
-                    }`}
+                    caretColor={`${collapsibleStates[category.id] ? 'base' : 'muted'
+                      }`}
                   >
                     {!!subcategories.length && (
                       <div className={handles.collapsibleContent}>
@@ -227,16 +226,16 @@ const Submenu: FC<ItemProps> = observer((props) => {
               handles.submenuContainerTitle,
               'f4 fw7 c-on-base lh-copy ma0 flex items-center',
               orientation === 'horizontal' &&
-                openOnly === 'horizontal' &&
-                'mb6',
+              openOnly === 'horizontal' &&
+              'mb6',
               (orientation === 'vertical' || openOnly === 'vertical') &&
-                'pv5 ph5'
+              'pv5 ph5'
             )}
           >
             {departmentActive.name}
             {orientation === 'horizontal' &&
-            openOnly === 'horizontal' &&
-            showBtnCat ? (
+              openOnly === 'horizontal' &&
+              showBtnCat ? (
               seeAllLink(departmentActive.slug, 1, 't-small ml7')
             ) : (
               <div />
@@ -246,10 +245,10 @@ const Submenu: FC<ItemProps> = observer((props) => {
           <div
             className={classNames(
               orientation === 'horizontal' &&
-                openOnly === 'horizontal' &&
-                styles.submenuList,
+              openOnly === 'horizontal' &&
+              styles.submenuList,
               (orientation === 'vertical' || openOnly === 'vertical') &&
-                handles.submenuListVertical
+              handles.submenuListVertical
             )}
           >
             {orientation === 'horizontal' && openOnly === 'horizontal' ? (
