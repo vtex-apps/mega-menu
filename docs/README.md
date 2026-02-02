@@ -2,7 +2,7 @@
 
 # Mega menu
 
-> ⚠️ This app is no longer maintained by VTEX.
+[<i class="fa-brands fa-github"></i> Source code](https://github.com/vtex-apps/mega-menu)
 
 <!-- DOCS-IGNORE:start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -11,6 +11,8 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
+
+> ⚠️ This app is no longer maintained by VTEX. This means support and maintenance are no longer provided.
 
 VTEX Mega Menu provides a form to create and manage the custom menu until three levels in the category tree. The stores can use this app as the main navigation menu.
 
