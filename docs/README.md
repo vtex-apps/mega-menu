@@ -57,7 +57,7 @@ This block renders an icon that serves as a trigger to open the **desktop** menu
 
 ### `mega-menu-go-back-btn`
 
-This block can go back to the list of items at the first level of the menu (departments) only when it is a **mobile device** or the `orientation` is `vertical`.
+This block can return to the list of items at the first level of the menu (departments) only when it is a **mobile device** or when the `orientation` is `vertical`.
 
 _To configure the desktop version:_
 
@@ -248,7 +248,7 @@ Save the file. You can choose any name for the file. Then go to the admin and se
 
 ![14](https://user-images.githubusercontent.com/8409481/152260742-6ee24d1f-48ae-4383-ab02-b3d921a283e4.png)
 
-To generate backup data, download the information from the “Download CSV” button.
+To generate a backup, download the data from the “Download CSV” button.
 
 ![15](https://user-images.githubusercontent.com/8409481/152260800-7ecc499a-ba39-4168-8dcd-c0b225f610db.png)
 
