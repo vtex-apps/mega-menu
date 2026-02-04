@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 
+## [2.10.2] - 2026-02-04
+
 ### Fixed
 
 - Updating README.
