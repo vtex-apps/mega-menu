@@ -3,6 +3,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Update German (de) translations following the Admin German grammar review (1 string, e.g. "Formatvorlagen" → "Style-Vorlagen")
+
 ## [2.10.2] - 2026-02-04
 
 ### Fixed
