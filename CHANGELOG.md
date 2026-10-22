@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Security
+
+- Require an admin VTEX ID session on createMenu, editMenu and deleteMenu.
+
 ## [0.2.0] - 2021-06-11
 ### Added
 - Customizable icons and css styles for elements
