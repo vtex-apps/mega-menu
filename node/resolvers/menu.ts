@@ -1,4 +1,5 @@
 import type { Menu, Args, ArgsUpload } from '../typings/custom'
+import { requireAdminSession } from '../utils/requireAdminSession'
 
 const sortMenusByOrder = (menus: Menu[]) => {
   return menus.sort((menuA: Menu, menuB: Menu) => menuA.order - menuB.order)
@@ -134,8 +135,14 @@ export const menu = async (
 export const createMenu = async (
   _: unknown,
   { menuInput }: Args,
-  { clients: { vbase } }: Context
+  ctx: Context
 ) => {
+  await requireAdminSession(ctx)
+
+  const {
+    clients: { vbase },
+  } = ctx
+
   let menuItems: Menu[] = []
 
   // eslint-disable-next-line vtex/prefer-early-return
@@ -163,8 +170,14 @@ export const createMenu = async (
 export const uploadMenu = async (
   _: unknown,
   { menuData }: ArgsUpload,
-  { clients: { vbase } }: Context
+  ctx: Context
 ) => {
+  await requireAdminSession(ctx)
+
+  const {
+    clients: { vbase },
+  } = ctx
+
   const menuItems = await vbase.getJSON<Menu[]>('menu', 'menuItems')
 
   if (menuItems.length > 0) {
@@ -177,8 +190,14 @@ export const uploadMenu = async (
 export const editMenu = async (
   _: unknown,
   { menuInput }: Args,
-  { clients: { vbase } }: Context
+  ctx: Context
 ) => {
+  await requireAdminSession(ctx)
+
+  const {
+    clients: { vbase },
+  } = ctx
+
   const menuEdit = await vbase.getJSON<Menu[]>('menu', 'menuItems')
 
   const newArray = orderArray([
@@ -192,8 +211,14 @@ export const editMenu = async (
 export const deleteMenu = async (
   _: unknown,
   { id, idSecond, idThird }: { id: string; idSecond: string; idThird: string },
-  { clients: { vbase } }: Context
+  ctx: Context
 ) => {
+  await requireAdminSession(ctx)
+
+  const {
+    clients: { vbase },
+  } = ctx
+
   const menuDelete = await vbase.getJSON<Menu[]>('menu', 'menuItems')
   let deleteArray: Menu[] = []
 
