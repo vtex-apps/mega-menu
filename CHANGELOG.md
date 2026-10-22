@@ -3,6 +3,8 @@
 
 ## [Unreleased]
 
+## [2.10.3] - 2026-10-22
+
 ### Security
 
 - Require an admin VTEX ID session on the menu mutations.
