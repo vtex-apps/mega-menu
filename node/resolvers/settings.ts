@@ -1,4 +1,5 @@
 import type { Settings, ArgsSettings } from '../typings/custom'
+import { requireAdminSession } from '../utils/requireAdminSession'
 
 const settings = async (_: unknown, __: unknown, ctx: Context) => {
   const {
@@ -26,8 +27,14 @@ const settings = async (_: unknown, __: unknown, ctx: Context) => {
 const createEditSettings = async (
   _: unknown,
   { settingsInput }: ArgsSettings,
-  { clients: { vbase } }: Context
+  ctx: Context
 ) => {
+  await requireAdminSession(ctx)
+
+  const {
+    clients: { vbase },
+  } = ctx
+
   let settingsItems: Settings[] = []
 
   // eslint-disable-next-line vtex/prefer-early-return
