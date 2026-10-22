@@ -1,0 +1,10 @@
+{
+  "admin.app.menu": {
+    "component": "ConfigMenuContainer",
+    "render": "client"
+  },
+  "admin.app.configMenu": {
+    "component": "FormComponent",
+    "render": "client"
+  }
+}

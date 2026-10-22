@@ -1,0 +1,8 @@
+{
+  "admin.app.menu": {
+    "path": "/admin/app/mega-menu"
+  },
+  "admin.app.configMenu": {
+    "path": "/admin/app/mega-menu/form-menu/:menu"
+  }
+}
