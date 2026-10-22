@@ -32,7 +32,9 @@
     },
     "free": true,
     "type": "free",
-    "availableCountries": ["*"]
+    "availableCountries": [
+      "*"
+    ]
   },
   "policies": [
     {
@@ -40,6 +42,16 @@
     },
     {
       "name": "vbase-read-write"
+    },
+    {
+      "name": "sphinx-is-admin"
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.vtexcommercestable.com.br",
+        "path": "/api/vtexid/credential/validate"
+      }
     }
   ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"

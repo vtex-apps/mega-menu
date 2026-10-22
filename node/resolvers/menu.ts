@@ -1,4 +1,5 @@
 import type { Menu, Args } from '../typings/custom'
+import { requireAdminSession } from '../middlewares/requireAdminSession'
 
 const reorderArray = (menu: Menu[]) => {
   for (let i = 1; i < menu.length; i++) {
@@ -76,8 +77,14 @@ export const menu = async (
 export const createMenu = async (
   _: unknown,
   { menuInput }: Args,
-  { clients: { vbase } }: Context
+  ctx: Context
 ) => {
+  await requireAdminSession(ctx)
+
+  const {
+    clients: { vbase },
+  } = ctx
+
   let menuItems: Menu[] = []
 
   try {
@@ -98,8 +105,14 @@ export const createMenu = async (
 export const editMenu = async (
   _: unknown,
   { menuInput }: Args,
-  { clients: { vbase } }: Context
+  ctx: Context
 ) => {
+  await requireAdminSession(ctx)
+
+  const {
+    clients: { vbase },
+  } = ctx
+
   const menuEdit = await vbase.getJSON<Menu[]>('menu', 'menuItems')
   let newArray = menuEdit.filter((x: Menu) => x.id !== menuInput.id)
 
@@ -113,8 +126,14 @@ export const editMenu = async (
 export const deleteMenu = async (
   _: unknown,
   { id, idSecond, idThird }: { id: string; idSecond: string; idThird: string },
-  { clients: { vbase } }: Context
+  ctx: Context
 ) => {
+  await requireAdminSession(ctx)
+
+  const {
+    clients: { vbase },
+  } = ctx
+
   const menuDelete = await vbase.getJSON<Menu[]>('menu', 'menuItems')
   let deleteArray: Menu[] = []
 
