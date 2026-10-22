@@ -7,8 +7,13 @@ type Query {
 
 type Mutation {
   editMenu(menuInput: MenuInput!): [Menu]
+    @auth(productCode: "38", resourceCode: "topbar_visualizar")
   deleteMenu(id: String, idSecond: String, idThird: String): [Menu]
+    @auth(productCode: "38", resourceCode: "topbar_visualizar")
   createMenu(menuInput: MenuInput!): Menu
+    @auth(productCode: "38", resourceCode: "topbar_visualizar")
   uploadMenu(menuData: [MenuInput]): [Menu]
+    @auth(productCode: "38", resourceCode: "topbar_visualizar")
   createEditSettings(settingsInput: SettingsInput!): Settings
+    @auth(productCode: "38", resourceCode: "topbar_visualizar")
 }

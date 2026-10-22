@@ -3,6 +3,10 @@
 
 ## [Unreleased]
 
+### Security
+
+- Require an authenticated admin user (License Manager `topbar_visualizar`) on every mutation (`createMenu`, `editMenu`, `deleteMenu`, `uploadMenu`, `createEditSettings`). They were callable anonymously through the store GraphQL endpoint.
+
 ## [2.10.2] - 2026-02-04
 
 ### Fixed

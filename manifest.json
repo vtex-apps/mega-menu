@@ -40,6 +40,20 @@
     },
     {
       "name": "vbase-read-write"
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "vtexid.vtex.com.br",
+        "path": "/api/vtexid/pub/authenticated/user"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.vtexcommercestable.com.br",
+        "path": "/api/license-manager/pvt/accounts/*/products/*/logins/*/resources/*/granted"
+      }
     }
   ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
