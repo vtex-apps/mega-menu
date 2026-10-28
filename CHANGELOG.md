@@ -6,6 +6,11 @@
 ### Changed
 
 - Update German (de) translations following the Admin German grammar review (1 string, e.g. "Formatvorlagen" → "Style-Vorlagen")
+## [2.10.3] - 2026-10-22
+
+### Security
+
+- Require an admin VTEX ID session on the menu mutations.
 
 ## [2.10.2] - 2026-02-04
 
