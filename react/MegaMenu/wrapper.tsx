@@ -10,6 +10,8 @@ import VerticalMenu from './components/VerticalMenu'
 import { megaMenuState } from './State'
 
 const Wrapper: StorefrontFunctionComponent<MegaMenuProps> = (props) => {
+  console.log('mega-menu loaded')
+
   const { openOnly } = props
   const { isMobile } = useDevice()
   const { data } = useQuery<MenusResponse>(GET_MENUS, {
