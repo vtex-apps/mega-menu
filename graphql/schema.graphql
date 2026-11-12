@@ -4,7 +4,7 @@ type Query {
 }
 
 type Mutation {
-  editMenu(menuInput: MenuInput!): [Menu] @auth(scope: PRIVATE, productCode: "147", resourceCode: "storefront.mega-menu.edit")
-  deleteMenu(id: String!, idSecond: String, idThird: String): [Menu] @auth(scope: PRIVATE, productCode: "147", resourceCode: "storefront.mega-menu.edit")
-  createMenu(menuInput: MenuInput!): Menu @auth(scope: PRIVATE, productCode: "147", resourceCode: "storefront.mega-menu.edit")
+  editMenu(menuInput: MenuInput!): [Menu] @auth(productCode: "147", resourceCode: "storefront.mega-menu.edit")
+  deleteMenu(id: String!, idSecond: String, idThird: String): [Menu] @auth(productCode: "147", resourceCode: "storefront.mega-menu.edit")
+  createMenu(menuInput: MenuInput!): Menu @auth(productCode: "147", resourceCode: "storefront.mega-menu.edit")
 }
