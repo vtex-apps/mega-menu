@@ -3,6 +3,14 @@
 
 ## [Unreleased]
 
+### Security
+
+- Require the `storefront.mega-menu.edit` License Manager resource (product Storefront IO) on the `editMenu`, `deleteMenu`, `createMenu`, `uploadMenu` and `createEditSettings` mutations.
+
+### Removed
+
+- Ad-hoc admin VTEX ID session check on the menu and settings mutations, replaced by the License Manager resource requirement.
+
 ## [2.10.4] - 2026-10-28
 
 ### Changed

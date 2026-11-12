@@ -1,5 +1,4 @@
 import type { Settings, ArgsSettings } from '../typings/custom'
-import { requireAdminSession } from '../utils/requireAdminSession'
 
 const settings = async (_: unknown, __: unknown, ctx: Context) => {
   const {
@@ -29,8 +28,6 @@ const createEditSettings = async (
   { settingsInput }: ArgsSettings,
   ctx: Context
 ) => {
-  await requireAdminSession(ctx)
-
   const {
     clients: { vbase },
   } = ctx
