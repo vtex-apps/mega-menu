@@ -6,9 +6,9 @@ type Query {
 }
 
 type Mutation {
-  editMenu(menuInput: MenuInput!): [Menu]
-  deleteMenu(id: String, idSecond: String, idThird: String): [Menu]
-  createMenu(menuInput: MenuInput!): Menu
-  uploadMenu(menuData: [MenuInput]): [Menu]
-  createEditSettings(settingsInput: SettingsInput!): Settings
+  editMenu(menuInput: MenuInput!): [Menu] @auth(productCode: "147", resourceCode: "storefront.mega-menu.edit")
+  deleteMenu(id: String, idSecond: String, idThird: String): [Menu] @auth(productCode: "147", resourceCode: "storefront.mega-menu.edit")
+  createMenu(menuInput: MenuInput!): Menu @auth(productCode: "147", resourceCode: "storefront.mega-menu.edit")
+  uploadMenu(menuData: [MenuInput]): [Menu] @auth(productCode: "147", resourceCode: "storefront.mega-menu.edit")
+  createEditSettings(settingsInput: SettingsInput!): Settings @auth(productCode: "147", resourceCode: "storefront.mega-menu.edit")
 }

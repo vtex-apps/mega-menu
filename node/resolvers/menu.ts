@@ -1,5 +1,4 @@
 import type { Menu, Args, ArgsUpload } from '../typings/custom'
-import { requireAdminSession } from '../utils/requireAdminSession'
 
 const sortMenusByOrder = (menus: Menu[]) => {
   return menus.sort((menuA: Menu, menuB: Menu) => menuA.order - menuB.order)
@@ -137,8 +136,6 @@ export const createMenu = async (
   { menuInput }: Args,
   ctx: Context
 ) => {
-  await requireAdminSession(ctx)
-
   const {
     clients: { vbase },
   } = ctx
@@ -172,8 +169,6 @@ export const uploadMenu = async (
   { menuData }: ArgsUpload,
   ctx: Context
 ) => {
-  await requireAdminSession(ctx)
-
   const {
     clients: { vbase },
   } = ctx
@@ -192,8 +187,6 @@ export const editMenu = async (
   { menuInput }: Args,
   ctx: Context
 ) => {
-  await requireAdminSession(ctx)
-
   const {
     clients: { vbase },
   } = ctx
@@ -213,8 +206,6 @@ export const deleteMenu = async (
   { id, idSecond, idThird }: { id: string; idSecond: string; idThird: string },
   ctx: Context
 ) => {
-  await requireAdminSession(ctx)
-
   const {
     clients: { vbase },
   } = ctx
