@@ -1,5 +1,4 @@
 import type { Menu, Args } from '../typings/custom'
-import { requireAdminSession } from '../middlewares/requireAdminSession'
 
 const reorderArray = (menu: Menu[]) => {
   for (let i = 1; i < menu.length; i++) {
@@ -110,8 +109,6 @@ export const createMenu = async (
   { menuInput }: Args,
   ctx: Context
 ) => {
-  await requireAdminSession(ctx)
-
   const {
     clients: { vbase },
   } = ctx
@@ -138,8 +135,6 @@ export const editMenu = async (
   { menuInput }: Args,
   ctx: Context
 ) => {
-  await requireAdminSession(ctx)
-
   const {
     clients: { vbase },
   } = ctx
@@ -159,8 +154,6 @@ export const deleteMenu = async (
   { id, idSecond, idThird }: { id: string; idSecond: string; idThird: string },
   ctx: Context
 ) => {
-  await requireAdminSession(ctx)
-
   const {
     clients: { vbase },
   } = ctx

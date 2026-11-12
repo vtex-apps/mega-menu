@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Security
+
+- Require the `storefront.mega-menu.edit` License Manager resource (product Storefront IO) on the `editMenu`, `deleteMenu` and `createMenu` mutations.
+
+### Removed
+
+- Ad-hoc admin VTEX ID session check on the menu mutations, replaced by the License Manager resource requirement.
+
 ## [0.2.1] - 2026-10-22
 
 ### Security
